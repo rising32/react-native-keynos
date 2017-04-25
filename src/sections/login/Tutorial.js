@@ -15,6 +15,7 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 import { connect } from 'react-redux';
 
 class Tutorial extends Component {
+
   render() {
     return (
       <View style={{flex: 1}} >

@@ -6,6 +6,8 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 import {InputValidate} from 'keynos_app/src/widgets/'
+
+// REDUX
 import { connect } from 'react-redux'
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 

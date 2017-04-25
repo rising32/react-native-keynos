@@ -5,10 +5,18 @@ import {View, StyleSheet, TouchableOpacity, Image, Text, Alert} from 'react-nati
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 
+// REDUX
+import { connect } from 'react-redux'
+import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversations'
+
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
-export default class Threads extends Component {
+class Conversations extends Component {
+
+  componentWillMount() {
+    //this.props.getConversationsList()
+  }
 
   render() {
     return (
@@ -21,3 +29,19 @@ export default class Threads extends Component {
     )
   }
 }
+
+let mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+let mapDispatchToProps = (dispatch, props) => {
+  return {
+    getConversationsList: () => {
+      dispatch(ConversationsActions.getConversationsList());
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Conversations)
