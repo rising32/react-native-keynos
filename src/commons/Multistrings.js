@@ -16,5 +16,9 @@ export default new LocalizedStrings({
     terms3: ' y la ',
     terms4: 'política de privacidad.',
     login: 'Login',
+
+    chat: 'Chat',
+    files: 'Files',
+    settings: 'Settings',
   },
 });
