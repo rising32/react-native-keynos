@@ -8,14 +8,14 @@ import { Actions } from 'react-native-router-flux'
 // MULTILENGUAJE
 import multiStrings from '../../commons/Multistrings'
 
-export default class Login extends Component {
+export default class Threads extends Component {
 
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'gray'}}>
-        <Text>{multiStrings.login}</Text>
-        <TouchableOpacity onPress={ () => Actions.tabBar() } style={{ backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', width: 80, height: 50, marginTop: 50 }} >
-          <Text>TabBar</Text>
+        <Text>{'Salas'}</Text>
+        <TouchableOpacity onPress={ () => Actions.Chat() } style={{ backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', width: 80, height: 50, marginTop: 50 }} >
+          <Text>Chat</Text>
         </TouchableOpacity>
       </View>
     )

@@ -1,25 +1,29 @@
-import React, { Component } from 'react';
-import {View, Image, Text, Dimensions} from 'react-native';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import {View, Image, Text, Dimensions} from 'react-native'
+import { connect } from 'react-redux'
+import { Colors } from '../commons/Commons'
+
+// MULTILENGUAJE
+import multiStrings from '../commons/Multistrings'
 
 class TabIcon extends Component {
 
   setTabIcon(title, selected){
-    if(title == "Chat") {
+    if(title == multiStrings.chat) {
       if(selected) {
-        return require('../resources/chat.png')
+        return require('../resources/chat_active.png')
       } else {
         return require('../resources/chat.png')
       }
-    } else if(title == "Settings") {
+    } else if(title == multiStrings.settings) {
       if(selected) {
-        return require('../resources/settings.png')
+        return require('../resources/settings_active.png')
       } else {
         return require('../resources/settings.png')
       }
-    } else if(title == "Files") {
+    } else if(title == multiStrings.files) {
       if(selected) {
-        return require('../resources/files.png')
+        return require('../resources/files_active.png')
       } else {
         return require('../resources/files.png')
       }
@@ -34,9 +38,9 @@ class TabIcon extends Component {
         <Image
           source={image}
           resizeMode={'contain'}
-          style={{width:28, height:25}}
+          style={{width:28, height:25, tintColor: this.props.selected ? Colors.green_light : null}}
           />
-        <Text style={{fontSize: 10}}>{this.props.title}</Text>
+        <Text style={{fontSize: 10, color: this.props.selected ? Colors.green_light : Colors.gray_inactive}}>{this.props.title}</Text>
       </View>
     );
   }

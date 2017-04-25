@@ -5,5 +5,9 @@ export default new LocalizedStrings({
     tutorialTitle: 'Todas tus conversaciones',
     tutorialSubtitle: 'Escucha y habla.\nAprende y resuelve.',
     login: 'Login',
+
+    chat: 'Chat',
+    files: 'Files',
+    settings: 'Settings',
   },
 });
