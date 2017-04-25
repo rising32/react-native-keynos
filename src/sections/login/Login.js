@@ -16,12 +16,12 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      email: 'acme@keynos.com',
       emailNeedCorrection: false,
       emailIncorrect: false,
       emailErrorLabel: '',
 
-      password: '',
+      password: 'BtgDsMxQaLmasdEmW8jAQyd_kn',
       passwordNeedCorrection: false,
       passwordIncorrect: false,
       passwordErrorLabel: '',
@@ -66,7 +66,7 @@ class Login extends Component {
             <InputValidate
     					label={null}
     					placeholder={Utils.firstToUpperCase(multiStrings.mail)}
-              value={this.state.mail}
+              value={this.state.email}
               icon={require('keynos_app/src/resources/mail_icon.png')}
               needCorrection={this.state.emailNeedCorrection}
               incorrect={this.state.emailIncorrect}
@@ -91,7 +91,7 @@ class Login extends Component {
     				/>
           </View>
           <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
-    				onPress={() => this.props.loginCompany()}>
+    				onPress={() => this.props.login(this.state.email, this.state.password)}>
     				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.access}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
@@ -119,8 +119,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch, props) => {
   return {
-    loginCompany: () => {
-      dispatch(LoginActions.loginCompany('Acme'));
+    login: (email, password) => {
+      dispatch(LoginActions.login(email, password));
     },
   }
 }

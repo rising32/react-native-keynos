@@ -1,4 +1,4 @@
-import * as types from 'keynos_app/src/types/User'
+import * as types from 'keynos_app/src/redux/types/User'
 import * as Constants from 'keynos_app/src/webservices/Constants'
 import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webservices'
 

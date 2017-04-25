@@ -18,7 +18,7 @@ class CompanySelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      company: '',
+      company: 'Acme',
     };
   }
 
@@ -65,18 +65,18 @@ class CompanySelection extends Component {
   }
 }
 
-let mapDispatchToProps = (dispatch, props) => {
-  return {
-    loginCompany: () => {
-      dispatch(LoginActions.loginCompany('Acme'));
-    },
-  }
-};
-
 let mapStateToProps = (state) => {
 	return {
     isFetching: state.login.isFetching,
 	};
+};
+
+let mapDispatchToProps = (dispatch, props) => {
+  return {
+		loginCompany: (company) => {
+      dispatch(LoginActions.loginCompany(company))
+		}
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanySelection)

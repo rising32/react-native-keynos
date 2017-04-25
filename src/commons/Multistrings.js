@@ -6,6 +6,12 @@ export default new LocalizedStrings({
     validationPassword: 'La contraseña debe tener al menos 8 caracteres',
     validationToken: 'El token debe tener al menos 8 caracteres',
 
+    errorCompanyExist: 'Error comprobando la compañía',
+    errorCompanyNoExist: 'No se ha encontrado la compañía',
+    errorAppUpdate: 'Para continuar debe actualizar la aplicación',
+    errorCredentials: 'Email y/o contraseña incorrectos',
+    errorLogin: 'Error en el inicio de sesión',
+
     tutorialTitle: 'Todas tus conversaciones',
     tutorialSubtitle: 'Escucha y habla.\nAprende y resuelve.',
     accessToCompany: 'Accede a tu empresa',
