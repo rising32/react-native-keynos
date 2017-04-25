@@ -34,7 +34,7 @@ export function loginCompany(company) {
 
       if(response.ok){
         if(response.must_update){
-          dispatch({label: multiStrings.errorAppUpdate, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error})
+          dispatch({label: multiStrings.errorAppUpdate, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
         }else if(response.domain && response.domain.id){
           let domain = response.domain
           let main_color = domain.customization && domain.customization.main_color ? domain.customization.main_color : Constants.green_light
@@ -47,10 +47,10 @@ export function loginCompany(company) {
 
           }
         }else{
-          dispatch({label: multiStrings.errorCompanyNoExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error})
+          dispatch({label: multiStrings.errorCompanyNoExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
         }
       }else{
-        dispatch({label: multiStrings.errorCompanyExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error})
+        dispatch({label: multiStrings.errorCompanyExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
       }
     }).catch((error) => {
       dispatch({label: multiStrings.errorCompanyExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error})
@@ -90,7 +90,7 @@ export function login(email, password) {
           Actions.TabBar({type: ActionConst.RESET})
         }
       }else{
-        dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})
+        dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
       }
     }).catch((error) => {
       dispatch({label: multiStrings.errorLogin, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})

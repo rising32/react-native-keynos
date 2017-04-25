@@ -29,5 +29,7 @@ export default new LocalizedStrings({
     chat: 'Chat',
     files: 'Files',
     settings: 'Settings',
+
+    accept: 'Aceptar',
   },
 });

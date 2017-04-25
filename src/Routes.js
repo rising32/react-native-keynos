@@ -5,6 +5,8 @@ import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAn
 // COMPONENTS
 import TabIcon from './components/TabIcon';
 import { Colors } from './commons/Commons'
+import { connect } from 'react-redux'
+import * as Constants from 'keynos_app/src/webservices/Constants'
 
 // NAVIGATION COMPONENTS (ROUTER FLUX)
 import {Modal, Actions, Scene, Router, TabBar, ActionConst} from 'react-native-router-flux'
@@ -24,7 +26,27 @@ import Settings from './sections/settings/Settings'
 import multiStrings from './commons/Multistrings'
 
 
-export default class Routes extends Component {
+class Routes extends Component {
+
+  componentDidUpdate(prevProps, prevState) {
+    if(!prevProps.error && this.props.error){
+      this.showError()
+    }
+  }
+
+  showError() {
+    if(this.props.error){
+      if(Constants.LOG_ENABLED) {
+        console.log("error error: ", this.props.error)
+        console.log("error label: ", this.props.label)
+        console.log("error url: ", this.props.url)
+        console.log("error func: ", this.props.func)
+      }
+      Alert.alert(null, this.props.label, [
+        { text: multiStrings.accept, onPress: () => this.props.removeError() },
+      ])
+    }
+  }
 
   render() {
     return (
@@ -76,3 +98,22 @@ const Styles = StyleSheet.create({
     opacity        : 1
   }
 })
+
+let mapStateToProps = (state) => {
+  return {
+    error: state.error.error,
+    label: state.error.label,
+    url: state.error.url,
+    func: state.error.func,
+  }
+}
+
+let mapDispatchToProps = (dispatch, props) => {
+  return {
+    removeError: () => {
+      dispatch({type: 'REMOVE_ERROR'});
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Routes)
