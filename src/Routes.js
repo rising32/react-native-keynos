@@ -9,7 +9,9 @@ import TabIcon from './components/TabIcon';
 import {Modal, Actions, Scene, Router, TabBar, ActionConst} from 'react-native-router-flux'
 
 // SCENES
-import Login from './sections/register/Login'
+import Tutorial from './sections/login/Tutorial'
+import CompanySelection from './sections/login/CompanySelection'
+import Login from './sections/login/Login'
 import Chat from './sections/chat/Chat'
 import Settings from './sections/settings/Settings'
 
@@ -19,7 +21,9 @@ export default class Routes extends Component {
     return (
       <Router sceneStyle={Styles.mainScene} >
         <Scene key="root" >
-          <Scene key='Login' component={Login} initial={true} />
+          <Scene key='Tutorial' component={Tutorial} hideNavBar={true} initial={true} />
+          <Scene key='CompanySelection' component={CompanySelection} hideNavBar={true} />
+          <Scene key='Login' component={Login} hideNavBar={true} />
 
           <Scene key="tabBar" tabs={true} tabBarStyle={Styles.tabBarStyle}>
             <Scene
