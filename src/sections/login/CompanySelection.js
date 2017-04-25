@@ -6,7 +6,7 @@ import {View, StyleSheet, TouchableOpacity, Image, Text, Alert} from 'react-nati
 import { Actions } from 'react-native-router-flux'
 
 // MULTILENGUAJE
-import multiStrings from '../../commons/Multistrings'
+import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 export default class CompanySelection extends Component {
 

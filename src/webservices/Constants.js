@@ -5,4 +5,6 @@ export const DEVELOP = true
 export const LOG_ENABLED = DEVELOP ? true : false
 
 // API URL (Dev / Prod)
-export const BASE_URL = DEVELOP ? ' ' : ' '
+export const BASE_URL = DEVELOP ? 'http://keynos.mobi/api/v1/' : 'http://keynos.mobi/api/v1/'
+
+export const APP_VERSION = '0.1'

@@ -1,14 +1,14 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
 import {View, StyleSheet, TouchableOpacity, Image, Text, Alert} from 'react-native'
-import {Colors} from '../../commons/Commons'
+import {Colors} from 'keynos_app/src/commons/Commons'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 import AppIntro from 'react-native-app-intro';
 
 // MULTILENGUAJE
-import multiStrings from '../../commons/Multistrings'
+import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 export default class Login extends Component {
   onSkipBtnHandle = (index) => {

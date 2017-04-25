@@ -1,16 +1,16 @@
-import * as types from 'keynos_app/src/redux/types/User'
+import * as types from 'keynos_app/src/redux/types/Login'
 
 const initialState = {
-  userInfo: null,
+  token: null,
 };
 
 export default function userReducer(state = initialState, action = {}) {
   switch (action.type) {
 
-      case types.UPDATE_USER_INFO:
+      case types.UPDATE_LOGIN_TOKEN:
         return {
           ...state,
-          userInfo: action.value,
+          token: action.value,
         };
 
     default:

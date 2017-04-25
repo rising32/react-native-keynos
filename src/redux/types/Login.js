@@ -1,0 +1,1 @@
+export const UPDATE_LOGIN_TOKEN = 'UPDATE_LOGIN_TOKEN'

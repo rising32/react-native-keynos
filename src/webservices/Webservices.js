@@ -2,10 +2,9 @@ import axios from 'axios'
 import * as Constants from './Constants'
 
 export function configureAxios(authToken){
-
   Constants.LOG_ENABLED && console.log("configureAxios token: ", authToken)
   axios.defaults.baseURL = Constants.BASE_URL
-  axios.defaults.headers.common['Authorization'] = authToken
+  if(authToken) axios.defaults.headers.common['Authorization'] = authToken
   axios.defaults.headers.post['Content-type'] = 'application/json'
 }
 
