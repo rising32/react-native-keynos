@@ -34,9 +34,9 @@ export default class Routes extends Component {
           <Scene key='CompanySelection' component={CompanySelection} hideNavBar={true} />
           <Scene key='Login' component={Login} hideNavBar={true} />
 
-          <Scene key="tabBar" tabs={true} tabBarStyle={Styles.tabBarStyle}>
+          <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle}>
             <Scene
-              key="chatTab"
+              key="ChatTab"
               title={multiStrings.chat}
               icon={TabIcon}
               onPress={ ()=> {
@@ -48,7 +48,7 @@ export default class Routes extends Component {
             </Scene>
 
             <Scene
-              key="settingsTab"
+              key="SettingsTab"
               title={multiStrings.settings}
               icon={TabIcon}
               onPress={ ()=> {

@@ -6,7 +6,9 @@ export default new LocalizedStrings({
     errorCompanyExist: 'Error comprobando la compañía',
     errorCompanyNoExist: 'No se ha encontrado la compañía',
     errorAppUpdate: 'Para continuar debe actualizar la aplicación',
-    
+    errorCredentials: 'Email y/o contraseña incorrectos',
+    errorLogin: 'Error en el inicio de sesión',
+
     tutorialTitle: 'Todas tus conversaciones',
     tutorialSubtitle: 'Escucha y habla.\nAprende y resuelve.',
     accessToCompany: 'Accede a tu empresa',
