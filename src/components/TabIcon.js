@@ -1,23 +1,57 @@
-import React, {
-  PropTypes,
-} from 'react';
-import {
-  Text,
-} from 'react-native';
+import React, { Component } from 'react';
+import {View, Image, Text, Dimensions} from 'react-native';
+import { connect } from 'react-redux';
 
-const propTypes = {
-  selected: PropTypes.bool,
-  title: PropTypes.string,
-};
+class TabIcon extends Component {
 
-const TabIcon = (props) => (
-  <Text
-    style={{ color: props.selected ? 'red' : 'black' }}
-  >
-    {props.title}
-  </Text>
-);
+  setTabIcon(title, selected){
+    if(title == "Chat") {
+      if(selected) {
+        return require('../resources/chat.png')
+      } else {
+        return require('../resources/chat.png')
+      }
+    } else if(title == "Settings") {
+      if(selected) {
+        return require('../resources/settings.png')
+      } else {
+        return require('../resources/settings.png')
+      }
+    } else if(title == "Files") {
+      if(selected) {
+        return require('../resources/files.png')
+      } else {
+        return require('../resources/files.png')
+      }
+    }
+  }
 
-TabIcon.propTypes = propTypes;
+  render(){
+    let image = this.setTabIcon(this.props.title, this.props.selected)
 
-export default TabIcon;
+    return (
+      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <Image
+          source={image}
+          resizeMode={'contain'}
+          style={{width:28, height:25}}
+          />
+        <Text style={{fontSize: 10}}>{this.props.title}</Text>
+      </View>
+    );
+  }
+}
+
+let mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+let mapDispatchToProps = (dispatch, props) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabIcon)
