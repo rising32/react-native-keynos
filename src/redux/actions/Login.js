@@ -5,14 +5,13 @@ import qs from 'qs'
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 import {Actions, ActionConst} from 'react-native-router-flux'
 import * as CompanyActions from 'keynos_app/src/redux/actions/Company'
+import * as Webservices from 'keynos_app/src/webservices/Webservices'
 
-
-function updateUserInfo(token, workspaces, onboarding_conversation_id) {
+export function updateUserToken(value) {
+  Webservices.configureAxios('Bearer ' + value)
   return {
     type: types.UPDATE_LOGIN_TOKEN,
-    token,
-    workspaces,
-    onboarding_conversation_id,
+    value,
   }
 }
 
@@ -93,10 +92,9 @@ export function login(email, password) {
 
       if(response.ok && response.data){
         let data = response.data
-        let onboarding_conversation_id = response.onboarding_conversation_id ? response.onboarding_conversation_id : null
-        dispatch(updateUserInfo(data.api_token, data.workspaces))
-        if(onboarding_conversation_id) {
-          //Al cuestionario
+        dispatch(updateUserToken(data.api_token))
+        if(response.onboarding_conversation_id) {
+          //Resolver cuestionario con id onboarding_conversation_id
           Actions.TabBar({type: ActionConst.RESET})
         }else{
           Actions.TabBar({type: ActionConst.RESET})

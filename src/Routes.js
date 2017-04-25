@@ -18,7 +18,7 @@ import Login from './sections/login/Login'
 import LoginToken from './sections/login/LoginToken'
 
 import Chat from './sections/chat/Chat'
-import Threads from './sections/chat/Threads'
+import Conversations from './sections/chat/Conversations'
 
 import Settings from './sections/settings/Settings'
 
@@ -63,10 +63,10 @@ class Routes extends Component {
               title={multiStrings.chat}
               icon={TabIcon}
               onPress={ ()=> {
-                Actions.Threads({type: ActionConst.REFRESH});
+                Actions.Conversations({type: ActionConst.REFRESH});
               }}
              >
-                <Scene key="Threads" component={Threads} />
+                <Scene key="Conversations" component={Conversations} />
                 <Scene key="Chat" component={Chat} hideTabBar/>
             </Scene>
 

@@ -3,10 +3,11 @@ import * as Constants from 'keynos_app/src/webservices/Constants'
 import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webservices'
 
 
-function setUserInfo(value) {
+function updateUserInfo(workspaces, onboarding_conversation_id) {
   return {
     type: types.UPDATE_USER_INFO,
-    value
+    workspaces,
+    onboarding_conversation_id,
   }
 }
 

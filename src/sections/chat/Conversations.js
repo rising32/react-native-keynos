@@ -8,6 +8,10 @@ import { connect } from 'react-redux'
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 import {ConversationCell} from 'keynos_app/src/widgets/'
 
+// REDUX
+import { connect } from 'react-redux'
+import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversations'
+
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
@@ -39,19 +43,14 @@ class Threads extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    id: state.company.id,
-    name: state.company.name,
-    logo: state.company.logo,
-    main_color: state.company.main_color
   }
 }
 
 let mapDispatchToProps = (dispatch, props) => {
-  return {
-    login: (email, password) => {
-      dispatch(LoginActions.login(email, password));
+  return { => {
+      dispatch(ConversationsActions.getConversationsList());
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Threads)
+export default connect(mapStateToProps, mapDispatchToProps)(Conversations)

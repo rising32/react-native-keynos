@@ -9,7 +9,7 @@ const initialState = {
   bg_image: null,
 };
 
-export default function userReducer(state = initialState, action = {}) {
+export default function companyReducer(state = initialState, action = {}) {
   switch (action.type) {
 
       case types.UPDATE_COMPANY_INFO:
