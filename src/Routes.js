@@ -19,7 +19,7 @@ export default class Routes extends Component {
     return (
       <Router sceneStyle={Styles.mainScene} >
         <Scene key="root" >
-          <Scene key='Login' component={Login} hideNavBar={true} initial={true} />
+          <Scene key='Login' component={Login} initial={true} />
 
           <Scene key="tabBar" tabs={true} tabBarStyle={Styles.tabBarStyle}>
             <Scene
@@ -53,7 +53,7 @@ export default class Routes extends Component {
 
 const Styles = StyleSheet.create({
 	mainScene: {
-		
+
 	},
   tabBarStyle: {
     borderTopWidth : .5,
