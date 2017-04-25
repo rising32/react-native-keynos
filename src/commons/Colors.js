@@ -6,6 +6,7 @@ export const gray_info = '#3E4A4B'
 export const gray_placeholder = '#B2B2B2'
 
 export const green_light = '#01CD82'
+export const green_active = 'rgba(205,130,100, 0.3)'
 
 export const red_error = '#E23E57'
 

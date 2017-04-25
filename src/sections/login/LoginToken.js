@@ -12,41 +12,25 @@ import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
-class Login extends Component {
+class LoginToken extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'acme@keynos.com',
-      emailNeedCorrection: false,
-      emailIncorrect: false,
-      emailErrorLabel: '',
-
-      password: 'BtgDsMxQaLmasdEmW8jAQyd_kn',
-      passwordNeedCorrection: false,
-      passwordIncorrect: false,
-      passwordErrorLabel: '',
+      token: '',
+      tokenNeedCorrection: false,
+      tokenIncorrect: false,
+      tokenErrorLabel: '',
     };
   }
 
-	onChangeEmail(value) {
-    this.setState({email: value})
-    if(value != "" && !Utils.mailValidate(value)){
-      this.setState({emailNeedCorrection: true, emailIncorrect: true, emailErrorLabel: multiStrings.validationMail})
-    }else if(value != "" && Utils.mailValidate(value)){
-      this.setState({emailNeedCorrection: true, emailIncorrect: false, emailErrorLabel: ""})
+  onChangeToken(value) {
+    this.setState({token: value})
+    if(value != "" && !Utils.tokenValidate(value)){
+      this.setState({tokenNeedCorrection: true, tokenIncorrect: true, tokenErrorLabel: multiStrings.validationToken})
+    }else if(value != "" && Utils.tokenValidate(value)){
+      this.setState({tokenNeedCorrection: true, tokenIncorrect: false, tokenErrorLabel: ""})
     }else{
-      this.setState({emailNeedCorrection: false, emailIncorrect: false, emailErrorLabel: ""})
-    }
-  }
-
-  onChangePassword(value) {
-    this.setState({password: value})
-    if(value != "" && !Utils.passwordValidate(value)){
-      this.setState({passwordNeedCorrection: true, passwordIncorrect: true, passwordErrorLabel: multiStrings.validationPassword})
-    }else if(value != "" && Utils.passwordValidate(value)){
-      this.setState({passwordNeedCorrection: true, passwordIncorrect: false, passwordErrorLabel: ""})
-    }else{
-      this.setState({passwordNeedCorrection: false, passwordIncorrect: false, passwordErrorLabel: ""})
+      this.setState({tokenNeedCorrection: false, tokenIncorrect: false, tokenErrorLabel: ""})
     }
   }
 
@@ -62,36 +46,22 @@ class Login extends Component {
           <View style={{alignItems: 'center', justifyContent: 'center', margin: 20}} >
             <Image source={require('keynos_app/src/resources/company_logo.png')} style={{height: 48, width: 120}} resizeMode={'contain'} />
           </View>
-          <View style={{margin: 20, marginBottom: 0}} >
-            <InputValidate
-    					label={null}
-    					placeholder={Utils.firstToUpperCase(multiStrings.mail)}
-              value={this.state.email}
-              icon={require('keynos_app/src/resources/mail_icon.png')}
-              needCorrection={this.state.emailNeedCorrection}
-              incorrect={this.state.emailIncorrect}
-              errorlabel={this.state.emailErrorLabel}
-    					keyboardType={'default'}
-    					autoCapitalize={'none'}
-              onChangeText={(value) => this.onChangeEmail(value)}
-    				/>
-          </View>
           <View style={{margin: 20, marginTop: 0}} >
             <InputValidate
     					label={null}
-    					placeholder={Utils.firstToUpperCase(multiStrings.password)}
-              value={this.state.password}
+    					placeholder={Utils.firstToUpperCase(multiStrings.token)}
+              value={this.state.token}
               icon={require('keynos_app/src/resources/password_icon.png')}
-              needCorrection={this.state.passwordNeedCorrection}
-              incorrect={this.state.passwordIncorrect}
-              errorlabel={this.state.passwordErrorLabel}
+              needCorrection={this.state.tokenNeedCorrection}
+              incorrect={this.state.tokenIncorrect}
+              errorlabel={this.state.tokenErrorLabel}
     					keyboardType={'default'}
     					autoCapitalize={'none'}
-              onChangeText={(value) => this.onChangePassword(value)}
+              onChangeText={(value) => this.onChangeToken(value)}
     				/>
           </View>
           <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
-    				onPress={() => this.props.login(this.state.email, this.state.password)}>
+    				onPress={() => this.props.loginCompany()}>
     				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.access}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
@@ -119,10 +89,10 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch, props) => {
   return {
-    login: (email, password) => {
-      dispatch(LoginActions.login(email, password));
+    loginCompany: () => {
+      dispatch(LoginActions.loginCompany('Acme'));
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginToken)

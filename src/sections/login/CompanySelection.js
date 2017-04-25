@@ -5,7 +5,7 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
-import {InputValidate} from 'keynos_app/src/widgets/'
+import {InputValidate, Spinner} from 'keynos_app/src/widgets/'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
@@ -27,7 +27,6 @@ class CompanySelection extends Component {
   }
 
   render() {
-    let companyName = 'ibm'
     return (
       <View style={{flex: 1}} >
         <ScrollView bouncs={false} >
@@ -50,10 +49,8 @@ class CompanySelection extends Component {
             </View>
             <Text style={{color: Colors.green_light, fontSize: 20, marginLeft: 10}} >{'.keynos.es'}</Text>
           </View>
-          <TouchableOpacity
-            style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
-    				onPress={() => this.props.loginCompany(this.state.company)}
-          >
+          <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
+    				onPress={() => this.props.loginCompany(this.state.company)}>
     				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.send}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
@@ -62,6 +59,7 @@ class CompanySelection extends Component {
             </View>
           </View>
         </ScrollView>
+				<Spinner visible={this.props.isFetching} />
       </View>
     );
   }
@@ -69,7 +67,7 @@ class CompanySelection extends Component {
 
 let mapStateToProps = (state) => {
 	return {
-
+    isFetching: state.login.isFetching,
 	};
 };
 

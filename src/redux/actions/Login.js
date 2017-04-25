@@ -16,6 +16,13 @@ function updateUserInfo(token, workspaces, onboarding_conversation_id) {
   }
 }
 
+export function setFetching(value) {
+  return {
+    type: types.LOGIN_IS_FETCHING,
+    value
+  };
+}
+
 export function loginCompany(company) {
   return (dispatch, getState) => {
 
@@ -23,6 +30,7 @@ export function loginCompany(company) {
       return
     }
 
+    dispatch(setFetching(true))
     let params = {
       app_version: Constants.APP_VERSION,
       domain_slug: company.trim().toLowerCase()
@@ -31,6 +39,7 @@ export function loginCompany(company) {
     const fetchUrl = '/login/company-exist?' + qs.stringify(params, {skipNulls: true})
     fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("loginCompany response: ", response)
+      dispatch(setFetching(false))
 
       if(response.ok){
         if(response.must_update){
@@ -53,6 +62,7 @@ export function loginCompany(company) {
         dispatch({label: multiStrings.errorCompanyExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
       }
     }).catch((error) => {
+      dispatch(setFetching(false))
       dispatch({label: multiStrings.errorCompanyExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error})
     })
   }
@@ -69,6 +79,7 @@ export function login(email, password) {
       return
     }
 
+    dispatch(setFetching(true))
     let params = {
       domain_id: compId,
       email: email,
@@ -77,7 +88,8 @@ export function login(email, password) {
 
     const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
     fetch(fetchUrl).then((response) => {
-      Constants.LOG_ENABLED && console.log("login response: ", response)
+      Constants.LOG_ENABLED && console.log("loginCompany response: ", response)
+      dispatch(setFetching(false))
 
       if(response.ok && response.data){
         let data = response.data
@@ -93,6 +105,7 @@ export function login(email, password) {
         dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
       }
     }).catch((error) => {
+      dispatch(setFetching(false))
       dispatch({label: multiStrings.errorLogin, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})
     })
   }

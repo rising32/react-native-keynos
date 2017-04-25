@@ -14,8 +14,8 @@ import {Modal, Actions, Scene, Router, TabBar, ActionConst} from 'react-native-r
 // SCENES
 import Tutorial from './sections/login/Tutorial'
 import CompanySelection from './sections/login/CompanySelection'
-
 import Login from './sections/login/Login'
+import LoginToken from './sections/login/LoginToken'
 
 import Chat from './sections/chat/Chat'
 import Threads from './sections/chat/Threads'
@@ -55,6 +55,7 @@ class Routes extends Component {
           <Scene key='Tutorial' component={Tutorial} hideNavBar={true} />
           <Scene key='CompanySelection' component={CompanySelection} hideNavBar={true} />
           <Scene key='Login' component={Login} hideNavBar={true} />
+          <Scene key='LoginToken' component={LoginToken} hideNavBar={true} />
 
           <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle}>
             <Scene

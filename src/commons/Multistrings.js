@@ -2,6 +2,9 @@ import LocalizedStrings from "react-native-localization";
 
 export default new LocalizedStrings({
   es: {
+    validationMail: 'Introduce un email correcto',
+    validationPassword: 'La contraseña debe tener al menos 8 caracteres',
+    validationToken: 'El token debe tener al menos 8 caracteres',
 
     errorCompanyExist: 'Error comprobando la compañía',
     errorCompanyNoExist: 'No se ha encontrado la compañía',
