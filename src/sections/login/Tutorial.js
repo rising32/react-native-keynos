@@ -10,63 +10,54 @@ import AppIntro from 'react-native-app-intro';
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
-export default class Login extends Component {
-  onSkipBtnHandle = (index) => {
-    Alert.alert('Skip');
-    console.log(index);
-  }
-  doneBtnHandle = () => {
-    //Alert.alert('Done');
-    Actions.CompanySelection()
-  }
-  nextBtnHandle = (index) => {
-    //Alert.alert('Next');
-    console.log(index);
-  }
+//Redux
+import { connect } from 'react-redux';
+
+class Tutorial extends Component {
   onSlideChangeHandle = (index, total) => {
-    //console.log(index, total);
+    console.log(index, total);
   }
   render() {
-    const pageArray = [{
-      title: 'Page 1',
-      description: 'Description 1',
-      img: 'https://goo.gl/Bnc3XP',
-      imgStyle: {
-        height: 80 * 2.5,
-        width: 109 * 2.5,
-      },
-      backgroundColor: '#fa931d',
-      fontColor: '#fff',
-      level: 10,
-    }, {
-      title: 'Page 2',
-      description: 'Description 2',
-      imgStyle: {
-        height: 93 * 2.5,
-        width: 103 * 2.5,
-      },
-      backgroundColor: '#a4b602',
-      fontColor: '#fff',
-      level: 10,
-    }];
     return (
       <View style={{flex: 1}} >
-        <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80}} >
-          <Text style={{color: Colors.green_light, fontSize: 20}} >{multiStrings.tutorialTitle}</Text>
-          <Text style={{color: Colors.gray_info, fontSize: 17}} >{multiStrings.tutorialSubtitle}</Text>
+        <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 50}} >
+          <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.tutorialTitle}</Text>
+          <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{multiStrings.tutorialSubtitle}</Text>
         </View>
-        <View style={{}} >
-          <AppIntro
-            showSkipButton={false}
-            showDoneButton={false}
-            onNextBtnClick={this.nextBtnHandle}
-            onDoneBtnClick={this.doneBtnHandle}
-            onSkipBtnClick={this.onSkipBtnHandle}
-            onSlideChange={this.onSlideChangeHandle}
-            pageArray={pageArray}
-          />
+        <View style={{flex: 1}} >
+          <AppIntro showSkipButton={false} showDoneButton={false} showDots={true} onSlideChange={this.onSlideChangeHandle}>
+            <View style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'red'}} >
+              <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{'tutorial 1'}</Text>
+            </View>
+            <View style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'blue'}} >
+              <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{'tutorial 2'}</Text>
+            </View>
+          </AppIntro>
+        </View>
+        <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
+  				onPress={() => Actions.CompanySelection()}>
+  				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.accessToCompany}</Text>
+        </TouchableOpacity>
+        <View style={{alignItems: 'center', justifyContent: 'center', margin: 20}} >
+          <Image source={require('keynos_app/src/resources/logo.png')} style={{height: 30, width: 136}} resizeMode={'contain'} />
         </View>
       </View>
     );
   }
 }
+
+let mapDispatchToProps = (dispatch, props) => {
+  return {
+		// onUpdateArticle: (article) => {
+    //   dispatch(articlesActions.updateArticleSelected(article))
+		// }
+  }
+};
+
+let mapStateToProps = (state) => {
+	return {
+
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tutorial)
