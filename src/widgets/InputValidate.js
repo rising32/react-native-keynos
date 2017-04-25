@@ -18,6 +18,14 @@ export default class InputValidate extends Component {
 		}
 	}
 
+	renderImage() {
+		if(this.props.icon) {
+			return(
+				<Image source={this.props.icon} style={{height: 24, width: 24, marginRight: 10}} resizeMode={'contain'} />
+			)
+		}
+	}
+
 	render(){
 		let colorTextCorrection=Colors.red_error
 		let colorBorderCorrection=Colors.red_error
@@ -30,7 +38,7 @@ export default class InputValidate extends Component {
       <View style={{}}>
         <Text style={[Styles.labelStyle, {color: colorTextCorrection}]}>{this.props.label}</Text>
   			<View style={[Styles.viewInputStyle, {borderColor: colorBorderCorrection}]}>
-					<Image source={this.props.icon} style={{height: 24, width: 24, marginRight: 10}} resizeMode={'contain'} />
+					{this.renderImage()}
   				<TextInput
   					style={Styles.inputStyle}
   					value={this.props.value}
@@ -66,13 +74,13 @@ const Styles = StyleSheet.create({
   },
 	inputStyle: {
     color: Colors.gray_info,
-    fontSize: 12,
+    fontSize: 17,
     flex: 1,
     flexDirection: 'column',
   },
 	placeholderStyle: {
     color: Colors.gray_placeholder,
-    fontSize: 12,
+    fontSize: 17,
     flex: 1,
     flexDirection: 'column',
   },
@@ -83,7 +91,7 @@ const Styles = StyleSheet.create({
   },
 	errorStyle: {
 		color: Colors.red_error,
-    fontSize: 10,
+    fontSize: 12,
 		textAlign: 'right',
   },
 })

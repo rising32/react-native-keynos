@@ -32,7 +32,7 @@ export default class Routes extends Component {
         <Scene key="root" >
           <Scene key='Tutorial' component={Tutorial} hideNavBar={true} />
           <Scene key='CompanySelection' component={CompanySelection} hideNavBar={true} />
-          <Scene key='Login' component={Login} hideNavBar={true} initial={true} />
+          <Scene key='Login' component={Login} hideNavBar={true} />
 
           <Scene key="tabBar" tabs={true} tabBarStyle={Styles.tabBarStyle}>
             <Scene
