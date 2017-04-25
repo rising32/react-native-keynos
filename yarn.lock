@@ -3098,10 +3098,6 @@ react-native-scrollable-mixin@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-native-scrollable-mixin/-/react-native-scrollable-mixin-1.0.1.tgz#34a32167b64248594154fd0d6a8b03f22740548e"
 
-react-native-svg-image@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg-image/-/react-native-svg-image-1.0.0.tgz#2eb593870c3295761c1b00d4225ef7b468a1826f"
-
 react-native-svg-uri@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-svg-uri/-/react-native-svg-uri-1.2.0.tgz#2e03023a35b044b9a65c9ddb843d5a3b2f23cb70"
@@ -3115,6 +3111,10 @@ react-native-svg@^4.3.1:
   dependencies:
     color "^0.11.1"
     lodash "^4.0.0"
+
+react-native-swipe-list-view@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-0.4.1.tgz#f4b0288e090fc86f743bc30b45df829de729bcd7"
 
 react-native-swiper@^1.5.4:
   version "1.5.4"

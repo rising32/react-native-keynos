@@ -57,7 +57,7 @@ class Routes extends Component {
           <Scene key='Login' component={Login} hideNavBar={true} />
           <Scene key='LoginToken' component={LoginToken} hideNavBar={true} />
 
-          <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle}>
+          <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle} initial={true}>
             <Scene
               key="ChatTab"
               title={multiStrings.chat}
