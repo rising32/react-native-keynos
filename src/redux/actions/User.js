@@ -17,10 +17,10 @@ export function getUserInfo(comeFromLogin) {
     fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("getUserInfo response: ", response)
 
-      
+
     }).catch((error) => {
-      dispatch({label: multiStrings.errorUserLoad, func: 'getUserInfo', type: 'SET_ERROR', url: fetchUrl, error})
-      dispatch(AuthActions.logout())
+      dispatch({label: 'error', func: 'getUserInfo', type: 'SET_ERROR', url: fetchUrl, error})
+      //dispatch(AuthActions.logout())
     })
   }
 }
