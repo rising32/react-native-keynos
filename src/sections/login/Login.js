@@ -10,6 +10,7 @@ import {InputValidate} from 'keynos_app/src/widgets/'
 // REDUX
 import { connect } from 'react-redux'
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
+import SvgUri from 'react-native-svg-uri'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
@@ -52,17 +53,24 @@ class Login extends Component {
     }
   }
 
+
+
   render() {
-    let companyName = 'ibm'
+    let companyName = this.props.name
+    let main_color = this.props.main_color
     return (
       <View style={{flex: 1}} >
-        <ScrollView bouncs={false} >
+        <ScrollView bounces={false} >
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 30}} >
-            <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.loginInto}</Text>
+            <Text style={{color: main_color, fontSize: 20, marginBottom: 5}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
           </View>
           <View style={{alignItems: 'center', justifyContent: 'center', margin: 20}} >
-            <Image source={require('keynos_app/src/resources/company_logo.png')} style={{height: 48, width: 120}} resizeMode={'contain'} />
+            <SvgUri
+              width="120"
+              height="48"
+              source={{uri: this.props.logo}}
+            />
           </View>
           <View style={{margin: 20, marginBottom: 0}} >
             <InputValidate
@@ -87,18 +95,19 @@ class Login extends Component {
               needCorrection={this.state.passwordNeedCorrection}
               incorrect={this.state.passwordIncorrect}
               errorlabel={this.state.passwordErrorLabel}
+						  secureTextEntry={true}
     					keyboardType={'default'}
     					autoCapitalize={'none'}
               onChangeText={(value) => this.onChangePassword(value)}
     				/>
           </View>
-          <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
+          <TouchableOpacity style={{backgroundColor: main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
     				onPress={() => this.props.login(this.state.email, this.state.password)}>
     				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.access}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
             <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25, marginHorizontal: 40}}
-              onPress={() => Alert.alert(null, 'open browser')}>
+              onPress={() => Utils.openUrl('https://keynos.com/terminos-y-condiciones.php')}>
               <Text style={{color: Colors.black, fontSize: 15, textAlign: 'center'}} >
                 {multiStrings.terms1}
                 <Text style={{color: Colors.blue_link}} >{multiStrings.terms2}</Text>
@@ -115,7 +124,10 @@ class Login extends Component {
 
 let mapStateToProps = (state) => {
   return {
-
+    id: state.company.id,
+    name: state.company.name,
+    logo: state.company.logo,
+    main_color: state.company.main_color
   }
 }
 
