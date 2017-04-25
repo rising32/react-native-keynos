@@ -8,7 +8,7 @@ import { Provider, connect } from 'react-redux'
 import thunk from 'redux-thunk'
 
 // ROUTER FLUX
-import { Router } from 'react-native-router-flux';
+import { Router, Actions } from 'react-native-router-flux';
 import Routes from 'keynos_app/src/Routes'
 
 // REDUCERS
@@ -38,7 +38,7 @@ export default class Index extends Component {
 				return true;
 			}
 			catch (err) {
-				console.warn('error backbutton fisico: ', err)
+				console.warn('Error back Android: ', err)
 				return false;
 			}
 		});
