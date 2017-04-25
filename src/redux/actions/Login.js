@@ -88,7 +88,7 @@ export function login(email, password) {
 
     const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
     fetch(fetchUrl).then((response) => {
-      Constants.LOG_ENABLED && console.log("loginCompany response: ", response)
+      Constants.LOG_ENABLED && console.log("login response: ", response)
       dispatch(setFetching(false))
 
       if(response.ok && response.data){

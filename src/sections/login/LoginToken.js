@@ -38,7 +38,7 @@ class LoginToken extends Component {
     let companyName = 'ibm'
     return (
       <View style={{flex: 1}} >
-        <ScrollView bouncs={false} >
+        <ScrollView bounces={false} >
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 30}} >
             <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
