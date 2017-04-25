@@ -2,6 +2,11 @@ import LocalizedStrings from "react-native-localization";
 
 export default new LocalizedStrings({
   es: {
+
+    errorCompanyExist: 'Error comprobando la compañía',
+    errorCompanyNoExist: 'No se ha encontrado la compañía',
+    errorAppUpdate: 'Para continuar debe actualizar la aplicación',
+    
     tutorialTitle: 'Todas tus conversaciones',
     tutorialSubtitle: 'Escucha y habla.\nAprende y resuelve.',
     accessToCompany: 'Accede a tu empresa',
