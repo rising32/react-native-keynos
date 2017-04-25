@@ -1,31 +1,31 @@
 import React, { Component } from 'react'
 import {View, Image, Text, Dimensions} from 'react-native'
 import { connect } from 'react-redux'
-import { Colors } from '../commons/Commons'
+import { Colors } from 'keynos_app/src/commons/Commons'
 
 // MULTILENGUAJE
-import multiStrings from '../commons/Multistrings'
+import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 class TabIcon extends Component {
 
   setTabIcon(title, selected){
     if(title == multiStrings.chat) {
       if(selected) {
-        return require('../resources/chat_active.png')
+        return require('keynos_app/src/resources/chat_active.png')
       } else {
-        return require('../resources/chat.png')
+        return require('keynos_app/src/resources/chat.png')
       }
     } else if(title == multiStrings.settings) {
       if(selected) {
-        return require('../resources/settings_active.png')
+        return require('keynos_app/src/resources/settings_active.png')
       } else {
-        return require('../resources/settings.png')
+        return require('keynos_app/src/resources/settings.png')
       }
     } else if(title == multiStrings.files) {
       if(selected) {
-        return require('../resources/files_active.png')
+        return require('keynos_app/src/resources/files_active.png')
       } else {
-        return require('../resources/files.png')
+        return require('keynos_app/src/resources/files.png')
       }
     }
   }

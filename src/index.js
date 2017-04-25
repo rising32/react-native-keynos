@@ -9,20 +9,26 @@ import thunk from 'redux-thunk'
 
 // ROUTER FLUX
 import { Router } from 'react-native-router-flux';
-import Routes from './Routes'
-
+import Routes from 'keynos_app/src/Routes'
 
 // REDUCERS
 const RouterWithRedux = connect()(Router);
-import reducers from './redux/reducers/Index'
+import reducers from 'keynos_app/src/redux/reducers/Index'
 
 // INITIALIZE REDUX STORE
 const store = compose(
   applyMiddleware(thunk)
 )(createStore)(reducers);
 
+// COMPONENTS
+import * as Webservices from 'keynos_app/src/webservices/Webservices'
+
 
 export default class Index extends Component {
+
+  componentWillMount() {
+    Webservices.configureAxios(null)
+  }
 
 	// Managinig back Android button behaviour
 	enableAndroidBack(){

@@ -6,12 +6,11 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 import {InputValidate} from 'keynos_app/src/widgets/'
+import { connect } from 'react-redux'
+import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
-
-//Redux
-import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor(props) {
@@ -112,18 +111,18 @@ class Login extends Component {
   }
 }
 
+let mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
 let mapDispatchToProps = (dispatch, props) => {
   return {
-		// onUpdateArticle: (article) => {
-    //   dispatch(articlesActions.updateArticleSelected(article))
-		// }
+    loginCompany: () => {
+      dispatch(LoginActions.loginCompany('Acme'));
+    },
   }
-};
-
-let mapStateToProps = (state) => {
-	return {
-
-	};
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -1,6 +1,6 @@
-import * as types from '../types/User'
-import * as Constants from '../../webservices/Constants'
-import {fetch, post, put, patch, remove} from '../../webservices/Webservices'
+import * as types from 'keynos_app/src/types/User'
+import * as Constants from 'keynos_app/src/webservices/Constants'
+import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webservices'
 
 
 function setUserInfo(value) {
