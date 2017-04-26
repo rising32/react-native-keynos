@@ -15,15 +15,34 @@ import { connect } from 'react-redux';
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 
 class CompanySelection extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       company: 'Acme',
+      companyNeedCorrection: false,
+      companyIncorrect: false,
+      companyErrorLabel: '',
     };
   }
 
   onCompanyChange(value) {
     this.setState({company: value})
+    if(value != "" && !Utils.companyValidate(value)){
+      this.setState({companyNeedCorrection: true, companyIncorrect: true, companyErrorLabel: multiStrings.validationCompany})
+    }else if(value != "" && Utils.companyValidate(value)){
+      this.setState({companyNeedCorrection: true, companyIncorrect: false, companyErrorLabel: ""})
+    }else{
+      this.setState({companyNeedCorrection: false, companyIncorrect: false, companyErrorLabel: ""})
+    }
+  }
+
+  onSubmit() {
+    if(!this.state.company) {
+      Alert.alert(null, multiStrings.validationFields)
+    } else if(!this.state.companyIncorrect) {
+      this.props.loginCompany(this.state.company)
+    }
   }
 
   render() {
@@ -39,9 +58,9 @@ class CompanySelection extends Component {
       					label={null}
       					placeholder={Utils.firstToUpperCase(multiStrings.company)}
                 value={this.state.company}
-                needCorrection={false}
-                incorrect={false}
-                errorlabel={''}
+                needCorrection={this.state.companyNeedCorrection}
+                incorrect={this.state.companyIncorrect}
+                errorlabel={this.state.companyErrorLabel}
       					keyboardType={'default'}
       					autoCapitalize={'none'}
                 onChangeText={(value) => this.onCompanyChange(value)}
@@ -50,7 +69,7 @@ class CompanySelection extends Component {
             <Text style={{color: Colors.green_light, fontSize: 20, marginLeft: 10}} >{'.keynos.es'}</Text>
           </View>
           <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
-    				onPress={() => this.props.loginCompany(this.state.company)}>
+    				onPress={() => this.onSubmit()}>
     				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.send}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >

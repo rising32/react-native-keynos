@@ -6,11 +6,11 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 import {InputValidate} from 'keynos_app/src/widgets/'
+import SvgUri from 'react-native-svg-uri'
 
 // REDUX
 import { connect } from 'react-redux'
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
-import SvgUri from 'react-native-svg-uri'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'

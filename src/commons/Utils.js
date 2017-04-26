@@ -16,9 +16,12 @@ export function mailValidate(mail){
   return re.test(mail);
 }
 
-export function stringValidate(value){
-  var re = /^[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z21210-9]+[a-zA-Z\xE1\xE9\xED\xF3\xFA\xC1\xC9\xCD\xD3\xDA\xF1\xD1\s]{1,}$/;
-  return re.test(value)
+export function companyValidate(value) {
+  if(value && value.length > 2){
+    return true
+  }else{
+    return false
+  }
 }
 
 export function passwordValidate(password){
