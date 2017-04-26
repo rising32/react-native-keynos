@@ -6,11 +6,15 @@ import _ from 'lodash'
 
 export default class AnswerMultipleOptions extends React.Component {
 
+  _onPress(opt) {
+    this.props.onPress && this.props.onPress(opt)
+  }
+
   render() {
     return(
-      <View >
-        { _.map(this.props.options, (opt) => {
-          return <CorporateButton label={"Opción"} onPress={() => console.log("tapped opt: ", opt)} />
+      <View style={{backgroundColor: 'red'}}>
+        { _.map(this.props.options, (opt, i) => {
+            return <CorporateButton key={i} label={"Opción"} onPress={() => _onPress(opt)} />
         }) }
       </View>
     )
