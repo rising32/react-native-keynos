@@ -25,9 +25,10 @@ import Settings from './sections/settings/Settings'
 // MULTILENGUAJE
 import multiStrings from './commons/Multistrings'
 
+let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
+let getNavBarOffset = Navigator.NavigationBar.Styles.General.NavBarHeight + offset
 
 class Routes extends Component {
-
   componentDidUpdate(prevProps, prevState) {
     if(!prevProps.error && this.props.error){
       this.showError()
@@ -52,12 +53,12 @@ class Routes extends Component {
     return (
       <Router sceneStyle={Styles.mainScene} >
         <Scene key="root" >
-          <Scene key='Tutorial' component={Tutorial} hideNavBar={true} />
+          <Scene key='Tutorial' component={Tutorial} hideNavBar={true} initial={true} />
           <Scene key='CompanySelection' component={CompanySelection} hideNavBar={true} />
           <Scene key='Login' component={Login} hideNavBar={true} />
           <Scene key='LoginToken' component={LoginToken} hideNavBar={true} />
 
-          <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle} initial={true}>
+          <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle} >
             <Scene
               key="ChatTab"
               title={multiStrings.chat}
@@ -66,8 +67,8 @@ class Routes extends Component {
                 Actions.Conversations({type: ActionConst.REFRESH});
               }}
              >
-                <Scene key="Conversations" component={Conversations} />
-                <Scene key="Chat" component={Chat} hideTabBar/>
+                <Scene key="Conversations" component={Conversations} sceneStyle={{paddingTop: getNavBarOffset, marginBottom: 50}}/>
+                <Scene key="Chat" component={Chat} sceneStyle={{paddingTop: getNavBarOffset}} hideTabBar/>
             </Scene>
 
             <Scene
@@ -78,7 +79,7 @@ class Routes extends Component {
                 Actions.Settings({type: ActionConst.REFRESH});
               }}
              >
-                <Scene key="Settings" component={Settings} />
+                <Scene key="Settings" component={Settings} sceneStyle={{paddingTop: getNavBarOffset, marginBottom: 50}}/>
             </Scene>
           </Scene>
 

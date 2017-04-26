@@ -26,11 +26,11 @@ export function getConversationsList() {
       return
     }
 
-    const fetchUrl = '/workspaceId/' + workspaceId + '/conversations'
+    const fetchUrl = '/workspaces/' + workspaceId + '/conversations'
     fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("getConversationsList response: ", response)
-
-
+      if(response.data && response.data.conversations)
+        dispatch(updateConversationsList(response.data.conversations))
     }).catch((error) => {
       dispatch({label: 'error', func: 'getConversationsList', type: 'SET_ERROR', url: fetchUrl, error})
     })

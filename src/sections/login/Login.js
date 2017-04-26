@@ -31,6 +31,14 @@ class Login extends Component {
     };
   }
 
+  onPressLogin() {
+		if(this.state.email=='' || this.state.password=='') {
+			Alert.alert(null, multiStrings.enterFields)
+		} else if(!this.state.emailIncorrect && !this.state.passwordIncorrect){
+			this.props.login(this.state.email, this.state.password)
+		}
+	}
+
 	onChangeEmail(value) {
     this.setState({email: value})
     if(value != "" && !Utils.mailValidate(value)){

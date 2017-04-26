@@ -11,22 +11,25 @@ import { connect } from 'react-redux';
 class ConversationCell extends Component {
   render() {
     let image = null
+    let data = this.props.data ? this.props.data : {}
+    let lastQuestion = data.conversation_tree && data.conversation_tree.next ? data.conversation_tree.next.nodes[0].text : ''
+
 		return(
 			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 5, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
         onPress={this.props.onPress}>
-        <Image source={image} style={{height: 58, width: 54}} resizeMode={'contain'} />
+        <Image source={{uri: data.bot_image}} style={{height: 58, width: 54, marginRight: 10, borderRadius: 10}} resizeMode={'cover'} />
         <View style={{flex: 1}} >
           <View style={{flexDirection: 'row', alignItems: 'center', marginRight: 15}} >
-            <Text style={{color: Colors.black, fontSize: 17, marginRight: 13}}>{'nombre bot'}</Text>
-            <Text style={{color: Colors.gray_chat, fontSize: 11, flex: 1}}>{'subtitulo'}</Text>
+            <Text style={{color: Colors.black, fontSize: 17, marginRight: 13}}>{data.interlocutor}</Text>
+            <Text style={{color: Colors.gray_chat, fontSize: 11, flex: 1}} numberOfLines={1}>{data.conversation_title}</Text>
           </View>
-          <View style={{alignItems: 'center', marginRight: 15}} >
-            <Text style={{color: Colors.gray_chat, fontSize: 10}} numberOfLines={1}>{'texto con la primera frase de la conversación con el bot de la'}</Text>
+          <View style={{marginRight: 15, marginTop: 10}} >
+            <Text style={{color: Colors.gray_chat, fontSize: 10}} numberOfLines={1}>{lastQuestion}</Text>
           </View>
         </View>
-        <View style={{marginLeft: 10, alignItems: 'center'}} >
+        <View style={{alignItems: 'center'}} >
           <Text style={{color: Colors.gray_chat, fontSize: 17}}>{'hora'}</Text>
-            <View style={{backgroundColor: Colors.blue_link, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
+            <View style={{backgroundColor: Colors.blue_link, marginTop: 5, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
               <Text style={{color: Colors.white, fontSize: 11}}>{'1'}</Text>
             </View>
         </View>
@@ -37,15 +40,13 @@ class ConversationCell extends Component {
 
 let mapDispatchToProps = (dispatch, props) => {
   return {
-    // updateArticleSelected: (value) => {
-    //   dispatch(articlesActions.updateArticleSelected(value));
-    // }
+
   }
 };
 
 let mapStateToProps = (state) => {
 	return {
-		userInfo: state.user.userInfo,
+
 	};
 };
 

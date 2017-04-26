@@ -5,6 +5,7 @@ export default new LocalizedStrings({
     validationMail: 'Introduce un email correcto',
     validationPassword: 'La contraseña debe tener al menos 8 caracteres',
     validationToken: 'El token debe tener al menos 8 caracteres',
+    validationFields: 'Rellena todos los campos',
 
     errorCompanyExist: 'Error comprobando la compañía',
     errorCompanyNoExist: 'No se ha encontrado la compañía',
