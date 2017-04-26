@@ -1,6 +1,6 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ListView} from 'react-native'
+import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ListView, AsyncStorage} from 'react-native'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
@@ -8,6 +8,7 @@ import {ConversationCell} from 'keynos_app/src/widgets/'
 
 // REDUX
 import { connect } from 'react-redux'
+import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversations'
 
 // MULTILENGUAJE
@@ -16,6 +17,7 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 class Conversations extends Component {
   componentWillMount() {
     this.props.getConversationsList()
+    this.props.setUserDefault()
   }
 
   renderRow(rowData: object, sectionID: number, rowID: number) {
@@ -47,6 +49,14 @@ class Conversations extends Component {
 let mapStateToProps = (state) => {
   return {
     list: state.conversations.list,
+    token: state.login.token,
+    company: state.company,
+    id: state.company.id,
+    name: state.company.name,
+    logo: state.company.logo,
+    login_type: state.company.login_type,
+    main_color: state.company.main_color,
+    bg_image: state.company.bg_image,
   }
 }
 
@@ -54,6 +64,10 @@ let mapDispatchToProps = (dispatch, props) => {
   return {
     getConversationsList: () => {
       dispatch(ConversationsActions.getConversationsList());
+    },
+
+    setUserDefault: () => {
+      dispatch(LoginActions.setUserDefault());
     },
 
     onConversationPress: (conversation) => {

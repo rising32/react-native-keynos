@@ -1,10 +1,11 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert} from 'react-native'
+import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert, AsyncStorage} from 'react-native'
 
 // REDUX COMPONENTS
 import { createStore, applyMiddleware, compose, } from 'redux'
 import { Provider, connect } from 'react-redux'
+import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 import thunk from 'redux-thunk'
 
 // ROUTER FLUX
