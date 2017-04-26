@@ -4,8 +4,6 @@ import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ListView} from '
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
-import { connect } from 'react-redux'
-import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 import {ConversationCell} from 'keynos_app/src/widgets/'
 
 // REDUX
@@ -15,7 +13,12 @@ import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversation
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
-class Threads extends Component {
+class Conversations extends Component {
+
+  componentWillMount() {
+    this.props.getConversationsList()
+  }
+
   renderRow(rowData: object, sectionID: number, rowID: number) {
 		return(
 			<ConversationCell data={rowData} onPress={() => Actions.Chat()}/>
@@ -47,7 +50,8 @@ let mapStateToProps = (state) => {
 }
 
 let mapDispatchToProps = (dispatch, props) => {
-  return { => {
+  return {
+    getConversationsList: () => {
       dispatch(ConversationsActions.getConversationsList());
     },
   }

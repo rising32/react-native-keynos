@@ -26,7 +26,7 @@ export function getConversationsList() {
       return
     }
 
-    const fetchUrl = '/workspaceId/' + workspaceId + '/conversations'
+    const fetchUrl = '/workspaces/' + workspaceId + '/conversations'
     fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("getConversationsList response: ", response)
 

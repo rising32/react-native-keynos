@@ -52,12 +52,12 @@ class Routes extends Component {
     return (
       <Router sceneStyle={Styles.mainScene} >
         <Scene key="root" >
-          <Scene key='Tutorial' component={Tutorial} hideNavBar={true} />
+          <Scene key='Tutorial' component={Tutorial} hideNavBar={true} initial={true} />
           <Scene key='CompanySelection' component={CompanySelection} hideNavBar={true} />
           <Scene key='Login' component={Login} hideNavBar={true} />
           <Scene key='LoginToken' component={LoginToken} hideNavBar={true} />
 
-          <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle} initial={true}>
+          <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle} >
             <Scene
               key="ChatTab"
               title={multiStrings.chat}
