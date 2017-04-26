@@ -30,9 +30,11 @@ class ConversationCell extends Component {
         </View>
         <View style={{alignItems: 'center'}} >
           <Text style={{color: Colors.gray_chat, fontSize: 17}}>{'hora'}</Text>
+          {/*
             <View style={{backgroundColor: bubleColor, marginTop: 5, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
               <Text style={{color: Colors.white, fontSize: 11}}>{'1'}</Text>
             </View>
+            */}
         </View>
       </TouchableOpacity>
 		)

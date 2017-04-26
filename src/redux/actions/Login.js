@@ -110,6 +110,59 @@ export function login(email, password) {
   }
 }
 
+export function setUserDefault(){
+  return function (dispatch, getState) {
+    var state = getState()
+    let company = {
+      id: state.company.id ? state.company.id : '',
+      name: state.company.name ? state.company.name : '',
+      logo: state.company.logo ? state.company.logo : '',
+      login_type: state.company.login_type ? state.company.login_type : '',
+      main_color: state.company.main_color ? state.company.main_color : '',
+      bg_image: state.company.bg_image ? state.company.bg_image : '',
+    }
+    AsyncStorage.setItem('company', JSON.stringify(company), () => {
+      console.log('guardados en AsyncStorage')
+    });
+  }
+}
+
+export function restoreUserDefault() {
+  return function (dispatch, getState) {
+    let timer = null
+    AsyncStorage.getItem('token', (err, token) => {
+      if(timer){
+        clearInterval(timer)
+        timer = null
+      }
+      if(token){
+        token = JSON.parse(token)
+        Webservices.configureAxios(token)
+        dispatch(updateUserToken(token))
+        AsyncStorage.getItem('company', (err, companyLoaded) => {
+          companyLoaded = JSON.parse(companyLoaded)
+          let company = {
+            id: companyLoaded.id!='' ? companyLoaded.id : null,
+            name: companyLoaded.name!='' ? companyLoaded.name : null,
+            logo: companyLoaded.logo!='' ? companyLoaded.logo : null,
+            login_type: companyLoaded.login_type!='' ? companyLoaded.login_type : null,
+            main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
+            bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
+          }
+          console.log('recupero company', company)
+          dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
+          Actions.TabBar({type: 'reset'})
+        });
+      } else {
+        timer = setTimeout(() => {
+          console.log('no hay token')
+          Actions.Tutorial({type: 'reset'})
+        }, 3000);
+      }
+    });
+  }
+}
+
 export function setLogOut() {
   return function (dispatch, getState) {
     AsyncStorage.removeItem('token', (err) => {

@@ -3,9 +3,8 @@ import React, { Component } from 'react'
 import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert} from 'react-native'
 
 // COMPONENTS
-import TabIcon from './components/TabIcon';
 import { Colors } from './commons/Commons'
-import {CustomNavBar, ConversationNavBar} from 'keynos_app/src/widgets/'
+import {CustomNavBar, ConversationNavBar, TabIcon} from 'keynos_app/src/widgets/'
 import { connect } from 'react-redux'
 import * as Constants from 'keynos_app/src/webservices/Constants'
 
@@ -13,6 +12,7 @@ import * as Constants from 'keynos_app/src/webservices/Constants'
 import {Modal, Actions, Scene, Router, TabBar, ActionConst, NavBar} from 'react-native-router-flux'
 
 // SCENES
+import Splash from './sections/login/Splash'
 import Tutorial from './sections/login/Tutorial'
 import CompanySelection from './sections/login/CompanySelection'
 import Login from './sections/login/Login'
@@ -54,7 +54,8 @@ class Routes extends Component {
     return (
       <Router sceneStyle={Styles.mainScene} >
         <Scene key="root" >
-          <Scene key='Tutorial' component={Tutorial} hideNavBar={true} initial={true} />
+          <Scene key='Splash' component={Splash} hideNavBar={true} initial={true} />
+          <Scene key='Tutorial' component={Tutorial} hideNavBar={true} />
           <Scene key='CompanySelection' component={CompanySelection} hideNavBar={true} />
           <Scene key='Login' component={Login} hideNavBar={true} />
           <Scene key='LoginToken' component={LoginToken} hideNavBar={true} />
