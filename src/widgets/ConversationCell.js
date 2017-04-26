@@ -21,12 +21,14 @@ class ConversationCell extends Component {
             <Text style={{color: Colors.gray_chat, fontSize: 11, flex: 1}}>{'subtitulo'}</Text>
           </View>
           <View style={{alignItems: 'center', marginRight: 15}} >
-            <Text style={{color: Colors.black, fontSize: 10}} numberOfLines={1}>{'texto con la primera frase de la conversación con el bot de la'}</Text>
+            <Text style={{color: Colors.gray_chat, fontSize: 10}} numberOfLines={1}>{'texto con la primera frase de la conversación con el bot de la'}</Text>
           </View>
         </View>
-        <View style={{marginLeft: 10}} >
-          <Text style={{color: Colors.black, fontSize: 17}}>{'hora'}</Text>
-          <Text style={{color: Colors.gray_chat, fontSize: 11}}>{'1'}</Text>
+        <View style={{marginLeft: 10, alignItems: 'center'}} >
+          <Text style={{color: Colors.gray_chat, fontSize: 17}}>{'hora'}</Text>
+            <View style={{backgroundColor: Colors.blue_link, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
+              <Text style={{color: Colors.white, fontSize: 11}}>{'1'}</Text>
+            </View>
         </View>
       </TouchableOpacity>
 		)
