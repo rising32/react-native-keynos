@@ -11,7 +11,7 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 class CorporateButton extends React.Component {
 
   _onPress() {
-    this.props.onClick && this.props.onPress()
+    this.props.onPress && this.props.onPress()
   }
 
   render() {

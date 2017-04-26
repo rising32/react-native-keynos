@@ -12,9 +12,9 @@ export default class AnswerMultipleOptions extends React.Component {
 
   render() {
     return(
-      <View style={{backgroundColor: 'red'}}>
+      <View style={{backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: 'black'}}>
         { _.map(this.props.options, (opt, i) => {
-            return <CorporateButton key={i} label={"Opción"} onPress={() => _onPress(opt)} />
+            return <CorporateButton key={i} label={"Option"} onPress={() => this._onPress(opt)} />
         }) }
       </View>
     )
