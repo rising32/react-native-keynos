@@ -13,7 +13,6 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 class ConversationNavBar extends Component {
   render() {
-    console.log("ConversationNavBar props: ", this.props)
     let main_color = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.selected ? this.props.selected : {}
     let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios

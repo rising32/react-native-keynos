@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {View, StyleSheet, TouchableOpacity, Image, Text, Alert} from 'react-native'
 
-import { GiftedChat, InputToolbar } from 'react-native-gifted-chat'
+import { GiftedChat, InputToolbar, Bubble } from 'react-native-gifted-chat'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-
+import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
 
 
@@ -13,122 +13,25 @@ class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [],
       responseType: 'text',
       minInputToolbarHeight: 44.5,
     }
   }
 
-  componentWillMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 2,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 3,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 4,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 5,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 6,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 7,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 8,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 9,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-        {
-          _id: 10,
-          text: 'Hello developer',
-          createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-        },
-
-      ],
-    });
-  }
-
   onSend(messages = []) {
     this.setState({responseType: 'options'})
+  }
+
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: { backgroundColor: this.props.main_color },
+          left: { backgroundColor: Colors.white }
+        }}
+      />
+    )
   }
 
   renderInputToolbar(props) {
@@ -154,26 +57,32 @@ class Chat extends Component {
   }
 
   render() {
+    let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
+    let messages = Utils.formatConversationMessages(this.props.conversation)
+
     return (
-      <View style={{flex: 1}}>
+      <Image style={{flex: 1}} source={bgImage} resizeMode={'cover'} >
+
         <GiftedChat
-          messages={this.state.messages}
+          messages={messages}
           loadEarlier={false}
           onSend={this.onSend.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
+          renderBubble={this.renderBubble.bind(this)}
           minInputToolbarHeight={this.state.minInputToolbarHeight}
-          user={{
-            _id: 1,
-          }}
+          renderAvatar={ () => null }
+          user={{ _id: 1 }}
         />
-      </View>
+      </Image>
     )
   }
 }
 
 let mapStateToProps = (state) => {
   return {
-
+    bg_image: state.company.bg_image,
+    main_color: state.company.main_color,
+    conversation: state.conversations.selected,
   }
 }
 

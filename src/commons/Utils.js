@@ -1,5 +1,6 @@
 import React, { Alert, Linking } from 'react-native'
 import moment from 'moment';
+import _ from 'lodash'
 
 export function firstToUpperCase( str ) {
    return str.substr(0, 1).toUpperCase() + str.substr(1);
@@ -41,10 +42,64 @@ export function fix2decimal (data) {
 
 export function openUrl(url){
   Linking.canOpenURL(url).then(supported => {
-          if (supported) {
-            Linking.openURL(url);
-          } else {
-            console.log('Don\'t know how to open URI: ' + url);
-          }
-        });
+    if (supported) {
+      Linking.openURL(url);
+    } else {
+      console.log('Don\'t know how to open URI: ' + url);
+    }
+  });
 }
+
+export function formatConversationMessages(conversation) {
+  let messages = []
+  console.log("formatConversationMessages conversation: ", conversation)
+
+  if(conversation.conversation_tree && conversation.conversation_tree.history){
+    _.map(conversation.conversation_tree.history, (item) => {
+      let user = {
+        name: item.interlocutor,
+        _id: item.bubble_type == "bot" ? 2 : 1
+      }
+
+      _.map(item.nodes, (node) => {
+        if(node.nodeable_type == "App\\NodeText" || node.nodeable_type == "App\\NodeFreeText") {
+          messages.push({_id: item.bubble_id + node.node_id, user: user, text: node.text})
+        } else if(node.nodeable_type == "App\\NodeImage") {
+          messages.push({_id: item.bubble_id + node.node_id, user: user, image: node.image_path})
+        }
+      })
+    })
+  }
+
+  if(conversation.conversation_tree && conversation.conversation_tree.next){
+    let item = conversation.conversation_tree.next
+    let user = {
+      name: item.interlocutor,
+      _id: item.bubble_type == "bot" ? 2 : 1
+    }
+
+    _.map(item.nodes, (node) => {
+      if(node.nodeable_type == "App\\NodeText" || node.nodeable_type == "App\\NodeFreeText") {
+        messages.push({_id: item.bubble_id + node.node_id, user: user, text: node.text})
+      } else if(node.nodeable_type == "App\\NodeImage") {
+        messages.push({_id: item.bubble_id + node.node_id, user: user, image: node.image_path})
+      }
+    })
+  }
+
+  console.log("formatConversationMessages messages: ", messages)
+  return messages
+}
+
+/*
+{
+  _id: 1,
+  text: 'Hello developer',
+  createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+  user: {
+    _id: 2,
+    name: 'React Native',
+    avatar: 'https://facebook.github.io/react/img/logo_og.png',
+  },
+},
+*/
