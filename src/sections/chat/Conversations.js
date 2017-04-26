@@ -14,18 +14,18 @@ import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversation
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 class Conversations extends Component {
-
   componentWillMount() {
     this.props.getConversationsList()
   }
 
   renderRow(rowData: object, sectionID: number, rowID: number) {
 		return(
-			<ConversationCell data={rowData} onPress={() => Actions.Chat()}/>
+			<ConversationCell data={rowData} onPress={() => {Actions.Chat(); this.props.onConversationPress(rowData)}}/>
 		)
 	}
 
   render() {
+    //console.log('list',this.props.list)
     let list = this.props.list ? this.props.list : [{}, {}, {}]
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     let dataSource = ds.cloneWithRows(list);
@@ -46,6 +46,7 @@ class Conversations extends Component {
 
 let mapStateToProps = (state) => {
   return {
+    list: state.conversations.list,
   }
 }
 
@@ -53,6 +54,11 @@ let mapDispatchToProps = (dispatch, props) => {
   return {
     getConversationsList: () => {
       dispatch(ConversationsActions.getConversationsList());
+    },
+
+    onConversationPress: (conversation) => {
+      console.log('dispatch',dispatch)
+      dispatch(ConversationsActions.updateConversationSelected(conversation));
     },
   }
 }

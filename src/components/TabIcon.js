@@ -9,7 +9,7 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 class TabIcon extends Component {
 
   setTabIcon(title, selected){
-    if(title == multiStrings.chat) {
+    if(title == multiStrings.conversations) {
       if(selected) {
         return require('keynos_app/src/resources/chat_active.png')
       } else {

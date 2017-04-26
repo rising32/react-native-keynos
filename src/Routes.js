@@ -5,11 +5,12 @@ import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAn
 // COMPONENTS
 import TabIcon from './components/TabIcon';
 import { Colors } from './commons/Commons'
+import {CustomNavBar, ConversationNavBar} from 'keynos_app/src/widgets/'
 import { connect } from 'react-redux'
 import * as Constants from 'keynos_app/src/webservices/Constants'
 
 // NAVIGATION COMPONENTS (ROUTER FLUX)
-import {Modal, Actions, Scene, Router, TabBar, ActionConst} from 'react-native-router-flux'
+import {Modal, Actions, Scene, Router, TabBar, ActionConst, NavBar} from 'react-native-router-flux'
 
 // SCENES
 import Tutorial from './sections/login/Tutorial'
@@ -25,9 +26,10 @@ import Settings from './sections/settings/Settings'
 // MULTILENGUAJE
 import multiStrings from './commons/Multistrings'
 
+let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
+let getNavBarOffset = Navigator.NavigationBar.Styles.General.NavBarHeight + offset
 
 class Routes extends Component {
-
   componentDidUpdate(prevProps, prevState) {
     if(!prevProps.error && this.props.error){
       this.showError()
@@ -60,25 +62,19 @@ class Routes extends Component {
           <Scene key="TabBar" tabs={true} tabBarStyle={Styles.tabBarStyle} >
             <Scene
               key="ChatTab"
-              title={multiStrings.chat}
+              title={multiStrings.conversations}
               icon={TabIcon}
-              onPress={ ()=> {
-                Actions.Conversations({type: ActionConst.REFRESH});
-              }}
-             >
-                <Scene key="Conversations" component={Conversations} />
-                <Scene key="Chat" component={Chat} hideTabBar/>
+              onPress={ ()=> Actions.Conversations({type: ActionConst.REFRESH})} >
+              <Scene key="Conversations" component={Conversations} navBar={CustomNavBar} title={multiStrings.conversations} titleStyle={{color: Colors.white}} sceneStyle={{paddingTop: getNavBarOffset}}/>
+              <Scene key="Chat" component={Chat} navBar={ConversationNavBar} sceneStyle={{paddingTop: 100}} hideTabBar />
             </Scene>
 
             <Scene
               key="SettingsTab"
               title={multiStrings.settings}
               icon={TabIcon}
-              onPress={ ()=> {
-                Actions.Settings({type: ActionConst.REFRESH});
-              }}
-             >
-                <Scene key="Settings" component={Settings} />
+              onPress={ ()=> Actions.Settings({type: ActionConst.REFRESH})} >
+              <Scene key="Settings" component={Settings} navBar={CustomNavBar} title={multiStrings.settings} titleStyle={{color: Colors.white}} sceneStyle={{paddingTop: getNavBarOffset}}/>
             </Scene>
           </Scene>
 
