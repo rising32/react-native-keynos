@@ -38,9 +38,9 @@ class TabIcon extends Component {
         <Image
           source={image}
           resizeMode={'contain'}
-          style={{width:28, height:25, tintColor: this.props.selected ? Colors.green_light : null}}
+          style={{width:28, height:25, tintColor: this.props.selected ? this.props.main_color : null}}
           />
-        <Text style={{fontSize: 10, color: this.props.selected ? Colors.green_light : Colors.gray_inactive}}>{this.props.title}</Text>
+        <Text style={{fontSize: 10, color: this.props.selected ? this.props.main_color : Colors.gray_inactive}}>{this.props.title}</Text>
       </View>
     );
   }
@@ -48,7 +48,7 @@ class TabIcon extends Component {
 
 let mapStateToProps = (state) => {
   return {
-
+    main_color: state.company.main_color,
   }
 }
 
