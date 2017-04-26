@@ -20,6 +20,9 @@ export default function conversationsReducer(state = initialState, action = {}) 
         selected: action.conversation,
       };
 
+    case types.LOG_OUT:
+      return initialState;
+
     default:
       return state;
   }

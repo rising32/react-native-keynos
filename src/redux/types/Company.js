@@ -1,1 +1,2 @@
 export const UPDATE_COMPANY_INFO = 'UPDATE_COMPANY_INFO'
+export const LOG_OUT = 'LOG_OUT'

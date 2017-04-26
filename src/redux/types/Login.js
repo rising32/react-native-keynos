@@ -1,2 +1,4 @@
 export const UPDATE_LOGIN_TOKEN = 'UPDATE_LOGIN_TOKEN'
 export const LOGIN_IS_FETCHING = 'LOGIN_IS_FETCHING'
+
+export const LOG_OUT = 'LOG_OUT'

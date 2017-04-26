@@ -3,10 +3,11 @@ import React, { Component } from 'react'
 import {View, StyleSheet, TouchableOpacity, Image, Text, Alert} from 'react-native'
 
 import {CorporateButton} from 'keynos_app/src/widgets/'
+import {Colors} from 'keynos_app/src/commons/Commons'
 
 // REDUX
 import { connect } from 'react-redux'
-import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversations'
+import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
@@ -15,7 +16,7 @@ class Settings extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.white}}>
+      <View style={{flex: 1, justifyContent: 'center', backgroundColor: Colors.white}} >
         <CorporateButton onPress={() => this.props.onLogOut()} label={multiStrings.logOut}/>
       </View>
     )
@@ -31,7 +32,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch, props) => {
   return {
     onLogOut: () => {
-      dispatch(ConversationsActions.getConversationsList());
+      dispatch(LoginActions.setLogOut());
     },
   }
 }

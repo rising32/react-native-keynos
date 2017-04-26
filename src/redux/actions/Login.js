@@ -3,6 +3,7 @@ import * as Constants from 'keynos_app/src/webservices/Constants'
 import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webservices'
 import qs from 'qs'
 import multiStrings from 'keynos_app/src/commons/Multistrings'
+import { Alert, AsyncStorage } from 'react-native';
 import {Actions, ActionConst} from 'react-native-router-flux'
 import * as CompanyActions from 'keynos_app/src/redux/actions/Company'
 import * as Webservices from 'keynos_app/src/webservices/Webservices'
@@ -107,4 +108,21 @@ export function login(email, password) {
       dispatch({label: multiStrings.errorLogin, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})
     })
   }
+}
+
+export function setLogOut() {
+  return function (dispatch, getState) {
+    AsyncStorage.removeItem('token', (err) => {
+      dispatch(logOut())
+      AsyncStorage.removeItem('company', (err) => {
+        Actions.CompanySelection({type: "reset"})
+      });
+    });
+  }
+}
+
+export function logOut() {
+  return {
+    type: types.LOG_OUT
+  };
 }

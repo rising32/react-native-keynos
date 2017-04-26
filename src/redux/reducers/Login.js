@@ -20,6 +20,9 @@ export default function loginReducer(state = initialState, action = {}) {
         isFetching: action.value,
       };
 
+    case types.LOG_OUT:
+      return initialState;
+
     default:
       return state;
   }
