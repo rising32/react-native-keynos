@@ -18,7 +18,7 @@ class ConversationNavBar extends Component {
     let data = this.props.selected ? this.props.selected : {}
     let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
     return(
-      <View style={{position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', height: 100, alignItems: 'center', justifyContent: 'center', marginTop: offset, borderBottomWidth: 1, borderBottomColor: main_color}}>
+      <View style={{backgroundColor: Colors.white, position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', height: 100, alignItems: 'center', justifyContent: 'center', marginTop: offset, borderBottomWidth: 1, borderBottomColor: main_color}}>
         <TouchableOpacity style={{height: 50, width: 50, justifyContent: 'center', paddingLeft: 15}} onPress={() =>  Actions.pop({type: 'reset'})} >
           <Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22, width: 18, tintColor: main_color}} resizeMode={'contain'} />
         </TouchableOpacity>

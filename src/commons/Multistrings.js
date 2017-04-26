@@ -38,5 +38,6 @@ export default new LocalizedStrings({
 
     accept: 'Aceptar',
     edit: 'Editar',
+    logOut: 'Salir',
   },
 });

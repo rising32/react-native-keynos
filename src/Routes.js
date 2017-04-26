@@ -66,7 +66,7 @@ class Routes extends Component {
               icon={TabIcon}
               onPress={ ()=> Actions.Conversations({type: ActionConst.REFRESH})} >
               <Scene key="Conversations" component={Conversations} navBar={CustomNavBar} title={multiStrings.conversations} titleStyle={{color: Colors.white}} sceneStyle={{paddingTop: getNavBarOffset}}/>
-              <Scene key="Chat" component={Chat} navBar={ConversationNavBar} sceneStyle={{paddingTop: 100}} hideTabBar />
+              <Scene key="Chat" component={Chat} navBar={ConversationNavBar} sceneStyle={{paddingTop: 100+offset}} hideTabBar />
             </Scene>
 
             <Scene

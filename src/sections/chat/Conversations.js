@@ -57,7 +57,6 @@ let mapDispatchToProps = (dispatch, props) => {
     },
 
     onConversationPress: (conversation) => {
-      console.log('dispatch',dispatch)
       dispatch(ConversationsActions.updateConversationSelected(conversation));
     },
   }
