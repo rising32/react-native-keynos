@@ -105,7 +105,11 @@ export function login(email, password) {
       }
     }).catch((error) => {
       dispatch(setFetching(false))
-      dispatch({label: multiStrings.errorLogin, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})
+      if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
+        dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
+      }else{
+        dispatch({label: multiStrings.errorLogin, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})
+      }
     })
   }
 }

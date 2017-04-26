@@ -154,22 +154,18 @@ class Chat extends Component {
   }
 
   render() {
-    console.log("this.state.minInputToolbarHeight: ", this.state.minInputToolbarHeight)
     return (
       <View style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          <GiftedChat
-            messages={this.state.messages}
-            loadEarlier={false}
-            onSend={this.onSend.bind(this)}
-            renderInputToolbar={this.renderInputToolbar.bind(this)}
-            minInputToolbarHeight={this.state.minInputToolbarHeight}
-            user={{
-              _id: 1,
-            }}
-          />
-        </View>
-
+        <GiftedChat
+          messages={this.state.messages}
+          loadEarlier={false}
+          onSend={this.onSend.bind(this)}
+          renderInputToolbar={this.renderInputToolbar.bind(this)}
+          minInputToolbarHeight={this.state.minInputToolbarHeight}
+          user={{
+            _id: 1,
+          }}
+        />
       </View>
     )
   }
