@@ -32,9 +32,11 @@ export default new LocalizedStrings({
     login: 'Login',
 
     chat: 'Chat',
-    files: 'Files',
-    settings: 'Settings',
+    conversations: 'Conversaciones',
+    files: 'Archivo',
+    settings: 'Ajustes',
 
     accept: 'Aceptar',
+    edit: 'Editar',
   },
 });

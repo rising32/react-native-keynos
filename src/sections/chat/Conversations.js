@@ -20,12 +20,12 @@ class Conversations extends Component {
 
   renderRow(rowData: object, sectionID: number, rowID: number) {
 		return(
-			<ConversationCell data={rowData} onPress={() => Actions.Chat()}/>
+			<ConversationCell data={rowData} onPress={() => {Actions.Chat(); this.props.onConversationPress(rowData)}}/>
 		)
 	}
 
   render() {
-    console.log('list',this.props.list)
+    //console.log('list',this.props.list)
     let list = this.props.list ? this.props.list : [{}, {}, {}]
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     let dataSource = ds.cloneWithRows(list);
@@ -54,6 +54,11 @@ let mapDispatchToProps = (dispatch, props) => {
   return {
     getConversationsList: () => {
       dispatch(ConversationsActions.getConversationsList());
+    },
+
+    onConversationPress: (conversation) => {
+      console.log('dispatch',dispatch)
+      dispatch(ConversationsActions.updateConversationSelected(conversation));
     },
   }
 }

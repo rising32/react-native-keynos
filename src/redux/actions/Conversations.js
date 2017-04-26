@@ -3,17 +3,17 @@ import * as Constants from 'keynos_app/src/webservices/Constants'
 import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webservices'
 
 
-function updateConversationsList(list, total) {
+function updateConversationsList(value) {
   return {
     type: types.UPDATE_CONVERSATIONS_LIST,
-    list,
-    total,
+    value
   }
 }
 
-function updateConversationsOffset(value) {
+export function updateConversationSelected(conversation) {
   return {
-    type: types.UPDATE_CONVERSATIONS_OFFSET,
+    type: types.UPDATE_CONVERSATION_SELECTED,
+    conversation
   }
 }
 

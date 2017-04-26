@@ -10,9 +10,10 @@ import { connect } from 'react-redux';
 
 class ConversationCell extends Component {
   render() {
-    let image = null
+    let bubleColor = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.data ? this.props.data : {}
-    let lastQuestion = data.conversation_tree && data.conversation_tree.next ? data.conversation_tree.next.nodes[0].text : ''
+    //let lastQuestion = data.conversation_tree && data.conversation_tree.next ? data.conversation_tree.next.nodes[0].text : ''
+    let lastQuestion = 'lalalalal'
 
 		return(
 			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 5, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
@@ -29,7 +30,7 @@ class ConversationCell extends Component {
         </View>
         <View style={{alignItems: 'center'}} >
           <Text style={{color: Colors.gray_chat, fontSize: 17}}>{'hora'}</Text>
-            <View style={{backgroundColor: Colors.blue_link, marginTop: 5, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
+            <View style={{backgroundColor: bubleColor, marginTop: 5, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
               <Text style={{color: Colors.white, fontSize: 11}}>{'1'}</Text>
             </View>
         </View>
@@ -46,7 +47,7 @@ let mapDispatchToProps = (dispatch, props) => {
 
 let mapStateToProps = (state) => {
 	return {
-
+    main_color: state.company.main_color
 	};
 };
 
