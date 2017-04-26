@@ -64,16 +64,18 @@ class Routes extends Component {
               key="ChatTab"
               title={multiStrings.conversations}
               icon={TabIcon}
-              onPress={ ()=> Actions.Conversations({type: ActionConst.REFRESH})} >
+              onPress={ ()=> Actions.Conversations({type: ActionConst.REFRESH})}
+            >
               <Scene key="Conversations" component={Conversations} navBar={CustomNavBar} title={multiStrings.conversations} titleStyle={{color: Colors.white}} sceneStyle={{paddingTop: getNavBarOffset}}/>
-              <Scene key="Chat" component={Chat} navBar={ConversationNavBar} sceneStyle={{paddingTop: 100+offset}} hideTabBar />
+              <Scene key="Chat" duration={1} component={Chat} navBar={ConversationNavBar} sceneStyle={{paddingTop: 100+offset}} hideTabBar />
             </Scene>
 
             <Scene
               key="SettingsTab"
               title={multiStrings.settings}
               icon={TabIcon}
-              onPress={ ()=> Actions.Settings({type: ActionConst.REFRESH})} >
+              onPress={ ()=> Actions.Settings({type: ActionConst.REFRESH})}
+            >
               <Scene key="Settings" component={Settings} navBar={CustomNavBar} title={multiStrings.settings} titleStyle={{color: Colors.white}} sceneStyle={{paddingTop: getNavBarOffset}}/>
             </Scene>
           </Scene>
