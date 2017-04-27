@@ -23,9 +23,6 @@ export default function companyReducer(state = initialState, action = {}) {
         bg_image: action.bg_image,
       };
 
-    case types.LOG_OUT:
-      return initialState;
-
     default:
       return state;
   }

@@ -172,7 +172,7 @@ export function setLogOut() {
     AsyncStorage.removeItem('token', (err) => {
       dispatch(logOut())
       AsyncStorage.removeItem('company', (err) => {
-        Actions.CompanySelection({type: "reset"})
+        Actions.Login({type: "reset"})
       });
     });
   }
