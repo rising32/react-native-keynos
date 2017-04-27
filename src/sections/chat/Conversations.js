@@ -17,7 +17,6 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 class Conversations extends Component {
   componentWillMount() {
     this.props.getConversationsList()
-    this.props.setUserDefault()
   }
 
   renderRow(rowData: object, sectionID: number, rowID: number) {
