@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {Actions} from 'react-native-router-flux'
 import moment from 'moment';
 
-import {Colors, Fonts, Utils} from 'keynos_app/src/commons/Commons'
+import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 //Redux
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ class ConversationCell extends Component {
     let bubleColor = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.data ? this.props.data : {}
     //let lastQuestion = data.conversation_tree && data.conversation_tree.next ? data.conversation_tree.next.nodes[0].text : ''
-    let lastQuestion = 'lalalalal'
+    let lastQuestion = Utils.formatConversationMessages(data)[0] ? Utils.formatConversationMessages(data)[0].text : ''
 
 		return(
 			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 5, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
@@ -29,7 +29,7 @@ class ConversationCell extends Component {
           </View>
         </View>
         <View style={{alignItems: 'center'}} >
-          <Text style={{color: Colors.gray_chat, fontSize: 17}}>{'hora'}</Text>
+          <Text style={{color: Colors.gray_chat, fontSize: 17}}>{'Ayer'}</Text>
           {/*
             <View style={{backgroundColor: bubleColor, marginTop: 5, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
               <Text style={{color: Colors.white, fontSize: 11}}>{'1'}</Text>

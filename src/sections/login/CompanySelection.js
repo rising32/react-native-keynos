@@ -48,7 +48,7 @@ class CompanySelection extends Component {
   render() {
     return (
       <View style={{flex: 1}} >
-        <ScrollView bouncs={false} >
+        <ScrollView bounces={false} >
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 30}} >
             <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.accessToCompany}</Text>
           </View>
