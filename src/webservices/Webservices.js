@@ -11,7 +11,7 @@ export function configureAxios(authToken){
 
 function refreshToken(response, dispatch) {
   if(dispatch && response && response.headers && response.headers.authorization){
-    dispatch(updateUserToken(response.headers.authorization))
+    dispatch(LoginActions.updateUserToken(response.headers.authorization))
   }
 }
 
