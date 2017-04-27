@@ -13,11 +13,17 @@ import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 class Settings extends Component {
+  onLogoutPress() {
+    Alert.alert(null, multiStrings.confirmLogOut, [
+      { text: multiStrings.cancel, onPress: () => {} },
+      { text: multiStrings.accept, onPress: () => this.props.onLogOut() }
+    ])
+  }
 
   render() {
     return (
       <View style={{flex: 1, justifyContent: 'center', backgroundColor: Colors.white}} >
-        <CorporateButton onPress={() => this.props.onLogOut()} label={multiStrings.logOut}/>
+        <CorporateButton onPress={() => this.onLogoutPress()} label={multiStrings.logOut}/>
       </View>
     )
   }

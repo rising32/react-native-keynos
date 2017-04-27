@@ -35,8 +35,10 @@ export default new LocalizedStrings({
     conversations: 'Conversaciones',
     files: 'Archivo',
     settings: 'Ajustes',
+    confirmLogOut: '¿Quieres cerrar sesión?',
 
     accept: 'Aceptar',
+    cancel: 'Cancelar',
     edit: 'Editar',
     logOut: 'Salir',
   },
