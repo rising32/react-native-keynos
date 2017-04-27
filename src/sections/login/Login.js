@@ -1,6 +1,6 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ScrollView} from 'react-native'
+import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ScrollView, Platform} from 'react-native'
 import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 // COMPONENTS
@@ -66,10 +66,14 @@ class Login extends Component {
   render() {
     let companyName = this.props.name
     let main_color = this.props.main_color
+    let offset = (Platform.OS === 'ios') ? 20 : 0
     return (
       <View style={{flex: 1}} >
         <ScrollView bounces={false} >
-          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 30}} >
+    			<TouchableOpacity style={{marginTop: offset, height: 50, width: 50, alignItems: 'center', justifyContent: 'center'}} onPress={() =>  Actions.pop({type: 'reset'})} >
+    				<Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22, width: 13, tintColor: main_color}} resizeMode={'contain'} />
+    			</TouchableOpacity>
+          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 30, marginBottom: 30}} >
             <Text style={{color: main_color, fontSize: 20, marginBottom: 5}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
           </View>
