@@ -27,7 +27,7 @@ export function getConversationsList() {
     }
 
     const fetchUrl = '/workspaces/' + workspaceId + '/conversations'
-    fetch(fetchUrl).then((response) => {
+    fetch(fetchUrl, dispatch).then((response) => {
       Constants.LOG_ENABLED && console.log("getConversationsList response: ", response)
       if(response.data && response.data.conversations)
         dispatch(updateConversationsList(response.data.conversations))
