@@ -1,6 +1,7 @@
 import React, { Alert, Linking } from 'react-native'
-import moment from 'moment';
+import moment from 'moment'
 import _ from 'lodash'
+import uuidV4 from 'uuid/v4'
 
 export function firstToUpperCase( str ) {
    return str.substr(0, 1).toUpperCase() + str.substr(1);
@@ -18,7 +19,7 @@ export function mailValidate(mail){
 }
 
 export function companyValidate(value) {
-  if(value && value.length > 2){
+  if(value && value.length > 1){
     return true
   }else{
     return false
@@ -50,56 +51,66 @@ export function openUrl(url){
   });
 }
 
-export function formatConversationMessages(conversation) {
+export function formatHistoryMessages(conversation) {
   let messages = []
-  console.log("formatConversationMessages conversation: ", conversation)
 
-  if(conversation.conversation_tree && conversation.conversation_tree.history){
-    _.map(conversation.conversation_tree.history, (item) => {
+  if(conversation && conversation.conversation_tree && conversation.conversation_tree.history){
+    _.map(conversation.conversation_tree.history, (bubble) => {
+      let isBot = bubble.bubble_type == "bot" ? true : false
       let user = {
-        name: item.interlocutor,
-        _id: item.bubble_type == "bot" ? 2 : 1
+        _id: isBot ? 2 : 1,
+        name: bubble.interlocutor,
+        avatar: isBot && conversation.bot_image ? conversation.bot_image : null
       }
 
-      _.map(item.nodes, (node) => {
-        if(node.nodeable_type == "App\\NodeText" || node.nodeable_type == "App\\NodeFreeText") {
-          messages.push({_id: item.bubble_id + node.node_id, user: user, text: node.text})
+      if(bubble.nodes && bubble.nodes.length) {
+        let node = bubble.nodes[0]
+        if(node.nodeable_type == "App\\NodeText") {
+          messages.push({_id: uuidV4(), user: user, text: node.text})
         } else if(node.nodeable_type == "App\\NodeImage") {
-          messages.push({_id: item.bubble_id + node.node_id, user: user, image: node.image_path})
+          messages.push({_id: uuidV4(), user: user, image: node.image_path})
         }
-      })
-    })
-  }
-
-  if(conversation.conversation_tree && conversation.conversation_tree.next){
-    let item = conversation.conversation_tree.next
-    let user = {
-      name: item.interlocutor,
-      _id: item.bubble_type == "bot" ? 2 : 1
-    }
-
-    _.map(item.nodes, (node) => {
-      if(node.nodeable_type == "App\\NodeText" || node.nodeable_type == "App\\NodeFreeText") {
-        messages.push({_id: item.bubble_id + node.node_id, user: user, text: node.text})
-      } else if(node.nodeable_type == "App\\NodeImage") {
-        messages.push({_id: item.bubble_id + node.node_id, user: user, image: node.image_path})
       }
     })
   }
 
-  console.log("formatConversationMessages messages: ", messages)
   return messages
 }
 
-/*
-{
-  _id: 1,
-  text: 'Hello developer',
-  createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-  user: {
-    _id: 2,
-    name: 'React Native',
-    avatar: 'https://facebook.github.io/react/img/logo_og.png',
-  },
-},
-*/
+export function formatNextmessage(conversation) {
+  if(conversation.conversation_tree && conversation.conversation_tree.next && conversation.conversation_tree.next.length) {
+
+    let bubblesList = conversation.conversation_tree.next
+
+    if(bubblesList[0].bubble_type == "bot") {
+      return {type: "bot", bubble_id: bubble.bubble_id}
+    }
+
+    if(bubblesList.length == 1) {
+      // Type text/image
+      let bubble = conversation.conversation_tree.next[0]
+      if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeImage"){
+        return { type: "image", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }
+      } else if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeFreeText") {
+        return { type: "text", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }
+      } else {
+        return null
+      }
+    } else {
+      // Type options
+      let options = []
+      _.map(conversation.conversation_tree.next, (bubble) => {
+        if(bubble.nodes && bubble.nodes.length) {
+          let node = bubble.nodes[0]
+          if(node.nodeable_type == "App\\NodeText") {
+            options.push({bubble_id: bubble.bubble_id, node_id: node.node_id, text: node.text})
+          }
+        }
+      })
+
+      return { type: "options", options: options}
+    }
+  } else {
+    return null
+  }
+}

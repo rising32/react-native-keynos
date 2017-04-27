@@ -31,7 +31,7 @@ class Settings extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    list: state.conversations.list,
+    
   }
 }
 

@@ -9,7 +9,7 @@ import * as CompanyActions from 'keynos_app/src/redux/actions/Company'
 import * as Webservices from 'keynos_app/src/webservices/Webservices'
 
 export function updateUserToken(value) {
-  Webservices.configureAxios('Bearer ' + value)
+  Webservices.configureAxios(value)
   return {
     type: types.UPDATE_LOGIN_TOKEN,
     value,
@@ -93,7 +93,7 @@ export function login(email, password) {
 
       if(response.ok && response.data){
         let data = response.data
-        dispatch(updateUserToken(data.api_token))
+        dispatch(updateUserToken('Bearer ' + data.api_token))
         if(response.onboarding_conversation_id) {
           //Resolver cuestionario con id onboarding_conversation_id
           Actions.TabBar({type: ActionConst.RESET})
