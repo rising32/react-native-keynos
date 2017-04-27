@@ -24,7 +24,7 @@ export default new LocalizedStrings({
     mail: 'Mail',
     password: 'Contraseña',
     access: 'Entrar',
-    rememberPassword: 'Recuerda contraseña',
+    rememberPassword: 'Recordar contraseña',
     terms1: 'Al presionar "entrar" ',
     terms2: 'acepto las condiciones de uso',
     terms3: ' y la ',
