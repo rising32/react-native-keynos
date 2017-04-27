@@ -14,6 +14,10 @@ export default new LocalizedStrings({
     errorCredentials: 'Email y/o contraseña incorrectos',
     errorLogin: 'Error en el inicio de sesión',
 
+    errorFetchConversationList: 'Error obteniendo las conversaciones',
+    errorPostQuestionResponse: 'Error enviando su respuesta',
+    errorFetchingNextQuestion: 'Error obteniendo la siguiente pregunta',
+
     tutorialTitle: 'Todas tus conversaciones',
     tutorialSubtitle: 'Escucha y habla.\nAprende y resuelve.',
     accessToCompany: 'Accede a tu empresa',

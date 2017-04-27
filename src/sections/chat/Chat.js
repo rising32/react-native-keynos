@@ -14,12 +14,12 @@ class Chat extends Component {
     super(props)
     this.state = {
       responseType: 'text',
-      minInputToolbarHeight: 44.5,
+      minInputToolbarHeight: 300,
     }
   }
 
   onSend(messages = []) {
-    this.setState({responseType: 'options'})
+
   }
 
   renderBubble(props) {
@@ -35,16 +35,20 @@ class Chat extends Component {
   }
 
   renderInputToolbar(props) {
-    if(this.state.responseType == "text") {
+    let question = this.props.question
+    if(question && question.type == "text") {
       return (
         <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }}>
           <InputToolbar {...props} />
         </View>
       )
-    } else if(this.state.responseType == "options") {
+    } else if(question && question.type == "options") {
       return (
         <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }}>
-          <AnswerMultipleOptions options={[1,2,3]} onPress={(opt) => this.setState({responseType: 'text'})} />
+          <AnswerMultipleOptions
+            options={question.options}
+            onPress={ (opt) => console.log("selected opt: ", opt) }
+          />
         </View>
       )
     }
@@ -52,16 +56,17 @@ class Chat extends Component {
 
   calculateMinInputToolbarHeight(layout) {
     if(layout && layout.height){
+      console.log("layout.height: ", layout.height)
       this.setState({minInputToolbarHeight: layout.height})
     }
   }
 
   render() {
     let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
-    let messages = Utils.formatConversationMessages(this.props.conversation)
+    let messages = this.props.messagesList
 
     return (
-      <Image style={{flex: 1}} source={bgImage} resizeMode={'cover'} >
+      <Image style={{flex: 1, backgroundColor: 'gray'}} source={bgImage} resizeMode={'cover'} >
 
         <GiftedChat
           messages={messages}
@@ -70,7 +75,6 @@ class Chat extends Component {
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderBubble={this.renderBubble.bind(this)}
           minInputToolbarHeight={this.state.minInputToolbarHeight}
-          renderAvatar={ () => null }
           user={{ _id: 1 }}
         />
       </Image>
@@ -83,6 +87,8 @@ let mapStateToProps = (state) => {
     bg_image: state.company.bg_image,
     main_color: state.company.main_color,
     conversation: state.conversations.selected,
+    messagesList: state.conversations.messagesList,
+    question: state.conversations.question,
   }
 }
 

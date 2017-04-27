@@ -12,8 +12,7 @@ class ConversationCell extends Component {
   render() {
     let bubleColor = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.data ? this.props.data : {}
-    //let lastQuestion = data.conversation_tree && data.conversation_tree.next ? data.conversation_tree.next.nodes[0].text : ''
-    let lastQuestion = Utils.formatConversationMessages(data)[0] ? Utils.formatConversationMessages(data)[0].text : ''
+    let lastQuestion = 'pendiente'
 
 		return(
 			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 5, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}

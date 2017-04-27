@@ -21,13 +21,13 @@ class Conversations extends Component {
 
   renderRow(rowData: object, sectionID: number, rowID: number) {
 		return(
-			<ConversationCell data={rowData} onPress={() => {Actions.Chat(); this.props.onConversationPress(rowData)}}/>
+			<ConversationCell data={rowData} onPress={ () => this.props.onConversationPress(rowData) }/>
 		)
 	}
 
   render() {
     //console.log('list',this.props.list)
-    let list = this.props.list ? this.props.list : [{}, {}, {}]
+    let list = this.props.list ? this.props.list : []
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     let dataSource = ds.cloneWithRows(list);
 
@@ -39,7 +39,8 @@ class Conversations extends Component {
 					contentContainerStyle={{}}
 					dataSource={dataSource}
 					enableEmptySections={true}
-					renderRow={this.renderRow.bind(this)} />
+					renderRow={this.renderRow.bind(this)}
+        />
       </View>
     )
   }
@@ -47,7 +48,7 @@ class Conversations extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    list: state.conversations.list,
+    list: state.conversations.conversationsList,
     token: state.login.token,
     company: state.company,
     id: state.company.id,
@@ -62,15 +63,15 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch, props) => {
   return {
     getConversationsList: () => {
-      dispatch(ConversationsActions.getConversationsList());
+      dispatch(ConversationsActions.getConversationsList())
     },
 
     setUserDefault: () => {
-      dispatch(LoginActions.setUserDefault());
+      dispatch(LoginActions.setUserDefault())
     },
 
     onConversationPress: (conversation) => {
-      dispatch(ConversationsActions.updateConversationSelected(conversation));
+      dispatch(ConversationsActions.initConversation(conversation))
     },
   }
 }

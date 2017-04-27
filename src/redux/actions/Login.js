@@ -9,7 +9,7 @@ import * as CompanyActions from 'keynos_app/src/redux/actions/Company'
 import * as Webservices from 'keynos_app/src/webservices/Webservices'
 
 export function updateUserToken(value) {
-  Webservices.configureAxios('Bearer ' + value)
+  Webservices.configureAxios(value)
   return {
     type: types.UPDATE_LOGIN_TOKEN,
     value,
