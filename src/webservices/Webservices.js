@@ -10,6 +10,7 @@ export function configureAxios(authToken){
 
 export function fetch (url) {
   return axios.get(url).then((response) => {
+    console.log('response del fetch', response)
     return response.data ? response.data : null
   }).catch((error) => {
     if (error.response) {

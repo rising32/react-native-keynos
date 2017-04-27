@@ -109,9 +109,13 @@ class Login extends Component {
               onChangeText={(value) => this.onChangePassword(value)}
     				/>
           </View>
-          <TouchableOpacity style={{backgroundColor: main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
+          <TouchableOpacity style={{backgroundColor: main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, marginHorizontal: 20}}
     				onPress={() => this.props.login(this.state.email, this.state.password)}>
     				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.access}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', padding: 12, margin: 20, marginTop: 0}}
+    				onPress={() => Utils.openUrl('https://acme.keynos.com/password-reset.php')}>
+    				<Text style={{color: main_color, fontSize: 15}}>{multiStrings.rememberPassword}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
             <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25, marginHorizontal: 40}}
