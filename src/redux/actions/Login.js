@@ -94,6 +94,8 @@ export function login(email, password) {
       if(response.ok && response.data){
         let data = response.data
         dispatch(updateUserToken(data.api_token))
+        dispatch(setUserDefault(data.api_token))
+
         if(response.onboarding_conversation_id) {
           //Resolver cuestionario con id onboarding_conversation_id
           Actions.TabBar({type: ActionConst.RESET})
@@ -114,7 +116,7 @@ export function login(email, password) {
   }
 }
 
-export function setUserDefault(){
+export function setUserDefault(token){
   return function (dispatch, getState) {
     var state = getState()
     let company = {
@@ -126,7 +128,10 @@ export function setUserDefault(){
       bg_image: state.company.bg_image ? state.company.bg_image : '',
     }
     AsyncStorage.setItem('company', JSON.stringify(company), () => {
-      //console.log('guardados en AsyncStorage')
+      //console.log('guardado company en AsyncStorage')
+    });
+    AsyncStorage.setItem('token', JSON.stringify(token), () => {
+      //console.log('guardado token en AsyncStorage')
     });
   }
 }
@@ -141,7 +146,7 @@ export function restoreUserDefault() {
       }
       if(token){
         token = JSON.parse(token)
-        Webservices.configureAxios(token)
+        Webservices.configureAxios('Bearer ' + token)
         dispatch(updateUserToken(token))
         AsyncStorage.getItem('company', (err, companyLoaded) => {
           companyLoaded = JSON.parse(companyLoaded)
@@ -153,7 +158,7 @@ export function restoreUserDefault() {
             main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
             bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
           }
-          console.log('recupero company', company)
+          //console.log('recupero company', company)
           dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
           Actions.TabBar({type: 'reset'})
         });
