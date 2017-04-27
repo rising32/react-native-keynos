@@ -15,7 +15,7 @@ export function getUserInfo(comeFromLogin) {
   return (dispatch, getState) => {
 
     const fetchUrl = Constants.EP_ME
-    fetch(fetchUrl).then((response) => {
+    fetch(fetchUrl, dispatch).then((response) => {
       Constants.LOG_ENABLED && console.log("getUserInfo response: ", response)
 
 

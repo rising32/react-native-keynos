@@ -37,7 +37,7 @@ export function loginCompany(company) {
     }
 
     const fetchUrl = '/login/company-exist?' + qs.stringify(params, {skipNulls: true})
-    post(fetchUrl).then((response) => {
+    post(fetchUrl, null, dispatch).then((response) => {
       Constants.LOG_ENABLED && console.log("loginCompany response: ", response)
       dispatch(setFetching(false))
 
@@ -87,7 +87,7 @@ export function login(email, password) {
     }
 
     const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
-    post(fetchUrl).then((response) => {
+    post(fetchUrl, null, dispatch).then((response) => {
       Constants.LOG_ENABLED && console.log("login response: ", response)
       dispatch(setFetching(false))
 
