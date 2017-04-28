@@ -43,7 +43,7 @@ export function getConversationsList() {
     }
 
     const fetchUrl = '/workspaces/' + workspaceId + '/conversations'
-    fetch(fetchUrl, dispatch).then((response) => {
+    fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("getConversationsList response: ", response)
       if(response.data && response.data.conversations)
         dispatch(updateConversationsList(response.data.conversations))
@@ -55,7 +55,6 @@ export function getConversationsList() {
 
 export function initConversation(conversation) {
   return (dispatch, getState) => {
-
     // Update conversation
     dispatch(updateConversationSelected(conversation))
 
@@ -76,7 +75,8 @@ export function initConversation(conversation) {
     }
 
     Actions.Chat()
-    
+
+    //dispatch(fetchNextBubble(1))
   }
 }
 
@@ -85,7 +85,7 @@ export function fetchNextBubble(bubbleId) {
     const state = getState()
 
     const fetchUrl = '/conversations/bubbles/' + bubbleId + '/next'
-    fetch(fetchUrl, dispatch).then((response) => {
+    fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("postConversationsResponse response: ", response)
       /*
       if(response.data && response.data.conversations)

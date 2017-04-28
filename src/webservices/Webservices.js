@@ -1,6 +1,5 @@
 import axios from 'axios'
 import * as Constants from './Constants'
-import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 
 export function configureAxios(authToken){
   Constants.LOG_ENABLED && console.log("configureAxios token: ", authToken)
@@ -9,15 +8,8 @@ export function configureAxios(authToken){
   axios.defaults.headers.post['Content-type'] = 'application/json'
 }
 
-function refreshToken(response, dispatch) {
-  if(dispatch && response && response.headers && response.headers.authorization){
-    dispatch(LoginActions.updateUserToken(response.headers.authorization))
-  }
-}
-
-export function fetch (url, dispatch) {
+export function fetch (url) {
   return axios.get(url).then((response) => {
-    refreshToken(response, dispatch)
     return response.data ? response.data : null
   }).catch((error) => {
     if (error.response) {
@@ -28,9 +20,8 @@ export function fetch (url, dispatch) {
   });
 }
 
-export function post (url, data, dispatch) {
+export function post (url, data) {
   return axios.post(url, data).then((response) => {
-    refreshToken(response, dispatch)
     return response.data ? response.data : null
   }).catch((error) => {
     if (error.response) {
@@ -41,9 +32,8 @@ export function post (url, data, dispatch) {
   });
 }
 
-export function put (url, data, dispatch) {
+export function put (url, data) {
   return axios.put(url, data).then((response) => {
-    refreshToken(response, dispatch)
     return response.data ? response.data : null
   }).catch((error) => {
     if (error.response) {
@@ -54,9 +44,8 @@ export function put (url, data, dispatch) {
   });
 }
 
-export function patch (url, data, dispatch) {
+export function patch (url, data) {
   return axios.patch(url, data).then((response) => {
-    refreshToken(response, dispatch)
     return response.data ? response.data : null
   }).catch((error) => {
     if (error.response) {
@@ -67,9 +56,8 @@ export function patch (url, data, dispatch) {
   });
 }
 
-export function remove (url, dispatch) {
+export function remove (url) {
   return axios.delete(url).then((response) => {
-    refreshToken(response, dispatch)
     return response.data ? response.data : null
   }).catch((error) => {
     if (error.response) {
