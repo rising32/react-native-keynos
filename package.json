@@ -8,6 +8,7 @@
 	},
 	"dependencies": {
 		"axios": "0.16.1",
+		"immutability-helper": "^2.2.0",
 		"lodash": "4.17.4",
 		"moment": "2.18.1",
 		"qs": "^6.4.0",
