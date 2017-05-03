@@ -116,6 +116,31 @@ export function login(email, password) {
   }
 }
 
+export function refreshToken(token) {
+  return (dispatch, getState) => {
+
+    const state = getState()
+    if(!token) {
+      return
+    }
+    const fetchUrl = '/refresh-token'
+    post(fetchUrl).then((response) => {
+      Constants.LOG_ENABLED && console.log("refreshToken response: ", response)
+      dispatch(setFetching(false))
+      if(response.ok){
+        dispatch(updateUserToken(token))
+        Actions.TabBar({type: 'reset'})
+      }else{
+        Actions.Tutorial({type: 'reset'})
+      }
+    }).catch((error) => {
+      Constants.LOG_ENABLED && console.log("refreshToken error: ", error)
+      Actions.Tutorial({type: 'reset'})
+      dispatch(setFetching(false))
+    })
+  }
+}
+
 export function setUserDefault(token){
   return function (dispatch, getState) {
     var state = getState()
@@ -145,9 +170,9 @@ export function restoreUserDefault() {
         timer = null
       }
       if(token){
-        token = JSON.parse(token)
-        Webservices.configureAxios('Bearer ' + token)
-        dispatch(updateUserToken(token))
+        //console.log('al recuperar ',JSON.parse(token))
+        dispatch(updateUserToken(JSON.parse(token)))
+        dispatch(refreshToken(JSON.parse(token)))
         AsyncStorage.getItem('company', (err, companyLoaded) => {
           companyLoaded = JSON.parse(companyLoaded)
           let company = {
@@ -160,7 +185,6 @@ export function restoreUserDefault() {
           }
           //console.log('recupero company', company)
           dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
-          Actions.TabBar({type: 'reset'})
         });
       } else {
         timer = setTimeout(() => {
