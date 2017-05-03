@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
+import {CustomBubble} from 'keynos_app/src/widgets'
 
 
 class Chat extends Component {
@@ -24,7 +25,7 @@ class Chat extends Component {
 
   renderBubble(props) {
     return (
-      <Bubble
+      <CustomBubble
         {...props}
         wrapperStyle={{
           right: { backgroundColor: this.props.main_color },
