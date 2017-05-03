@@ -17,6 +17,7 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 class Conversations extends Component {
 
   componentWillMount() {
+    console.log('componentWillMount')
     this.props.getConversationsList()
   }
 

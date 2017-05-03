@@ -143,12 +143,9 @@ export function refreshToken(token) {
             main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
             bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
           }
-
           dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
+          Actions.TabBar({type: 'reset'})
         });
-
-        // Go home
-        Actions.TabBar({type: 'reset'})
       }else{
         Actions.Tutorial({type: 'reset'})
       }
