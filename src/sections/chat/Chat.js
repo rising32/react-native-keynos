@@ -7,6 +7,7 @@ import { GiftedChat, InputToolbar, Bubble } from 'react-native-gifted-chat'
 import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
+import { CustomMessageText, CustomMessage } from 'keynos_app/src/widgets'
 
 // REDUX
 import { connect } from 'react-redux'
@@ -39,6 +40,20 @@ class Chat extends Component {
           left: { backgroundColor: Colors.white }
         }}
       />
+    )
+  }
+
+  renderMessage(props) {
+    return (
+      <CustomMessage
+        {...props}
+      />
+    )
+  }
+
+  renderMessageText(props) {
+    return (
+      <CustomMessageText {...props}/>
     )
   }
 
@@ -82,6 +97,8 @@ class Chat extends Component {
           onSend={this.onSend.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderBubble={this.renderBubble.bind(this)}
+          renderMessage={this.renderMessage.bind(this)}
+          renderMessageText={this.renderMessageText.bind(this)}
           minInputToolbarHeight={this.state.minInputToolbarHeight}
           user={{ _id: 1 }}
         />
