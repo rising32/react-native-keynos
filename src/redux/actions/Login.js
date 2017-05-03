@@ -131,6 +131,8 @@ export function refreshToken(token) {
       if(response.data.ok){
         // Set token
         dispatch(updateUserToken(response.headers.authorization))
+        // Save token in AsyncStorage
+        AsyncStorage.setItem('token', JSON.stringify(response.headers.authorization), () => { });
 
         // Load saved company
         AsyncStorage.getItem('company', (err, companyLoaded) => {

@@ -8,11 +8,39 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 //Redux
 import { connect } from 'react-redux';
 
+// MULTILENGUAJE
+import multiStrings from 'keynos_app/src/commons/Multistrings'
+
 class ConversationCell extends Component {
   render() {
     let bubleColor = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.data ? this.props.data : {}
-    let lastQuestion = 'pendiente'
+    let tree = data.conversation_tree.history
+
+    let lastNode = null
+    let lastQuestion = ''
+    if(tree[tree.length-1].nodes.length && tree[tree.length-1].nodes.length>0) {
+      lastNode = tree[tree.length-1].nodes[tree[tree.length-1].nodes.length-1]
+      if(lastNode.nodeable_type=="App\\NodeText") {
+        lastQuestion = lastNode.text
+      } else if(lastNode.nodeable_type=="App\\NodeImage") {
+        lastQuestion = multiStrings.image
+      }
+    }
+
+    let timeAdded = ''
+    let yesterday = moment().add(-1, 'days')
+    let date = ''
+    if(tree[tree.length-1].read_on) {
+      date = moment(tree[tree.length-1].read_on)
+      if(date.dayOfYear() < yesterday.dayOfYear()) {
+        timeAdded = moment(tree[tree.length-1].read_on).format('L')
+      } else if(date.dayOfYear() == yesterday.dayOfYear()) {
+        timeAdded = multiStrings.yesterday
+      } else {
+        timeAdded = moment(tree[tree.length-1].read_on).format('HH:mm')
+      }
+    }
 
 		return(
 			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 5, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
@@ -28,7 +56,7 @@ class ConversationCell extends Component {
           </View>
         </View>
         <View style={{alignItems: 'center'}} >
-          <Text style={{color: Colors.gray_chat, fontSize: 17}}>{'Ayer'}</Text>
+          <Text style={{color: Colors.gray_chat, fontSize: 14}}>{timeAdded}</Text>
           {/*
             <View style={{backgroundColor: bubleColor, marginTop: 5, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
               <Text style={{color: Colors.white, fontSize: 11}}>{'1'}</Text>
