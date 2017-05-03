@@ -81,14 +81,14 @@ export function formatNextmessage(conversation) {
   if(conversation.conversation_tree && conversation.conversation_tree.next && conversation.conversation_tree.next.length) {
 
     let bubblesList = conversation.conversation_tree.next
+    let bubble = bubblesList[0]
 
-    if(bubblesList[0].bubble_type == "bot") {
+    if(bubble.bubble_type == "bot") {
       return {type: "bot", bubble_id: bubble.bubble_id}
     }
 
     if(bubblesList.length == 1) {
       // Type text/image
-      let bubble = conversation.conversation_tree.next[0]
       if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeImage"){
         return { type: "image", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }
       } else if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeFreeText") {
