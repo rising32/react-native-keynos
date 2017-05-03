@@ -56,8 +56,11 @@ export function getConversationsList() {
 
 export function initConversation(conversation) {
   return (dispatch, getState) => {
+
     // Update conversation
     dispatch(updateConversationSelected(conversation))
+    dispatch(updateConversationMessagesList([]))
+    dispatch(updateConversationQuestion(null))
 
     // Get history messages list
     let historyBubblesArray = conversation.conversation_tree && conversation.conversation_tree.history ? conversation.conversation_tree.history : []
@@ -74,7 +77,7 @@ export function initConversation(conversation) {
 
         // Add current next message to formatMessages list
         let formatNewHistoryMessages = Utils.formatHistoryMessages([formatQuestion.bubble])
-        formatMessages = formatMessages.concat(formatNewHistoryMessages)
+        formatMessages = _.concat(formatMessages, formatNewHistoryMessages)
 
         // Get next question
         dispatch(fetchNextBubble(formatQuestion.bubble_id))
@@ -102,14 +105,14 @@ export function fetchNextBubble(bubbleId) {
       if(response.data && response.data.bot_bubbles && response.data.bot_bubbles.length) {
 
         // Format answer message
-        let formatBotAnswer = Utils.formatHistoryMessages(response.data.bot_bubbles)
+        let formatAnswer = Utils.formatHistoryMessages(response.data.bot_bubbles)
 
         // Get current messages list
         const state = getState()
         const messagesList = state.conversations.messagesList
 
         // Add format answer message to current messages list
-        let newMessagesList = formatBotAnswer.concat(messagesList)
+        let newMessagesList = _.concat(messagesList, formatAnswer)
         dispatch(updateConversationMessagesList(newMessagesList))
       }
 
@@ -138,7 +141,9 @@ export function postBubbleResponse(bubbleId, nodeId, text) {
       Constants.LOG_ENABLED && console.log("postBubbleResponse response: ", response)
 
       if(response.data && response.data.answer) {
-
+        // Delete current question
+        dispatch(updateConversationQuestion(null))
+        
         // Format answer message
         let formatAnswer = Utils.formatHistoryMessages(response.data.answer)
 
@@ -147,8 +152,7 @@ export function postBubbleResponse(bubbleId, nodeId, text) {
         const messagesList = state.conversations.messagesList
 
         // Add format answer message to current messages list
-        let newMessagesList = messagesList.concat(formatAnswer)
-      
+        let newMessagesList = _.concat(messagesList, formatAnswer)
         dispatch(updateConversationMessagesList(newMessagesList))
 
         // Get next question

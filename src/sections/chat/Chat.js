@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
 import { CustomMessageText, CustomMessage } from 'keynos_app/src/widgets'
+import _ from 'lodash'
 
 // REDUX
 import { connect } from 'react-redux'
@@ -22,6 +23,10 @@ class Chat extends Component {
       responseType: 'text',
       minInputToolbarHeight: 194.5,
     }
+  }
+
+  componentWillUnmount() {
+    this.props.getConversationsList()
   }
 
   onSend(messages = []) {
@@ -79,14 +84,14 @@ class Chat extends Component {
 
   calculateMinInputToolbarHeight(layout) {
     if(layout && layout.height){
-      //console.log("layout.height: ", layout.height)
       this.setState({minInputToolbarHeight: layout.height})
     }
   }
 
   render() {
     let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
-    let messages = this.props.messagesList.reverse()
+    let list = _.clone(this.props.messagesList)
+    let messages = list.reverse()
 
     return (
       <Image style={{ flex: 1, backgroundColor: Colors.chatListBg }} source={ bgImage } resizeMode={'cover'} >
@@ -121,12 +126,13 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch, props) => {
   return {
     onAnswerTapped: (type, bubble_id, answer) => {
-
       if(type && bubble_id && answer) {
         dispatch(ConversationsActions.onAnswerTapped(type, bubble_id, answer))
       }
     },
-
+    getConversationsList: () => {
+      dispatch(ConversationsActions.getConversationsList())
+    },
   }
 }
 
