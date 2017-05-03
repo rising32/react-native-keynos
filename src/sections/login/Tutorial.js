@@ -7,7 +7,6 @@ import {Colors} from 'keynos_app/src/commons/Commons'
 import { Actions } from 'react-native-router-flux'
 import AppIntro from 'react-native-app-intro';
 import Swiper from 'react-native-swiper'
-import HTMLView from 'react-native-htmlview';
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
@@ -69,10 +68,7 @@ class Tutorial extends Component {
         </Swiper>
         {this.renderSkipButton()}
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', margin: 20, marginBottom: 60}} >
-          <HTMLView
-            value={"En el puesto Nº3: <a href='https://www.youtube.com/watch?v=fDW04R2lllQ' target='_blank'>este vídeo</a>"}
-            
-          />
+          <Image source={require('keynos_app/src/resources/logo.png')} style={{height: 30, width: 136}} resizeMode={'contain'} />
         </View>
       </View>
     );

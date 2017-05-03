@@ -5,7 +5,8 @@ import ConversationCell from 'keynos_app/src/widgets/ConversationCell'
 import CustomNavBar from 'keynos_app/src/widgets/CustomNavBar'
 import ConversationNavBar from 'keynos_app/src/widgets/ConversationNavBar'
 import CorporateButton from 'keynos_app/src/widgets/CorporateButton'
-import CustomBubble from 'keynos_app/src/widgets/customChat/CustomBubble'
+import CustomMessageText from 'keynos_app/src/widgets/customChat/CustomMessageText'
+import CustomMessage from 'keynos_app/src/widgets/customChat/CustomMessage'
 
 export {
   TabIcon,
@@ -15,5 +16,6 @@ export {
   CustomNavBar,
   ConversationNavBar,
   CorporateButton,
-  CustomBubble
+  CustomMessageText,
+  CustomMessage
 }

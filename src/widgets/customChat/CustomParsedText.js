@@ -71,16 +71,6 @@ class CustomParsedText extends React.Component {
     });
   }
 
-  // render() {
-  //   return (
-  //     <ReactNative.Text
-  //       ref={ref => this._root = ref}
-  //       {...this.props}>
-  //       {this.getParsedText()}
-  //     </ReactNative.Text>
-  //   );
-  // }
-
   render() {
     console.log('CustomParsedText',this.props)
     let htmlText = '<p>' + this.props.children + '</p>'
