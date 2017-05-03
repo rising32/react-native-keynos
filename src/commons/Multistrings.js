@@ -46,5 +46,7 @@ export default new LocalizedStrings({
     cancel: 'Cancelar',
     edit: 'Editar',
     logOut: 'Salir',
+    yesterday: 'Ayer',
+    image: 'Imagen',
   },
 });
