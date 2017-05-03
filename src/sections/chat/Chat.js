@@ -1,12 +1,17 @@
+// BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View, StyleSheet, TouchableOpacity, Image, Text, Alert} from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, Alert } from 'react-native'
 
+// COMPONENTS
 import { GiftedChat, InputToolbar, Bubble } from 'react-native-gifted-chat'
-import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
 import {CustomBubble} from 'keynos_app/src/widgets'
+
+// REDUX
+import { connect } from 'react-redux'
+import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversations'
 
 
 class Chat extends Component {
@@ -15,12 +20,15 @@ class Chat extends Component {
     super(props)
     this.state = {
       responseType: 'text',
-      minInputToolbarHeight: 300,
+      minInputToolbarHeight: 194.5,
     }
   }
 
   onSend(messages = []) {
-
+    if(messages.length) {
+      let message = messages[0]
+      this.props.onAnswerTapped(this.props.question.type, this.props.question.bubble_id, message.text)
+    }
   }
 
   renderBubble(props) {
@@ -39,16 +47,16 @@ class Chat extends Component {
     let question = this.props.question
     if(question && question.type == "text") {
       return (
-        <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }}>
+        <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }} style={{backgroundColor: Colors.chatInputBg}} >
           <InputToolbar {...props} />
         </View>
       )
     } else if(question && question.type == "options") {
       return (
-        <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }}>
+        <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }} style={{backgroundColor: Colors.chatInputBg}} >
           <AnswerMultipleOptions
             options={question.options}
-            onPress={ (opt) => console.log("selected opt: ", opt) }
+            onPress={ (opt) => this.props.onAnswerTapped(question.type, opt.bubble_id, opt.node_id) }
           />
         </View>
       )
@@ -57,7 +65,7 @@ class Chat extends Component {
 
   calculateMinInputToolbarHeight(layout) {
     if(layout && layout.height){
-      console.log("layout.height: ", layout.height)
+      //console.log("layout.height: ", layout.height)
       this.setState({minInputToolbarHeight: layout.height})
     }
   }
@@ -66,8 +74,11 @@ class Chat extends Component {
     let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
     let messages = this.props.messagesList
 
+    //console.log("messages: ", messages)
+    //console.log("question: ", this.props.question)
+
     return (
-      <Image style={{flex: 1, backgroundColor: 'gray'}} source={bgImage} resizeMode={'cover'} >
+      <Image style={{ flex: 1, backgroundColor: Colors.chatListBg }} source={ bgImage } resizeMode={'cover'} >
 
         <GiftedChat
           messages={messages}
@@ -78,6 +89,7 @@ class Chat extends Component {
           minInputToolbarHeight={this.state.minInputToolbarHeight}
           user={{ _id: 1 }}
         />
+
       </Image>
     )
   }
@@ -95,6 +107,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch, props) => {
   return {
+    onAnswerTapped: (type, bubble_id, answer) => {
+
+      if(type && bubble_id && answer)
+        dispatch(ConversationsActions.onAnswerTapped(type, bubble_id, answer))
+    },
 
   }
 }

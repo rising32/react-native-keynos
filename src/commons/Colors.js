@@ -12,3 +12,7 @@ export const green_active = 'rgba(205,130,100, 0.3)'
 export const red_error = '#E23E57'
 
 export const blue_link = '#0A83E6'
+
+
+export const chatListBg = 'rgba(0,0,0,0.07)'
+export const chatInputBg = 'rgba(0,0,0,0.1)'

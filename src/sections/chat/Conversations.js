@@ -1,10 +1,10 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ListView, AsyncStorage} from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, Alert, ListView, AsyncStorage } from 'react-native'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
-import {ConversationCell} from 'keynos_app/src/widgets/'
+import { ConversationCell } from 'keynos_app/src/widgets/'
 
 // REDUX
 import { connect } from 'react-redux'

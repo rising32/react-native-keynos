@@ -51,16 +51,17 @@ export function openUrl(url){
   });
 }
 
-export function formatHistoryMessages(conversation) {
+export function formatHistoryMessages(bubblesArray) {
   let messages = []
 
-  if(conversation && conversation.conversation_tree && conversation.conversation_tree.history){
-    _.map(conversation.conversation_tree.history, (bubble) => {
+  //if(conversation && conversation.conversation_tree && conversation.conversation_tree.history){
+  if(bubblesArray && bubblesArray.length){
+    _.map(bubblesArray, (bubble) => {
       let isBot = bubble.bubble_type == "bot" ? true : false
       let user = {
         _id: isBot ? 2 : 1,
         name: bubble.interlocutor,
-        avatar: isBot && conversation.bot_image ? conversation.bot_image : null
+        avatar: null
       }
 
       if(bubble.nodes && bubble.nodes.length) {
@@ -73,22 +74,22 @@ export function formatHistoryMessages(conversation) {
       }
     })
   }
-
-  return messages
+  return messages.reverse()
 }
 
-export function formatNextmessage(conversation) {
-  if(conversation.conversation_tree && conversation.conversation_tree.next && conversation.conversation_tree.next.length) {
 
-    let bubblesList = conversation.conversation_tree.next
+export function formatNextmessage(bubblesArray) {
 
-    if(bubblesList[0].bubble_type == "bot") {
-      return {type: "bot", bubble_id: bubble.bubble_id}
+  //if(conversation.conversation_tree && conversation.conversation_tree.next && conversation.conversation_tree.next.length) {
+  if(bubblesArray && bubblesArray.length) {
+    let bubble = bubblesArray[0]
+
+    if(bubble.bubble_type == "bot") {
+      return {type: "bot", bubble_id: bubble.bubble_id, bubble}
     }
 
-    if(bubblesList.length == 1) {
+    if(bubblesArray.length == 1) {
       // Type text/image
-      let bubble = conversation.conversation_tree.next[0]
       if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeImage"){
         return { type: "image", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }
       } else if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeFreeText") {
@@ -99,7 +100,7 @@ export function formatNextmessage(conversation) {
     } else {
       // Type options
       let options = []
-      _.map(conversation.conversation_tree.next, (bubble) => {
+      _.map(bubblesArray, (bubble) => {
         if(bubble.nodes && bubble.nodes.length) {
           let node = bubble.nodes[0]
           if(node.nodeable_type == "App\\NodeText") {
