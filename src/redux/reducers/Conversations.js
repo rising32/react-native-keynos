@@ -5,6 +5,7 @@ const initialState = {
   selected: null,
   messagesList: [],
   question: null,
+  isFetching: false,
 };
 
 export default function conversationsReducer(state = initialState, action = {}) {
@@ -32,6 +33,12 @@ export default function conversationsReducer(state = initialState, action = {}) 
       return {
         ...state,
         question: action.value,
+      };
+
+    case types.CONVERSATION_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.value,
       };
 
     case types.LOG_OUT:

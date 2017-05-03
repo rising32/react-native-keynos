@@ -5,6 +5,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, Alert, ListView, Async
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 import { ConversationCell } from 'keynos_app/src/widgets/'
+import { Spinner } from 'keynos_app/src/widgets/'
 
 // REDUX
 import { connect } from 'react-redux'
@@ -41,6 +42,7 @@ class Conversations extends Component {
 					enableEmptySections={true}
 					renderRow={this.renderRow.bind(this)}
         />
+        <Spinner visible={this.props.isFetching} />
       </View>
     )
   }
@@ -49,6 +51,7 @@ class Conversations extends Component {
 let mapStateToProps = (state) => {
   return {
     list: state.conversations.conversationsList,
+    isFetching: state.conversations.isFetching,
     token: state.login.token,
     company: state.company,
     id: state.company.id,

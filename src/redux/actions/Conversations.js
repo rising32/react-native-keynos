@@ -6,6 +6,13 @@ import { Utils } from 'keynos_app/src/commons/Commons'
 import { Actions } from 'react-native-router-flux'
 import _ from 'lodash'
 
+function setFetching(value) {
+  return {
+    type: types.CONVERSATION_IS_FETCHING,
+    value
+  }
+}
+
 function updateConversationsList(value) {
   return {
     type: types.UPDATE_CONVERSATIONS_LIST,
@@ -43,12 +50,16 @@ export function getConversationsList() {
       return
     }
 
+    dispatch(setFetching(true))
+
     const fetchUrl = '/workspaces/' + workspaceId + '/conversations'
     fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("getConversationsList response: ", response)
+      dispatch(setFetching(false))
       if(response.data && response.data.conversations)
         dispatch(updateConversationsList(response.data.conversations))
     }).catch((error) => {
+      dispatch(setFetching(false))
       dispatch({label: multiStrings.errorFetchConversationList, func: 'getConversationsList', type: 'SET_ERROR', url: fetchUrl, error})
     })
   }
@@ -143,7 +154,7 @@ export function postBubbleResponse(bubbleId, nodeId, text) {
       if(response.data && response.data.answer) {
         // Delete current question
         dispatch(updateConversationQuestion(null))
-        
+
         // Format answer message
         let formatAnswer = Utils.formatHistoryMessages(response.data.answer)
 
@@ -174,7 +185,5 @@ export function onAnswerTapped(type, bubble_id, answer) {
     } else if(type == "text") {
       dispatch(postBubbleResponse(bubble_id, null, answer))
     }
-
-
   }
 }
