@@ -19,10 +19,10 @@ class Splash extends Component {
 	};
 
 	componentDidMount(){
-		//this.props.dispatch(LoginActions.restoreUserDefault())
-    let timer = setTimeout(() => {
-      Actions.Tutorial({type: 'reset'})
-    }, 2000);
+		this.props.dispatch(LoginActions.restoreUserDefault())
+    // let timer = setTimeout(() => {
+    //   Actions.Tutorial({type: 'reset'})
+    // }, 2000);
 	}
 
 	render() {

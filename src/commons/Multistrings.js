@@ -13,6 +13,7 @@ export default new LocalizedStrings({
     errorAppUpdate: 'Para continuar debe actualizar la aplicación',
     errorCredentials: 'Email y/o contraseña incorrectos',
     errorLogin: 'Error en el inicio de sesión',
+    errorRefreshToken: 'Error al comprobar el token',
 
     errorFetchConversationList: 'Error obteniendo las conversaciones',
     errorPostQuestionResponse: 'Error enviando su respuesta',

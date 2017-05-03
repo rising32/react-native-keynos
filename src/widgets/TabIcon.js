@@ -32,9 +32,8 @@ class TabIcon extends Component {
 
   render(){
     let image = this.setTabIcon(this.props.title, this.props.selected)
-
     return (
-      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{flex: 1, width: Dimensions.get('window').width/2, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white'}}>
         <Image
           source={image}
           resizeMode={'contain'}

@@ -70,10 +70,7 @@ class Login extends Component {
     return (
       <View style={{flex: 1}} >
         <ScrollView bounces={false} >
-    			<TouchableOpacity style={{marginTop: offset, height: 50, width: 50, alignItems: 'center', justifyContent: 'center'}} onPress={() =>  Actions.pop({type: 'reset'})} >
-    				<Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22, width: 13, tintColor: main_color}} resizeMode={'contain'} />
-    			</TouchableOpacity>
-          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 30, marginBottom: 30}} >
+          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 30}} >
             <Text style={{color: main_color, fontSize: 20, marginBottom: 5}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
           </View>
@@ -133,6 +130,10 @@ class Login extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+  			<TouchableOpacity style={{position: 'absolute', top: offset, left: 0, height: 50, width: 50, alignItems: 'center', justifyContent: 'center'}}
+          onPress={() => Actions.CompanySelection()} >
+  				<Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22, width: 13, tintColor: main_color}} resizeMode={'contain'} />
+  			</TouchableOpacity>
       </View>
     );
   }
