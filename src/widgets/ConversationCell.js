@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet, ScrollView, TextInput, ListView, Alert} from 'react-native'
 import React, {Component} from 'react'
 import {Actions} from 'react-native-router-flux'
-import moment from 'moment';
-
+import moment from 'moment'
+import _ from 'lodash'
 import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 //Redux
@@ -15,12 +15,12 @@ class ConversationCell extends Component {
   render() {
     let bubleColor = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.data ? this.props.data : {}
-    let tree = data.conversation_tree.history
+    let tree = data.conversation_tree.history // Array
 
-    let lastNode = null
+    let lastBubble = tree.length ? _.last(tree) : null
+    let lastNode = lastBubble && lastBubble.nodes && lastBubble.nodes.length ? _.last(lastBubble.nodes) : null
     let lastQuestion = ''
-    if(tree[tree.length-1].nodes.length && tree[tree.length-1].nodes.length>0) {
-      lastNode = tree[tree.length-1].nodes[tree[tree.length-1].nodes.length-1]
+    if(lastNode) {
       if(lastNode.nodeable_type=="App\\NodeText") {
         lastQuestion = lastNode.text
       } else if(lastNode.nodeable_type=="App\\NodeImage") {
@@ -28,19 +28,21 @@ class ConversationCell extends Component {
       }
     }
 
+
     let timeAdded = ''
     let yesterday = moment().add(-1, 'days')
     let date = ''
-    if(tree[tree.length-1].read_on) {
-      date = moment(tree[tree.length-1].read_on)
+    if(lastBubble && lastBubble.read_on) {
+      date = moment(lastBubble.read_on)
       if(date.dayOfYear() < yesterday.dayOfYear()) {
-        timeAdded = moment(tree[tree.length-1].read_on).format('L')
+        timeAdded = moment(lastBubble.read_on).format('L')
       } else if(date.dayOfYear() == yesterday.dayOfYear()) {
         timeAdded = multiStrings.yesterday
       } else {
-        timeAdded = moment(tree[tree.length-1].read_on).format('HH:mm')
+        timeAdded = moment(lastBubble.read_on).format('HH:mm')
       }
     }
+
 
 		return(
 			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 5, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
