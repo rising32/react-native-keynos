@@ -15,6 +15,7 @@ import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversation
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 class Conversations extends Component {
+
   componentWillMount() {
     this.props.getConversationsList()
   }
@@ -26,7 +27,6 @@ class Conversations extends Component {
 	}
 
   render() {
-    //console.log('list',this.props.list)
     let list = this.props.list ? this.props.list : []
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     let dataSource = ds.cloneWithRows(list);

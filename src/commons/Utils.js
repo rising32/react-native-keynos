@@ -74,7 +74,7 @@ export function formatHistoryMessages(bubblesArray) {
       }
     })
   }
-  return messages.reverse()
+  return messages
 }
 
 

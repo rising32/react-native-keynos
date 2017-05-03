@@ -4,7 +4,7 @@ import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webser
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 import { Utils } from 'keynos_app/src/commons/Commons'
 import { Actions } from 'react-native-router-flux'
-import update from 'immutability-helper';
+import _ from 'lodash'
 
 function updateConversationsList(value) {
   return {
@@ -100,16 +100,23 @@ export function fetchNextBubble(bubbleId) {
       Constants.LOG_ENABLED && console.log("fetchNextBubble response: ", response)
 
       if(response.data && response.data.bot_bubbles && response.data.bot_bubbles.length) {
-        /*
-        let historyBubblesArray = conversation.conversation_tree && conversation.conversation_tree.history ? conversation.conversation_tree.history : []
-        let formatMessages = Utils.formatHistoryMessages(historyBubblesArray)
-        dispatch(updateConversationMessagesList(formatMessages))
-        */
+
+        // Format answer message
+        let formatBotAnswer = Utils.formatHistoryMessages(response.data.bot_bubbles)
+
+        // Get current messages list
+        const state = getState()
+        const messagesList = state.conversations.messagesList
+
+        // Add format answer message to current messages list
+        let newMessagesList = formatBotAnswer.concat(messagesList)
+        dispatch(updateConversationMessagesList(newMessagesList))
       }
 
       if(response.data && response.data.user_bubbles && response.data.user_bubbles.length) {
+
+        // Set next question
         let formatQuestion = Utils.formatNextmessage(response.data.user_bubbles)
-        console.log("fetchNextBubble user_bubbles formatQuestion: ", formatQuestion)
         dispatch(updateConversationQuestion(formatQuestion))
       }
 
@@ -131,14 +138,22 @@ export function postBubbleResponse(bubbleId, nodeId, text) {
       Constants.LOG_ENABLED && console.log("postBubbleResponse response: ", response)
 
       if(response.data && response.data.answer) {
-        /*
-        let formatAnswer = Utils.formatHistoryMessages(null, response.data.answer)
-        console.log("formatAnswer: ", formatAnswer)
 
+        // Format answer message
+        let formatAnswer = Utils.formatHistoryMessages(response.data.answer)
+
+        // Get current messages list
         const state = getState()
-        let messagesList = update(state.conversations.messagesList, {$push: formatAnswer})
-        dispatch(updateConversationsList(messagesList))
-        */
+        const messagesList = state.conversations.messagesList
+
+        // Add format answer message to current messages list
+        let newMessagesList = messagesList.concat(formatAnswer)
+      
+        dispatch(updateConversationMessagesList(newMessagesList))
+
+        // Get next question
+        let lastBubble = _.last(response.data.answer)
+        dispatch(fetchNextBubble(lastBubble.bubble_id))
       }
     }).catch((error) => {
       dispatch({label: multiStrings.errorPostQuestionResponse, func: 'postBubbleResponse', type: 'SET_ERROR', url: fetchUrl, error})

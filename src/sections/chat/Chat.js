@@ -71,10 +71,7 @@ class Chat extends Component {
 
   render() {
     let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
-    let messages = this.props.messagesList
-
-    //console.log("messages: ", messages)
-    //console.log("question: ", this.props.question)
+    let messages = this.props.messagesList.reverse()
 
     return (
       <Image style={{ flex: 1, backgroundColor: Colors.chatListBg }} source={ bgImage } resizeMode={'cover'} >
@@ -108,8 +105,9 @@ let mapDispatchToProps = (dispatch, props) => {
   return {
     onAnswerTapped: (type, bubble_id, answer) => {
 
-      if(type && bubble_id && answer)
+      if(type && bubble_id && answer) {
         dispatch(ConversationsActions.onAnswerTapped(type, bubble_id, answer))
+      }
     },
 
   }

@@ -1,6 +1,6 @@
 import * as types from 'keynos_app/src/redux/types/Login'
 import * as Constants from 'keynos_app/src/webservices/Constants'
-import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webservices'
+import {fetch, post, put, patch, remove, postRefreshToken} from 'keynos_app/src/webservices/Webservices'
 import qs from 'qs'
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 import { Alert, AsyncStorage } from 'react-native';
@@ -124,11 +124,30 @@ export function refreshToken(token) {
       return
     }
     const fetchUrl = '/refresh-token'
-    post(fetchUrl).then((response) => {
+    postRefreshToken(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("refreshToken response: ", response)
       dispatch(setFetching(false))
-      if(response.ok){
-        dispatch(updateUserToken(token))
+
+      if(response.data.ok){
+        // Set token
+        dispatch(updateUserToken(response.headers.authorization))
+
+        // Load saved company
+        AsyncStorage.getItem('company', (err, companyLoaded) => {
+          companyLoaded = JSON.parse(companyLoaded)
+          let company = {
+            id: companyLoaded.id!='' ? companyLoaded.id : null,
+            name: companyLoaded.name!='' ? companyLoaded.name : null,
+            logo: companyLoaded.logo!='' ? companyLoaded.logo : null,
+            login_type: companyLoaded.login_type!='' ? companyLoaded.login_type : null,
+            main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
+            bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
+          }
+
+          dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
+        });
+
+        // Go home
         Actions.TabBar({type: 'reset'})
       }else{
         Actions.Tutorial({type: 'reset'})
@@ -173,19 +192,7 @@ export function restoreUserDefault() {
         //console.log('al recuperar ',JSON.parse(token))
         dispatch(updateUserToken(JSON.parse(token)))
         dispatch(refreshToken(JSON.parse(token)))
-        AsyncStorage.getItem('company', (err, companyLoaded) => {
-          companyLoaded = JSON.parse(companyLoaded)
-          let company = {
-            id: companyLoaded.id!='' ? companyLoaded.id : null,
-            name: companyLoaded.name!='' ? companyLoaded.name : null,
-            logo: companyLoaded.logo!='' ? companyLoaded.logo : null,
-            login_type: companyLoaded.login_type!='' ? companyLoaded.login_type : null,
-            main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
-            bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
-          }
-          //console.log('recupero company', company)
-          dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
-        });
+
       } else {
         timer = setTimeout(() => {
           console.log('no hay token')

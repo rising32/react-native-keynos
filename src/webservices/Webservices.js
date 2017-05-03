@@ -67,3 +67,15 @@ export function remove (url) {
     }
   });
 }
+
+export function postRefreshToken (url) {
+  return axios.post(url).then((response) => {
+    return response
+  }).catch((error) => {
+    if (error.response) {
+      throw {code: error.response.status, msg: error.response.data, error: error}
+    } else {
+      throw {code: 500, msg: error.message, error: error}
+    }
+  });
+}
