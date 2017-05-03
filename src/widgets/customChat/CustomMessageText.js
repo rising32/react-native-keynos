@@ -67,8 +67,6 @@ export default class CustomMessageText extends React.Component {
 }
 
 const textStyle = {
-  fontSize: 16,
-  lineHeight: 20,
   marginTop: 5,
   marginBottom: 5,
   marginLeft: 10,
@@ -80,7 +78,6 @@ const styles = {
     container: {
     },
     text: {
-      color: 'black',
       ...textStyle,
     },
     link: {
@@ -92,7 +89,6 @@ const styles = {
     container: {
     },
     text: {
-      color: 'white',
       ...textStyle,
     },
     link: {

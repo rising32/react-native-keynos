@@ -61,7 +61,6 @@ class CustomParsedText extends React.Component {
     const textExtraction = new CustomTextExtraction(this.props.children, this.getPatterns());
 
     return textExtraction.parse().map((props, index) => {
-      console.log('getParsedText',props)
       return (
         <ReactNative.Text
           key={`parsedText-${index}`}
@@ -72,7 +71,6 @@ class CustomParsedText extends React.Component {
   }
 
   render() {
-    console.log('CustomParsedText',this.props)
     let htmlText = '<p>' + this.props.children + '</p>'
     return (
       <HTMLView
