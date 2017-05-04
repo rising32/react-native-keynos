@@ -54,7 +54,6 @@ export function openUrl(url){
 export function formatHistoryMessages(bubblesArray) {
   let messages = []
 
-  //if(conversation && conversation.conversation_tree && conversation.conversation_tree.history){
   if(bubblesArray && bubblesArray.length){
     _.map(bubblesArray, (bubble) => {
       let isBot = bubble.bubble_type == "bot" ? true : false
@@ -80,7 +79,6 @@ export function formatHistoryMessages(bubblesArray) {
 
 export function formatNextmessage(bubblesArray) {
 
-  //if(conversation.conversation_tree && conversation.conversation_tree.next && conversation.conversation_tree.next.length) {
   if(bubblesArray && bubblesArray.length) {
     let bubble = bubblesArray[0]
 
@@ -90,7 +88,7 @@ export function formatNextmessage(bubblesArray) {
 
     if(bubblesArray.length == 1) {
       // Type text/image
-      if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeImage"){
+      if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeCamera"){
         return { type: "image", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }
       } else if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeFreeText") {
         return { type: "text", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }

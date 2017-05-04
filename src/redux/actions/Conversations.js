@@ -54,10 +54,13 @@ export function getConversationsList() {
 
     const fetchUrl = '/workspaces/' + workspaceId + '/conversations'
     fetch(fetchUrl).then((response) => {
+
       Constants.LOG_ENABLED && console.log("getConversationsList response: ", response)
       dispatch(setFetching(false))
-      if(response.data && response.data.conversations)
+
+      if(response.data && response.data.conversations) {
         dispatch(updateConversationsList(response.data.conversations))
+      }
     }).catch((error) => {
       dispatch(setFetching(false))
       dispatch({label: multiStrings.errorFetchConversationList, func: 'getConversationsList', type: 'SET_ERROR', url: fetchUrl, error})
@@ -70,6 +73,8 @@ export function initConversation(conversation) {
 
     // Update conversation
     dispatch(updateConversationSelected(conversation))
+
+    // Reset conversation params
     dispatch(updateConversationMessagesList([]))
     dispatch(updateConversationQuestion(null))
 
@@ -109,6 +114,10 @@ export function fetchNextBubble(bubbleId) {
   return (dispatch, getState) => {
     const state = getState()
 
+    if(!bubbleId) {
+      return
+    }
+
     const fetchUrl = '/conversations/bubbles/' + bubbleId + '/next'
     fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("fetchNextBubble response: ", response)
@@ -140,12 +149,29 @@ export function fetchNextBubble(bubbleId) {
   }
 }
 
-export function postBubbleResponse(bubbleId, nodeId, text) {
+export function onAnswerTapped(type, bubble_id, answer) {
+  return (dispatch, getState) => {
+
+    if(type == "options") {
+      let node_id = answer
+      dispatch(postBubbleResponse(bubble_id, node_id, null, null))
+    } else if(type == "text") {
+      let text = answer
+      dispatch(postBubbleResponse(bubble_id, null, text, null))
+    } else if(type == "image") {
+      let image = answer
+      dispatch(postBubbleResponse(bubble_id, null, null, image))
+    }
+  }
+}
+
+export function postBubbleResponse(bubbleId, nodeId, text, image) {
   return (dispatch, getState) => {
 
     let data = {}
     if(nodeId) data.node_id = nodeId
     if(text) data.free_text = text
+    if(image) data.image = 'data:image/jpeg;base64,' + image
 
     const fetchUrl = '/conversations/bubbles/' + bubbleId + '/save-answer'
     post(fetchUrl, data, dispatch).then((response) => {
@@ -174,16 +200,5 @@ export function postBubbleResponse(bubbleId, nodeId, text) {
       dispatch({label: multiStrings.errorPostQuestionResponse, func: 'postBubbleResponse', type: 'SET_ERROR', url: fetchUrl, error})
     })
 
-  }
-}
-
-export function onAnswerTapped(type, bubble_id, answer) {
-  return (dispatch, getState) => {
-
-    if(type == "options") {
-      dispatch(postBubbleResponse(bubble_id, answer, null))
-    } else if(type == "text") {
-      dispatch(postBubbleResponse(bubble_id, null, answer))
-    }
   }
 }
