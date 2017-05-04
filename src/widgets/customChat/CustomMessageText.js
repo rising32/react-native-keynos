@@ -58,6 +58,7 @@ export default class CustomMessageText extends React.Component {
             {type: 'phone', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onPhonePress},
             {type: 'email', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onEmailPress},
           ]}
+          position={this.props.position}
         >
           {this.props.currentMessage.text}
         </CustomParsedText>

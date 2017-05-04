@@ -57,6 +57,7 @@ export function formatHistoryMessages(bubblesArray) {
   if(bubblesArray && bubblesArray.length){
     _.map(bubblesArray, (bubble) => {
       let isBot = bubble.bubble_type == "bot" ? true : false
+      let createdAt = bubble.read_on ? moment(bubble.read_on, 'YYYY-MM-DD HH:mm:ss') : null
       let user = {
         _id: isBot ? 2 : 1,
         name: bubble.interlocutor,
@@ -66,9 +67,9 @@ export function formatHistoryMessages(bubblesArray) {
       if(bubble.nodes && bubble.nodes.length) {
         let node = bubble.nodes[0]
         if(node.nodeable_type == "App\\NodeText") {
-          messages.push({_id: uuidV4(), user: user, text: node.text})
+          messages.push({_id: uuidV4(), user: user, text: node.text, createdAt})
         } else if(node.nodeable_type == "App\\NodeImage") {
-          messages.push({_id: uuidV4(), user: user, image: node.image_path})
+          messages.push({_id: uuidV4(), user: user, image: node.image_path, createdAt})
         }
       }
     })
@@ -116,7 +117,6 @@ export function formatNextmessage(bubblesArray) {
 
 const IPHONE6_WIDTH = 375;
 const IPHONE6_HEIGHT = 667;
-let initialScale = Dimensions.get('window').width / IPHONE6_WIDTH
 
 export function widthScale() {
   let dimension = Dimensions.get('window').width / IPHONE6_WIDTH

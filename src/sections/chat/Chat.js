@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Image, Text, Alert } from 'react-native'
 
 // COMPONENTS
-import { GiftedChat, InputToolbar, Bubble } from 'react-native-gifted-chat'
+import { GiftedChat, InputToolbar, Bubble, Composer, Time } from 'react-native-gifted-chat'
 import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
@@ -100,6 +100,27 @@ class Chat extends Component {
     )
   }
 
+  renderComposer(props) {
+    return (
+      <Composer
+        {...props}
+        placeholder={multiStrings.chatInputPlaceholder}
+      />
+    )
+  }
+
+  renderTime(props) {
+    return (
+      <Time
+        {...props}
+        textStyle={{
+          right: { color: Colors.white },
+          left: { color: Colors.black }
+        }}
+      />
+    )
+  }
+
   renderInputToolbar(props) {
     let question = this.props.question
 
@@ -161,6 +182,8 @@ class Chat extends Component {
           renderBubble={this.renderBubble.bind(this)}
           renderMessage={this.renderMessage.bind(this)}
           renderMessageText={this.renderMessageText.bind(this)}
+          renderComposer={this.renderComposer.bind(this)}
+          renderTime={this.renderTime.bind(this)}
           minInputToolbarHeight={this.state.minInputToolbarHeight}
           lightboxProps={{ underlayColor: 'transparent' }}
           user={{ _id: 1 }}

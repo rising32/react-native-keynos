@@ -47,10 +47,11 @@ export default new LocalizedStrings({
     cancel: 'Cancelar',
     edit: 'Editar',
     logOut: 'Salir',
-    yesterday: 'Ayer',
+    yesterday: 'Ayer',    
     image: 'Imagen',
 
     takePhoto: 'Hacer foto',
     selectPhoto: 'Seleccionar imagen',
+    chatInputPlaceholder: 'Escribe algo...',
   },
 });
