@@ -172,7 +172,7 @@ class Chat extends Component {
     let messages = list.reverse()
 
     return (
-      <Image style={{ flex: 1, backgroundColor: Colors.chatListBg }} source={ bgImage } resizeMode={'cover'} >
+      <Image style={{ flex: 1, backgroundColor: Colors.chatListBg }} source={ bgImage } resizeMode={'repeat'} >
         <GiftedChat
           messages={messages}
           loadEarlier={false}
