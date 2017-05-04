@@ -11,20 +11,23 @@ import { connect } from 'react-redux';
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
+
 class ConversationNavBar extends Component {
   render() {
     let main_color = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.selected ? this.props.selected : {}
-    let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
+    let offset = (Platform.OS === 'ios') ? 20*heightScale : 0 //56-and, 74-ios
     return(
-      <View style={{backgroundColor: Colors.white, position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', height: 100, alignItems: 'center', justifyContent: 'center', marginTop: offset, borderBottomWidth: 1, borderBottomColor: main_color}}>
-        <TouchableOpacity style={{height: 50, width: 50, justifyContent: 'center', paddingLeft: 15}} onPress={() =>  Actions.pop({type: 'reset'})} >
-          <Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22, width: 18, tintColor: main_color}} resizeMode={'contain'} />
+      <View style={{backgroundColor: Colors.white, position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', height: 100*heightScale, alignItems: 'center', justifyContent: 'center', marginTop: offset, borderBottomWidth: 1, borderBottomColor: main_color}}>
+        <TouchableOpacity style={{height: 50*heightScale, width: 50*widthScale, justifyContent: 'center', paddingLeft: 15*widthScale}} onPress={() =>  Actions.pop({type: 'reset'})} >
+          <Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22*heightScale, width: 18*widthScale, tintColor: main_color}} resizeMode={'contain'} />
         </TouchableOpacity>
-        <Image source={{uri: data.bot_image}} style={{height: 58, width: 54, marginHorizontal: 10, borderRadius: 10}} resizeMode={'cover'} />
-        <View style={{flex: 1, marginRight: 10}}>
-          <Text style={{color: Colors.gray_info, fontSize: 17}} numberOfLines={1}>{data.interlocutor}</Text>
-          <Text style={{color: Colors.gray_info, fontSize: 15, marginVertical: 8}} numberOfLines={1}>{data.conversation_title}</Text>
+        <Image source={{uri: data.bot_image}} style={{height: 58*heightScale, width: 54*widthScale, marginHorizontal: 10*widthScale, borderRadius: 10}} resizeMode={'cover'} />
+        <View style={{flex: 1, marginRight: 10*widthScale}}>
+          <Text style={{color: Colors.gray_info, fontSize: 17*widthScale}} numberOfLines={1}>{data.interlocutor}</Text>
+          <Text style={{color: Colors.gray_info, fontSize: 15*widthScale, marginVertical: 8*heightScale}} numberOfLines={1}>{data.conversation_title}</Text>
         </View>
         {/*
         <TouchableOpacity style={{marginRight: 10}}>

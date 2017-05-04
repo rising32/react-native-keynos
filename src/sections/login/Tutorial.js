@@ -1,7 +1,7 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
 import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ScrollView, AsyncStorage} from 'react-native'
-import {Colors} from 'keynos_app/src/commons/Commons'
+import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
@@ -13,6 +13,9 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 
 //Redux
 import { connect } from 'react-redux';
+
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
 
 class Tutorial extends Component {
   constructor(props) {
@@ -53,22 +56,22 @@ class Tutorial extends Component {
   render() {
     return (
       <ScrollView style={{flex: 1}} bounces={false}>
-        <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 50}} >
-          <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.tutorialTitle}</Text>
-          <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{multiStrings.tutorialSubtitle}</Text>
+        <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 50*heightScale}} >
+          <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.tutorialTitle}</Text>
+          <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{multiStrings.tutorialSubtitle}</Text>
         </View>
-        <Swiper height={240} dotColor={Colors.green_light} activeDotColor={Colors.green_active}
+        <Swiper height={240*heightScale} dotColor={Colors.green_light} activeDotColor={Colors.green_active}
           onMomentumScrollEnd={(e, state, context) => this.enableSkipTutorial(state.index)} >
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white'}} >
-            <Text style={{color: Colors.black, fontSize: 20, marginBottom: 5}} >{'tutorial 1'}</Text>
+            <Text style={{color: Colors.black, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{'tutorial 1'}</Text>
           </View>
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white'}} >
-            <Text style={{color: Colors.black, fontSize: 20, marginBottom: 5}} >{'tutorial 2'}</Text>
+            <Text style={{color: Colors.black, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{'tutorial 2'}</Text>
           </View>
         </Swiper>
         {this.renderSkipButton()}
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', margin: 20, marginBottom: 60}} >
-          <Image source={require('keynos_app/src/resources/logo.png')} style={{height: 30, width: 136}} resizeMode={'contain'} />
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', margin: 20*widthScale, marginBottom: 60*heightScale}} >
+          <Image source={require('keynos_app/src/resources/logo.png')} style={{height: 30*heightScale, width: 136*widthScale}} resizeMode={'contain'} />
         </View>
       </ScrollView>
     );

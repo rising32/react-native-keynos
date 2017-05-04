@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import {View, Image, Text, Dimensions} from 'react-native'
 import { connect } from 'react-redux'
-import { Colors } from 'keynos_app/src/commons/Commons'
+import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
+
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
 
 class TabIcon extends Component {
 
@@ -37,9 +40,9 @@ class TabIcon extends Component {
         <Image
           source={image}
           resizeMode={'contain'}
-          style={{width:28, height:25, tintColor: this.props.selected ? this.props.main_color : null}}
+          style={{width:28*widthScale, height:25*heightScale, tintColor: this.props.selected ? this.props.main_color : null}}
           />
-        <Text style={{fontSize: 10, color: this.props.selected ? this.props.main_color : Colors.gray_inactive}}>{this.props.title}</Text>
+        <Text style={{fontSize: 10*widthScale, color: this.props.selected ? this.props.main_color : Colors.gray_inactive}}>{this.props.title}</Text>
       </View>
     );
   }

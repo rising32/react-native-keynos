@@ -1,4 +1,4 @@
-import React, { Alert, Linking } from 'react-native'
+import React, { Alert, Linking, Dimensions } from 'react-native'
 import moment from 'moment'
 import _ from 'lodash'
 import uuidV4 from 'uuid/v4'
@@ -114,4 +114,18 @@ export function formatNextmessage(bubblesArray) {
   } else {
     return null
   }
+}
+
+const IPHONE6_WIDTH = 375;
+const IPHONE6_HEIGHT = 667;
+let initialScale = Dimensions.get('window').width / IPHONE6_WIDTH
+
+export function widthScale() {
+  let dimension = Dimensions.get('window').width / IPHONE6_WIDTH
+  return dimension > 1 ? 1 : dimension
+}
+
+export function heightScale() {
+  let dimension = Dimensions.get('window').height / IPHONE6_HEIGHT
+  return dimension > 1 ? 1 : dimension
 }

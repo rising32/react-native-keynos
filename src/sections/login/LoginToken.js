@@ -12,6 +12,9 @@ import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
+
 class LoginToken extends Component {
   constructor(props) {
     super(props);
@@ -39,14 +42,14 @@ class LoginToken extends Component {
     return (
       <View style={{flex: 1}} >
         <ScrollView bounces={false} >
-          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 30}} >
-            <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.loginInto}</Text>
-            <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
+          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 30*heightScale}} >
+            <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
+            <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
           </View>
-          <View style={{alignItems: 'center', justifyContent: 'center', margin: 20}} >
-            <Image source={require('keynos_app/src/resources/company_logo.png')} style={{height: 48, width: 120}} resizeMode={'contain'} />
+          <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
+            <Image source={require('keynos_app/src/resources/company_logo.png')} style={{height: 48*heightScale, width: 120*widthScale}} resizeMode={'contain'} />
           </View>
-          <View style={{margin: 20, marginTop: 0}} >
+          <View style={{margin: 20*widthScale, marginTop: 0}} >
             <InputValidate
     					label={null}
     					placeholder={Utils.firstToUpperCase(multiStrings.token)}
@@ -60,14 +63,14 @@ class LoginToken extends Component {
               onChangeText={(value) => this.onChangeToken(value)}
     				/>
           </View>
-          <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
+          <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, margin: 20*widthScale}}
     				onPress={() => this.props.loginCompany()}>
-    				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.access}</Text>
+    				<Text style={{color: Colors.white, fontSize: 17*widthScale}}>{multiStrings.access}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
-            <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25, marginHorizontal: 40}}
+            <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25*heightScale, marginHorizontal: 40*widthScale}}
               onPress={() => Alert.alert(null, 'open browser')}>
-              <Text style={{color: Colors.black, fontSize: 15, textAlign: 'center'}} >
+              <Text style={{color: Colors.black, fontSize: 15*widthScale, textAlign: 'center'}} >
                 {multiStrings.terms1}
                 <Text style={{color: Colors.blue_link}} >{multiStrings.terms2}</Text>
                 {multiStrings.terms3}

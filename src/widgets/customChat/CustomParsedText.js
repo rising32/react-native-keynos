@@ -5,6 +5,9 @@ import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import CustomTextExtraction from './CustomTextExtraction';
 import HTMLView from 'react-native-htmlview';
 
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
+
 const PATTERNS = {
   url: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/,
   phone: /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}/,
@@ -84,22 +87,19 @@ class CustomParsedText extends React.Component {
 }
 
 const baseStyles = ReactNative.StyleSheet.create({
-  b: {fontWeight: '500'},
-  strong: {fontWeight: '500'},
-  i: {fontStyle: 'italic'},
-  em: {fontStyle: 'italic'},
-  pre: {fontFamily: 'Menlo'},
-  code: {fontFamily: 'Menlo'},
-  a: {fontWeight: '500',color: Colors.blue_link, fontSize: 17},
-  p: {color: Colors.black, fontSize: 17},
-  h1: {fontWeight: '500', fontSize: 36},
-  h2: {fontWeight: '500', fontSize: 30},
-  h3: {fontWeight: '500', fontSize: 24},
-  h4: {fontWeight: '500', fontSize: 18},
-  h5: {fontWeight: '500', fontSize: 14},
-  h6: {fontWeight: '500', fontSize: 12},
+  b: {fontWeight: '500', fontSize: 17*widthScale},
+  strong: {fontWeight: '500', fontSize: 17*widthScale},
+  i: {fontStyle: 'italic', fontSize: 17*widthScale},
+  em: {fontStyle: 'italic', fontSize: 17*widthScale},
+  pre: {fontFamily: 'Menlo', fontSize: 17*widthScale},
+  code: {fontFamily: 'Menlo', fontSize: 17*widthScale},
+  a: {fontWeight: '500',color: Colors.blue_link, fontSize: 17*widthScale},
+  p: {color: Colors.black, fontSize: 17*widthScale},
+  h1: {fontWeight: '500', fontSize: 36*widthScale},
+  h2: {fontWeight: '500', fontSize: 30*widthScale},
+  h3: {fontWeight: '500', fontSize: 24*widthScale},
+  h4: {fontWeight: '500', fontSize: 18*widthScale},
+  h5: {fontWeight: '500', fontSize: 14*widthScale},
+  h6: {fontWeight: '500', fontSize: 12*widthScale},
 })
-const boldStyle = {fontWeight: '500'};
-const italicStyle = {fontStyle: 'italic'};
-const codeStyle = {fontFamily: 'Menlo'};
 export default CustomParsedText;
