@@ -14,6 +14,7 @@ export default new LocalizedStrings({
     errorCredentials: 'Email y/o contraseña incorrectos',
     errorLogin: 'Error en el inicio de sesión',
     errorRefreshToken: 'Error al comprobar el token',
+    errorImage: 'Error cargando la imagen',
 
     errorFetchConversationList: 'Error obteniendo las conversaciones',
     errorPostQuestionResponse: 'Error enviando su respuesta',
@@ -48,5 +49,8 @@ export default new LocalizedStrings({
     logOut: 'Salir',
     yesterday: 'Ayer',
     image: 'Imagen',
+
+    takePhoto: 'Hacer foto',
+    selectPhoto: 'Seleccionar imagen',
   },
 });

@@ -84,12 +84,12 @@ class CustomParsedText extends React.Component {
 }
 
 const baseStyles = ReactNative.StyleSheet.create({
-  b: {fontWeight: '500'},
-  strong: {fontWeight: '500'},
-  i: {fontStyle: 'italic'},
-  em: {fontStyle: 'italic'},
-  pre: {fontFamily: 'Menlo'},
-  code: {fontFamily: 'Menlo'},
+  b: {fontWeight: '500', fontSize: 17},
+  strong: {fontWeight: '500', fontSize: 17},
+  i: {fontStyle: 'italic', fontSize: 17},
+  em: {fontStyle: 'italic', fontSize: 17},
+  pre: {fontFamily: 'Menlo', fontSize: 17},
+  code: {fontFamily: 'Menlo', fontSize: 17},
   a: {fontWeight: '500',color: Colors.blue_link, fontSize: 17},
   p: {color: Colors.black, fontSize: 17},
   h1: {fontWeight: '500', fontSize: 36},
@@ -99,7 +99,5 @@ const baseStyles = ReactNative.StyleSheet.create({
   h5: {fontWeight: '500', fontSize: 14},
   h6: {fontWeight: '500', fontSize: 12},
 })
-const boldStyle = {fontWeight: '500'};
-const italicStyle = {fontStyle: 'italic'};
-const codeStyle = {fontFamily: 'Menlo'};
+
 export default CustomParsedText;
