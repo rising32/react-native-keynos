@@ -14,6 +14,9 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 import { connect } from 'react-redux';
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
+
 class CompanySelection extends Component {
 
   constructor(props) {
@@ -49,10 +52,10 @@ class CompanySelection extends Component {
     return (
       <View style={{flex: 1}} >
         <ScrollView bounces={false} >
-          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 30}} >
-            <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.accessToCompany}</Text>
+          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 30*heightScale}} >
+            <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5}} >{multiStrings.accessToCompany}</Text>
           </View>
-          <View style={{margin: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} >
+          <View style={{margin: 20*widthScale, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} >
             <View style={{flex: 1}}>
               <InputValidate
       					label={null}
@@ -66,15 +69,15 @@ class CompanySelection extends Component {
                 onChangeText={(value) => this.onCompanyChange(value)}
       				/>
             </View>
-            <Text style={{color: Colors.green_light, fontSize: 20, marginLeft: 10}} >{'.keynos.es'}</Text>
+            <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginLeft: 10*widthScale}} >{'.keynos.es'}</Text>
           </View>
-          <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
+          <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, margin: 20*widthScale}}
     				onPress={() => this.onSubmit()}>
-    				<Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.send}</Text>
+    				<Text style={{color: Colors.white, fontSize: 17*widthScale}}>{multiStrings.send}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
-            <View style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25, marginHorizontal: 40}} >
-              <Text style={{color: Colors.black, fontSize: 15, textAlign: 'center'}} >{multiStrings.tipCompany}</Text>
+            <View style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25*heightScale, marginHorizontal: 40*widthScale}} >
+              <Text style={{color: Colors.black, fontSize: 15*widthScale, textAlign: 'center'}} >{multiStrings.tipCompany}</Text>
             </View>
           </View>
         </ScrollView>

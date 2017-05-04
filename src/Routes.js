@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert} from 'react-native'
 
 // COMPONENTS
-import { Colors } from './commons/Commons'
+import { Colors, Utils } from './commons/Commons'
 import {CustomNavBar, ConversationNavBar, TabIcon} from 'keynos_app/src/widgets/'
 import { connect } from 'react-redux'
 import * as Constants from 'keynos_app/src/webservices/Constants'
@@ -25,6 +25,9 @@ import Settings from './sections/settings/Settings'
 
 // MULTILENGUAJE
 import multiStrings from './commons/Multistrings'
+
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
 
 let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
 let getNavBarOffset = Navigator.NavigationBar.Styles.General.NavBarHeight + offset
@@ -67,8 +70,8 @@ class Routes extends Component {
               icon={TabIcon}
               onPress={ ()=> Actions.Conversations({type: ActionConst.REFRESH})}
             >
-              <Scene key="Conversations" component={Conversations} navBar={CustomNavBar} title={multiStrings.conversations} titleStyle={{color: Colors.white}} sceneStyle={{paddingTop: getNavBarOffset}}/>
-              <Scene key="Chat" duration={1} component={Chat} navBar={ConversationNavBar} sceneStyle={{paddingTop: 100+offset}} hideTabBar />
+              <Scene key="Conversations" component={Conversations} navBar={CustomNavBar} title={multiStrings.conversations} titleStyle={{color: Colors.white, fontSize: 16*widthScale}} sceneStyle={{paddingTop: getNavBarOffset}}/>
+              <Scene key="Chat" duration={1} component={Chat} navBar={ConversationNavBar} sceneStyle={{paddingTop: 100*heightScale+offset}} hideTabBar />
             </Scene>
 
             <Scene
@@ -77,7 +80,7 @@ class Routes extends Component {
               icon={TabIcon}
               onPress={ ()=> Actions.Settings({type: ActionConst.REFRESH})}
             >
-              <Scene key="Settings" component={Settings} navBar={CustomNavBar} title={multiStrings.settings} titleStyle={{color: Colors.white}} sceneStyle={{paddingTop: getNavBarOffset}}/>
+              <Scene key="Settings" component={Settings} navBar={CustomNavBar} title={multiStrings.settings} titleStyle={{color: Colors.white, fontSize: 16*widthScale}} sceneStyle={{paddingTop: getNavBarOffset}}/>
             </Scene>
           </Scene>
 

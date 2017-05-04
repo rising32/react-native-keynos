@@ -11,6 +11,9 @@ import { connect } from 'react-redux';
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
+
 class ConversationCell extends Component {
   render() {
     let bubleColor = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
@@ -45,20 +48,20 @@ class ConversationCell extends Component {
 
 
 		return(
-			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 5, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
+			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12*widthScale, paddingVertical: 5*heightScale, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
         onPress={this.props.onPress}>
-        <Image source={{uri: data.bot_image}} style={{height: 58, width: 54, marginRight: 10, borderRadius: 10}} resizeMode={'cover'} />
+        <Image source={{uri: data.bot_image}} style={{height: 58*heightScale, width: 54*widthScale, marginRight: 10*widthScale, borderRadius: 10}} resizeMode={'cover'} />
         <View style={{flex: 1}} >
-          <View style={{flexDirection: 'row', alignItems: 'center', marginRight: 15}} >
-            <Text style={{color: Colors.black, fontSize: 17, marginRight: 13}}>{data.interlocutor}</Text>
-            <Text style={{color: Colors.gray_chat, fontSize: 11, flex: 1}} numberOfLines={1}>{data.conversation_title}</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center', marginRight: 15*widthScale}} >
+            <Text style={{color: Colors.black, fontSize: 17*widthScale, marginRight: 13*widthScale}}>{data.interlocutor}</Text>
+            <Text style={{color: Colors.gray_chat, fontSize: 11*widthScale, flex: 1}} numberOfLines={1}>{data.conversation_title}</Text>
           </View>
-          <View style={{marginRight: 15, marginTop: 10}} >
+          <View style={{marginRight: 15*widthScale, marginTop: 10*heightScale}} >
             <Text style={{color: Colors.gray_chat, fontSize: 10}} numberOfLines={1}>{lastQuestion}</Text>
           </View>
         </View>
         <View style={{alignItems: 'center'}} >
-          <Text style={{color: Colors.gray_chat, fontSize: 14}}>{timeAdded}</Text>
+          <Text style={{color: Colors.gray_chat, fontSize: 14*widthScale}}>{timeAdded}</Text>
           {/*
             <View style={{backgroundColor: bubleColor, marginTop: 5, paddingVertical: 3, paddingHorizontal: 7, borderRadius: 11}} >
               <Text style={{color: Colors.white, fontSize: 11}}>{'1'}</Text>
