@@ -52,7 +52,7 @@ class Tutorial extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}} >
+      <ScrollView style={{flex: 1}} bounces={false}>
         <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80, marginBottom: 50}} >
           <Text style={{color: Colors.green_light, fontSize: 20, marginBottom: 5}} >{multiStrings.tutorialTitle}</Text>
           <Text style={{color: Colors.gray_info, fontSize: 17, textAlign: 'center'}} >{multiStrings.tutorialSubtitle}</Text>
@@ -70,7 +70,7 @@ class Tutorial extends Component {
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', margin: 20, marginBottom: 60}} >
           <Image source={require('keynos_app/src/resources/logo.png')} style={{height: 30, width: 136}} resizeMode={'contain'} />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
