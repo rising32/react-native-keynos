@@ -99,13 +99,13 @@ class Chat extends Component {
 
     if(question && question.type == "text") {
       return (
-        <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }} style={{backgroundColor: Colors.chatInputBg}} >
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e) } style={{backgroundColor: Colors.chatInputBg}} >
           <InputToolbar {...props} />
         </View>
       )
     } else if(question && question.type == "options") {
       return (
-        <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }} style={{backgroundColor: Colors.chatInputBg}} >
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e) } style={{backgroundColor: Colors.chatInputBg}} >
           <AnswerMultipleOptions
             options={ question.options }
             onPress={ (opt) => this.props.onAnswerTapped(question.type, opt.bubble_id, opt.node_id) }
@@ -120,7 +120,7 @@ class Chat extends Component {
       ]
 
       return (
-        <View onLayout={(e) => { this.calculateMinInputToolbarHeight(e.nativeEvent.layout) }} style={{backgroundColor: Colors.chatInputBg}} >
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e) } style={{backgroundColor: Colors.chatInputBg}} >
           <AnswerMultipleOptions
             options={ cameraOptions }
             onPress={ (opt) => this.onSelectImageTapped(opt) }
@@ -130,12 +130,13 @@ class Chat extends Component {
     }
   }
 
-  calculateMinInputToolbarHeight(layout) {
+  calculateMinInputToolbarHeight(e) {
+    let layout = e.nativeEvent.layout
     if(layout && layout.height){
       this.setState({minInputToolbarHeight: layout.height})
-      console.log("calculateMinInputToolbarHeight height: ", layout.height)
-      console.log("this.refs.chat: ", this.refs.chat)
-      //this.refs.chat.onInputSizeChanged(layout)
+      //console.log("calculateMinInputToolbarHeight height: ", layout.height)
+      //console.log("this.refs.chat: ", this.refs.chat)
+      //this.refs.chat.onMainViewLayout(e)
     }
   }
 
