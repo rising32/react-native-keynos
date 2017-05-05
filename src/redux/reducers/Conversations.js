@@ -5,6 +5,7 @@ const initialState = {
   selected: null,
   messagesList: [],
   question: null,
+  typingText: false,
   isFetching: false,
 };
 
@@ -39,6 +40,12 @@ export default function conversationsReducer(state = initialState, action = {}) 
       return {
         ...state,
         isFetching: action.value,
+      };
+
+    case types.CONVERSATION_SET_TYPING_TEXT:
+      return {
+        ...state,
+        typingText: action.value,
       };
 
     case types.LOG_OUT:

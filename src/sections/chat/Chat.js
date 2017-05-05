@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Image, Text, Alert } from 'react-native'
 
 // COMPONENTS
-import { GiftedChat, InputToolbar, Bubble, Composer, Time } from 'react-native-gifted-chat'
+import { GiftedChat, InputToolbar, Bubble, Composer, Time, Day } from 'react-native-gifted-chat'
 import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
@@ -11,6 +11,7 @@ import { CustomMessageText, CustomMessage } from 'keynos_app/src/widgets'
 import * as Constants from 'keynos_app/src/webservices/Constants'
 import _ from 'lodash'
 import ImagePicker from 'react-native-image-picker'
+import LoadingDots from 'keynos_app/src/widgets/LoadingDots'
 
 // REDUX
 import { connect } from 'react-redux'
@@ -80,7 +81,7 @@ class Chat extends Component {
           right: { backgroundColor: this.props.main_color },
           left: { backgroundColor: Colors.white }
         }}
-      />
+        />
     )
   }
 
@@ -88,7 +89,7 @@ class Chat extends Component {
     return (
       <CustomMessage
         {...props}
-      />
+        />
     )
   }
 
@@ -96,7 +97,7 @@ class Chat extends Component {
     return (
       <CustomMessageText
         {...props}
-      />
+        />
     )
   }
 
@@ -105,7 +106,7 @@ class Chat extends Component {
       <Composer
         {...props}
         placeholder={multiStrings.chatInputPlaceholder}
-      />
+        />
     )
   }
 
@@ -117,26 +118,48 @@ class Chat extends Component {
           right: { color: Colors.white },
           left: { color: Colors.black }
         }}
-      />
+        />
     )
+  }
+
+  onLongPress(context) {
+    //console.log("context: ", context)
+    //context.actionSheet().showActionSheetWithOptions()
+  }
+
+  renderFooter(props) {
+    if (this.props.typingText) {
+      let interlocutor = this.props.conversation.interlocutor
+      let bgColor = Utils.hexToRgbA(this.props.main_color, '0.7')
+
+      return (
+        <LoadingDots
+          label={ multiStrings.formatString(multiStrings.isTyping, interlocutor) }
+          bgColor={ bgColor }
+          color={ Colors.white }
+          />
+      )
+    }
+    return null
   }
 
   renderInputToolbar(props) {
     let question = this.props.question
+    let rgbaColor = Utils.hexToRgbA(this.props.main_color, '0.07')
 
     if(question && question.type == "text") {
       return (
-        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: Colors.chatInputBg}} >
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
           <InputToolbar {...props} />
         </View>
       )
     } else if(question && question.type == "options") {
       return (
-        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: Colors.chatInputBg}} >
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
           <AnswerMultipleOptions
             options={ question.options }
             onPress={ (opt) => this.props.onAnswerTapped(question.type, opt.bubble_id, opt.node_id) }
-          />
+            />
         </View>
       )
     } else if(question && question.type == "image") {
@@ -147,11 +170,11 @@ class Chat extends Component {
       ]
 
       return (
-        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: Colors.chatInputBg}} >
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
           <AnswerMultipleOptions
             options={ cameraOptions }
             onPress={ (opt) => this.onSelectImageTapped(opt) }
-          />
+            />
         </View>
       )
     } else {
@@ -168,11 +191,13 @@ class Chat extends Component {
 
   render() {
     let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
+    let rgbaColor = Utils.hexToRgbA(this.props.main_color, '0.1')
+
     let list = _.clone(this.props.messagesList)
     let messages = list.reverse()
 
     return (
-      <Image style={{ flex: 1, backgroundColor: Colors.chatListBg }} source={ bgImage } resizeMode={'repeat'} >
+      <Image style={{ flex: 1, backgroundColor: rgbaColor }} source={ bgImage } resizeMode={'repeat'} >
         <GiftedChat
           messages={messages}
           loadEarlier={false}
@@ -182,13 +207,15 @@ class Chat extends Component {
           renderBubble={this.renderBubble.bind(this)}
           renderMessage={this.renderMessage.bind(this)}
           renderMessageText={this.renderMessageText.bind(this)}
+          renderFooter={this.renderFooter.bind(this)}
           renderComposer={this.renderComposer.bind(this)}
           renderTime={this.renderTime.bind(this)}
+          onLongPress={this.onLongPress.bind(this)}
           minInputToolbarHeight={this.state.minInputToolbarHeight}
           lightboxProps={{ underlayColor: 'transparent' }}
           user={{ _id: 1 }}
           locale={ 'es' }
-        />
+          />
       </Image>
     )
   }
@@ -201,6 +228,7 @@ let mapStateToProps = (state) => {
     conversation: state.conversations.selected,
     messagesList: state.conversations.messagesList,
     question: state.conversations.question,
+    typingText: state.conversations.typingText,
   }
 }
 

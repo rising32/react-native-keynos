@@ -20,6 +20,13 @@ function updateConversationsList(value) {
   }
 }
 
+function setTypingText(value) {
+  return {
+    type: types.CONVERSATION_SET_TYPING_TEXT,
+    value
+  }
+}
+
 export function updateConversationSelected(value) {
   return {
     type: types.UPDATE_CONVERSATION_SELECTED,
@@ -122,7 +129,11 @@ export function fetchNextBubble(bubbleId) {
     fetch(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("fetchNextBubble response: ", response)
 
+      // Prepare bot bubbles
       if(response.data && response.data.bot_bubbles && response.data.bot_bubbles.length) {
+
+        // Start isTyping
+        dispatch(setTypingText(true))
 
         // Format answer message
         let formatAnswer = Utils.formatHistoryMessages(response.data.bot_bubbles)
@@ -130,22 +141,63 @@ export function fetchNextBubble(bubbleId) {
         // Get current messages list
         const state = getState()
         const messagesList = state.conversations.messagesList
+        let timeout = 0
 
-        // Add format answer message to current messages list
-        let newMessagesList = _.concat(messagesList, formatAnswer)
-        dispatch(updateConversationMessagesList(newMessagesList))
-      }
+        _.reduce(formatAnswer, (accumulator, nextMessage) => {
 
-      if(response.data && response.data.user_bubbles && response.data.user_bubbles.length) {
+          // Calculate new timeout with last message length
+          let extraTimeout = 0
+          let lastMsg = _.last(accumulator)
+          if(lastMsg && lastMsg.image) {
+            extraTimeout = Constants.IMAGE_TYPING_TIMER
+          } else if(lastMsg && lastMsg.text) {
+            extraTimeout = lastMsg.text.length * Constants.CHARACTER_TYPING_TIMER
+          }
+          timeout = (extraTimeout < Constants.DEFAULT_TYPING_TIMER) ? timeout + Constants.DEFAULT_TYPING_TIMER : timeout + extraTimeout
 
-        // Set next question
-        let formatQuestion = Utils.formatNextmessage(response.data.user_bubbles)
-        dispatch(updateConversationQuestion(formatQuestion))
+          // Add new message and acumulator to messageList
+          let finalList = _.concat(messagesList, accumulator, nextMessage)
+
+          setTimeout(() => {
+            // Update message list
+            dispatch(updateConversationMessagesList(finalList))
+
+            if(accumulator.length == formatAnswer.length - 1){
+              // Stop isTyping
+              dispatch(setTypingText(false))
+
+              // After bot bubbles prepare next question
+              dispatch(fetchNextQuestion(response))
+            }
+          }, timeout)
+
+          // Return collection with new Message
+          return _.concat(accumulator, nextMessage)
+
+        }, [])
+
+      } else {
+        // If no bot bubbles prepare next question
+        dispatch(fetchNextQuestion(response))
       }
 
     }).catch((error) => {
       dispatch({label: multiStrings.errorFetchingNextQuestion, func: 'fetchNextBubble', type: 'SET_ERROR', url: fetchUrl, error})
     })
+  }
+}
+
+function fetchNextQuestion(response) {
+  return (dispatch, getState) => {
+    // Prepare next question
+    if(response.data && response.data.user_bubbles && response.data.user_bubbles.length) {
+      // Set next question
+      let formatQuestion = Utils.formatNextmessage(response.data.user_bubbles)
+      dispatch(updateConversationQuestion(formatQuestion))
+    }else{
+      // Delete current question
+      dispatch(updateConversationQuestion(null))
+    }
   }
 }
 
@@ -178,8 +230,6 @@ export function postBubbleResponse(bubbleId, nodeId, text, image) {
       Constants.LOG_ENABLED && console.log("postBubbleResponse response: ", response)
 
       if(response.data && response.data.answer) {
-        // Delete current question
-        dispatch(updateConversationQuestion(null))
 
         // Format answer message
         let formatAnswer = Utils.formatHistoryMessages(response.data.answer)

@@ -51,6 +51,7 @@ export function openUrl(url){
   });
 }
 
+// Format history message
 export function formatHistoryMessages(bubblesArray) {
   let messages = []
 
@@ -77,7 +78,7 @@ export function formatHistoryMessages(bubblesArray) {
   return messages
 }
 
-
+// Format next question
 export function formatNextmessage(bubblesArray) {
 
   if(bubblesArray && bubblesArray.length) {
@@ -115,6 +116,8 @@ export function formatNextmessage(bubblesArray) {
   }
 }
 
+
+// Responsive
 const IPHONE6_WIDTH = 375;
 const IPHONE6_HEIGHT = 667;
 
@@ -126,4 +129,18 @@ export function widthScale() {
 export function heightScale() {
   let dimension = Dimensions.get('window').height / IPHONE6_HEIGHT
   return dimension > 1 ? 1 : dimension
+}
+
+// HEX to RGBA
+export function hexToRgbA(hex, alpha){
+    var c;
+    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+        c= hex.substring(1).split('');
+        if(c.length== 3){
+            c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+        c= '0x'+c.join('');
+        return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',') + ',' + alpha + ')';
+    }
+    throw new Error('Bad Hex');
 }

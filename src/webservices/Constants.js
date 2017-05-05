@@ -14,6 +14,14 @@ export const BASE_URL = DEVELOP ? 'http://keynos.mobi/api/v1/' : 'http://keynos.
 export const APP_VERSION = DeviceInfo.getVersion()
 export const DEVICE_ID = DeviceInfo.getUniqueID()
 
+// MIN TYPING TIMER
+export const DEFAULT_TYPING_TIMER = 600
+
+// TIME PER LETTER
+export const CHARACTER_TYPING_TIMER = 30
+
+// TIME PER IMAGE
+export const IMAGE_TYPING_TIMER = 2000
 
 export const CAMERA_OPTIONS = {
   quality: 0.6,
