@@ -149,7 +149,7 @@ class Chat extends Component {
           />
       )
     }
-    else if(!this.props.question) {
+    else if(this.props.chatFinished) {
       return (
         <View style={{ margin: 10, marginBottom: 30, alignItems: 'center' }}>
           <View style={{ backgroundColor: bgColor, paddingHorizontal: 10, borderRadius: 5 }}>
@@ -305,6 +305,7 @@ let mapStateToProps = (state) => {
     messagesList: state.conversations.messagesList,
     question: state.conversations.question,
     typingText: state.conversations.typingText,
+    chatFinished: state.conversations.chatFinished,
   }
 }
 

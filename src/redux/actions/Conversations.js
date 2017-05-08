@@ -20,6 +20,13 @@ function updateConversationsList(value) {
   }
 }
 
+function updateConversationsChatFinished(value) {
+  return {
+    type: types.CONVERSATION_CHAT_FINISHED,
+    value
+  }
+}
+
 function setTypingText(value) {
   return {
     type: types.CONVERSATION_SET_TYPING_TEXT,
@@ -82,6 +89,7 @@ export function initConversation(conversation) {
     dispatch(updateConversationSelected(conversation))
 
     // Reset conversation params
+    dispatch(updateConversationsChatFinished(false))
     dispatch(updateConversationMessagesList([]))
     dispatch(updateConversationQuestion(null))
 
@@ -197,6 +205,9 @@ function fetchNextQuestion(response) {
     }else{
       // Delete current question
       dispatch(updateConversationQuestion(null))
+
+      // Set chat finished
+      dispatch(updateConversationsChatFinished(true))
     }
   }
 }
