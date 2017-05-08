@@ -216,7 +216,7 @@ class Chat extends Component {
 
     Image.getSize(bgImage, (width, height) => {
 
-      let imageWidth = Math.ceil(height * 50 / width)
+      let imageWidth = Math.ceil(height * 120 / width)
 
       for(var i=0; i < Math.ceil(totalWidth/imageWidth); i++){
         images.push((

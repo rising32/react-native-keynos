@@ -9,7 +9,7 @@ import * as CompanyActions from 'keynos_app/src/redux/actions/Company'
 import * as Webservices from 'keynos_app/src/webservices/Webservices'
 
 export function updateUserToken(value) {
-  Webservices.configureAxios('Bearer ' + value)
+  Webservices.configureAxios(value)
   return {
     type: types.UPDATE_LOGIN_TOKEN,
     value,
@@ -93,8 +93,8 @@ export function login(email, password) {
 
       if(response.ok && response.data){
         let data = response.data
-        dispatch(updateUserToken(data.api_token))
-        dispatch(setUserDefault(data.api_token))
+        dispatch(updateUserToken('Bearer ' + data.api_token))
+        dispatch(setUserDefault('Bearer ' + data.api_token))
 
         if(response.onboarding_conversation_id) {
           //Resolver cuestionario con id onboarding_conversation_id
@@ -188,10 +188,26 @@ export function restoreUserDefault() {
         timer = null
       }
       if(token){
-        //console.log('al recuperar ',JSON.parse(token))
+        Constants.LOG_ENABLED && console.log('restoreUserDefault ',JSON.parse(token))
         dispatch(updateUserToken(JSON.parse(token)))
-        dispatch(refreshToken(JSON.parse(token)))
+        //dispatch(refreshToken(JSON.parse(token)))
 
+        // OJO!!!!!!
+        AsyncStorage.getItem('company', (err, companyLoaded) => {
+          companyLoaded = JSON.parse(companyLoaded)
+          let company = {
+            id: companyLoaded.id!='' ? companyLoaded.id : null,
+            name: companyLoaded.name!='' ? companyLoaded.name : null,
+            logo: companyLoaded.logo!='' ? companyLoaded.logo : null,
+            login_type: companyLoaded.login_type!='' ? companyLoaded.login_type : null,
+            main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
+            bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
+          }
+          dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
+          Actions.TabBar({type: 'reset'})
+        });
+
+        //////
       } else {
         timer = setTimeout(() => {
           console.log('no hay token')

@@ -23,6 +23,7 @@ class CompanySelection extends Component {
     super(props);
     this.state = {
       company: 'Acme',
+      //company: '',
       companyNeedCorrection: false,
       companyIncorrect: false,
       companyErrorLabel: '',
