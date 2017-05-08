@@ -69,7 +69,7 @@ class Login extends Component {
 
 
   render() {
-    let companyName = this.props.name
+    let companyName = this.props.name ? this.props.name : ''
     let main_color = this.props.main_color
     let offset = (Platform.OS === 'ios') ? 20 : 0
     return (
@@ -77,7 +77,7 @@ class Login extends Component {
         <ScrollView bounces={false} >
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 30*heightScale}} >
             <Text style={{color: main_color, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
-            <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
+            <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos'}</Text>
           </View>
           <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
             <SvgUri
