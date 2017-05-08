@@ -69,10 +69,6 @@ let mapDispatchToProps = (dispatch, props) => {
       dispatch(ConversationsActions.getConversationsList())
     },
 
-    setUserDefault: () => {
-      dispatch(LoginActions.setUserDefault())
-    },
-
     onConversationPress: (conversation) => {
       dispatch(ConversationsActions.initConversation(conversation))
     },
