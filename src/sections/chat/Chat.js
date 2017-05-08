@@ -164,7 +164,7 @@ class Chat extends Component {
 
   renderInputToolbar(props) {
     let question = this.props.question
-    let rgbaColor = Utils.hexToRgbA(this.props.main_color, '0.07')
+    let rgbaColor = Utils.hexToRgbA(this.props.main_color, '0.4')
 
     if(question && question.type == "text") {
       return (
@@ -174,11 +174,13 @@ class Chat extends Component {
       )
     } else if(question && question.type == "options") {
       return (
-        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
-          <AnswerMultipleOptions
-            options={ question.options }
-            onPress={ (opt) => this.props.onAnswerTapped(question.type, opt.bubble_id, opt.node_id) }
-            />
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: Colors.white}} >
+          <View style={{backgroundColor: rgbaColor}}>
+            <AnswerMultipleOptions
+              options={ question.options }
+              onPress={ (opt) => this.props.onAnswerTapped(question.type, opt.bubble_id, opt.node_id) }
+              />
+          </View>
         </View>
       )
     } else if(question && question.type == "image") {
@@ -189,11 +191,13 @@ class Chat extends Component {
       ]
 
       return (
-        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
-          <AnswerMultipleOptions
-            options={ cameraOptions }
-            onPress={ (opt) => this.onSelectImageTapped(opt) }
-            />
+        <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: Colors.white}} >
+          <View style={{backgroundColor: rgbaColor}}>
+            <AnswerMultipleOptions
+              options={ cameraOptions }
+              onPress={ (opt) => this.onSelectImageTapped(opt) }
+              />
+          </View>
         </View>
       )
     } else {
