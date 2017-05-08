@@ -15,7 +15,7 @@ export default class SpinnerCustom extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ interval: setInterval(this.renderLoadingDots, 1000) })
+    this.setState({ interval: setInterval(this.renderLoadingDots, 800) })
   }
 
   componentWillUnmount() {
