@@ -1,9 +1,9 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Image, Text, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, Alert, Platform, Dimensions } from 'react-native'
 
 // COMPONENTS
-import { GiftedChat, InputToolbar, Bubble, Composer, Time, Day } from 'react-native-gifted-chat'
+import { GiftedChat, InputToolbar, Bubble, Composer, Time } from 'react-native-gifted-chat'
 import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
@@ -28,11 +28,19 @@ class Chat extends Component {
     this.state = {
       responseType: 'text',
       minInputToolbarHeight: 0,
+      androidBgImagesArray: [],
+    }
+  }
+
+  componentWillMount() {
+    if(Platform.OS !== 'ios') {
+      this.getAndroidBgImages(this.props.bg_image)
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if(prevState.minInputToolbarHeight != this.state.minInputToolbarHeight){
+      // Update listView height with new inputToolbarHeight
       this.refs.chat.resetInputToolbar()
     }
   }
@@ -128,9 +136,10 @@ class Chat extends Component {
   }
 
   renderFooter(props) {
-    if (this.props.typingText) {
+    let bgColor = Utils.hexToRgbA(this.props.main_color, '0.7')
+
+    if(this.props.typingText) {
       let interlocutor = this.props.conversation.interlocutor
-      let bgColor = Utils.hexToRgbA(this.props.main_color, '0.7')
 
       return (
         <LoadingDots
@@ -140,7 +149,17 @@ class Chat extends Component {
           />
       )
     }
-    return null
+    else if(!this.props.question) {
+      return (
+        <View style={{ margin: 10, marginBottom: 30, alignItems: 'center' }}>
+          <View style={{ backgroundColor: bgColor, paddingHorizontal: 10, borderRadius: 5 }}>
+            <Text style={{ fontSize: 14, color: Colors.white, fontWeight: '600' }}>
+              { multiStrings.chatFinishedLabel }
+            </Text>
+          </View>
+        </View>
+      )
+    }
   }
 
   renderInputToolbar(props) {
@@ -150,7 +169,7 @@ class Chat extends Component {
     if(question && question.type == "text") {
       return (
         <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
-          <InputToolbar {...props} />
+          <InputToolbar {...props} label={multiStrings.send} />
         </View>
       )
     } else if(question && question.type == "options") {
@@ -183,9 +202,67 @@ class Chat extends Component {
   }
 
   calculateMinInputToolbarHeight(layout) {
-    if(layout){
-      this.setState({minInputToolbarHeight: layout.height})
-    }
+    // Update inputToolBar height
+    if(layout) this.setState({minInputToolbarHeight: layout.height})
+  }
+
+  getAndroidBgImages(bgImage) {
+    // For background image repeat on android
+    let images = []
+    let verticalViews = []
+
+    let totalWidth = Dimensions.get('window').width
+    let totalHeight = Dimensions.get('window').height
+
+    Image.getSize(bgImage, (width, height) => {
+
+      let imageWidth = Math.ceil(height * 50 / width)
+
+      for(var i=0; i < Math.ceil(totalWidth/imageWidth); i++){
+        images.push((
+           <Image key={'i'+i} source={{uri: bgImage}} style={{width: imageWidth, height: imageWidth}} />
+        ))
+      }
+
+      for(var i=0; i < Math.ceil(totalHeight/imageWidth); i++){
+        verticalViews.push((
+          <View key={'v'+i} style={{flexDirection: 'row'}}>
+            { _.map(images, img => {
+             return img;
+            })}
+          </View>
+        ))
+      }
+
+      this.setState({androidBgImagesArray: verticalViews})
+    })
+  }
+
+  renderChat() {
+
+    let list = _.clone(this.props.messagesList)
+    let messages = list.reverse()
+
+    return (
+      <GiftedChat
+        messages={messages}
+        loadEarlier={false}
+        ref="chat"
+        onSend={this.onSend.bind(this)}
+        renderInputToolbar={this.renderInputToolbar.bind(this)}
+        renderBubble={this.renderBubble.bind(this)}
+        renderMessage={this.renderMessage.bind(this)}
+        renderMessageText={this.renderMessageText.bind(this)}
+        renderFooter={this.renderFooter.bind(this)}
+        renderComposer={this.renderComposer.bind(this)}
+        renderTime={this.renderTime.bind(this)}
+        onLongPress={this.onLongPress.bind(this)}
+        minInputToolbarHeight={this.state.minInputToolbarHeight}
+        lightboxProps={{ underlayColor: 'transparent' }}
+        user={{ _id: 1 }}
+        locale={ 'es' }
+        />
+    )
   }
 
 
@@ -193,31 +270,30 @@ class Chat extends Component {
     let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
     let rgbaColor = Utils.hexToRgbA(this.props.main_color, '0.1')
 
-    let list = _.clone(this.props.messagesList)
-    let messages = list.reverse()
+    if(Platform.OS === 'ios') {
+      return (
+        <Image style={{ flex: 1, backgroundColor: rgbaColor }} source={ bgImage } resizeMode={'repeat'} >
 
-    return (
-      <Image style={{ flex: 1, backgroundColor: rgbaColor }} source={ bgImage } resizeMode={'repeat'} >
-        <GiftedChat
-          messages={messages}
-          loadEarlier={false}
-          ref="chat"
-          onSend={this.onSend.bind(this)}
-          renderInputToolbar={this.renderInputToolbar.bind(this)}
-          renderBubble={this.renderBubble.bind(this)}
-          renderMessage={this.renderMessage.bind(this)}
-          renderMessageText={this.renderMessageText.bind(this)}
-          renderFooter={this.renderFooter.bind(this)}
-          renderComposer={this.renderComposer.bind(this)}
-          renderTime={this.renderTime.bind(this)}
-          onLongPress={this.onLongPress.bind(this)}
-          minInputToolbarHeight={this.state.minInputToolbarHeight}
-          lightboxProps={{ underlayColor: 'transparent' }}
-          user={{ _id: 1 }}
-          locale={ 'es' }
-          />
-      </Image>
-    )
+          { this.renderChat() }
+
+        </Image>
+      )
+    } else {
+
+      return (
+        <View style={{ flex: 1, backgroundColor: rgbaColor}} >
+
+          <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0}}>
+            { _.map(this.state.androidBgImagesArray, img => {
+             return img;
+            })}
+          </View>
+
+          { this.renderChat() }
+
+        </View>
+      )
+    }
   }
 }
 

@@ -54,5 +54,7 @@ export default new LocalizedStrings({
     selectPhoto: 'Seleccionar imagen',
     chatInputPlaceholder: 'Escribe algo...',
     isTyping: '{0} está escribiendo',
+    chatFinishedLabel: 'Chat finalizado',
+    send: 'Enviar',
   },
 });
