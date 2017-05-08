@@ -15,7 +15,7 @@ export const APP_VERSION = DeviceInfo.getVersion()
 export const DEVICE_ID = DeviceInfo.getUniqueID()
 
 // MIN TYPING TIMER
-export const DEFAULT_TYPING_TIMER = 600
+export const DEFAULT_TYPING_TIMER = 2000
 
 // TIME PER LETTER
 export const CHARACTER_TYPING_TIMER = 30

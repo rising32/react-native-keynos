@@ -45,6 +45,10 @@ class Chat extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.getConversationsList()
+  }
+
   onSend(messages = []) {
     if(messages.length) {
       let message = messages[0]
