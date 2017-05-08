@@ -68,6 +68,9 @@ class Tutorial extends Component {
           <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
             <Image source={require('keynos_app/src/resources/tutorial.png')} style={{height: 240*heightScale}} resizeMode={'contain'} />
           </View>
+          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
+            <Image source={require('keynos_app/src/resources/tutorial.png')} style={{height: 240*heightScale}} resizeMode={'contain'} />
+          </View>
         </Swiper>
         {this.renderSkipButton()}
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', margin: 20*widthScale, marginBottom: 60*heightScale}} >

@@ -116,6 +116,55 @@ export function login(email, password) {
   }
 }
 
+export function loginToken(token) {
+  return (dispatch, getState) => {
+
+    const state = getState()
+    const compId = state.company.id
+    const compLoginType = state.company.login_type
+    const device_uuid = Constants.DEVICE_ID
+
+    if(!compId || !authToken || !compLoginType || compLoginType != "token") {
+      return
+    }
+
+    dispatch(setFetching(true))
+    let params = {
+      domain_id: compId,
+      device_uuid: device_uuid,
+      token: token
+    }
+
+    const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
+    post(fetchUrl).then((response) => {
+      Constants.LOG_ENABLED && console.log("loginToken response: ", response)
+      dispatch(setFetching(false))
+
+      // if(response.ok && response.data){
+      //   let data = response.data
+      //   dispatch(updateUserToken('Bearer ' + data.api_token))
+      //   dispatch(setUserDefault('Bearer ' + data.api_token))
+      //
+      //   if(response.onboarding_conversation_id) {
+      //     //Resolver cuestionario con id onboarding_conversation_id
+      //     Actions.TabBar({type: ActionConst.RESET})
+      //   }else{
+      //     Actions.TabBar({type: ActionConst.RESET})
+      //   }
+      // }else{
+      //   dispatch({label: multiStrings.errorCredentials, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
+      // }
+    }).catch((error) => {
+      dispatch(setFetching(false))
+      if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
+        dispatch({label: multiStrings.errorCredentials, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
+      }else{
+        dispatch({label: multiStrings.errorLogin, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error})
+      }
+    })
+  }
+}
+
 export function refreshToken(token) {
   return (dispatch, getState) => {
 
