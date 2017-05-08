@@ -29,7 +29,7 @@ import multiStrings from './commons/Multistrings'
 const widthScale = Utils.widthScale()
 const heightScale = Utils.heightScale()
 
-let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
+let offset = (Platform.OS === 'ios') ? 20 : -2 //56-and, 74-ios
 let getNavBarOffset = Navigator.NavigationBar.Styles.General.NavBarHeight + offset
 
 class Routes extends Component {
