@@ -18,7 +18,7 @@ class ConversationNavBar extends Component {
   render() {
     let main_color = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.selected ? this.props.selected : {}
-    let offset = (Platform.OS === 'ios') ? 20*heightScale : 0 //56-and, 74-ios
+    let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
     return(
       <View style={{backgroundColor: Colors.white, position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', height: 100*heightScale, alignItems: 'center', justifyContent: 'center', marginTop: offset, borderBottomWidth: 1, borderBottomColor: main_color}}>
         <TouchableOpacity style={{height: 50*heightScale, width: 50*widthScale, justifyContent: 'center', paddingLeft: 15*widthScale}} onPress={() =>  Actions.pop({type: 'reset'})} >

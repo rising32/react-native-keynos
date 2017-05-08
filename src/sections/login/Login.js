@@ -22,12 +22,14 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'acme@keynos.com',
+      //email: 'acme@keynos.com',
+      email: '',
       emailNeedCorrection: false,
       emailIncorrect: false,
       emailErrorLabel: '',
 
-      password: 'BtgDsMxQaLmasdEmW8jAQyd_kn',
+      //password: 'BtgDsMxQaLmasdEmW8jAQyd_kn',
+      password: '',
       passwordNeedCorrection: false,
       passwordIncorrect: false,
       passwordErrorLabel: '',
