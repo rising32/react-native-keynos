@@ -23,7 +23,7 @@ export function setFetching(value) {
   };
 }
 
-export function loginCompany(company) {
+export function loginCompany(company, isRefreshing) {
   return (dispatch, getState) => {
 
     if(!company) {
@@ -50,10 +50,14 @@ export function loginCompany(company) {
           let bg_image = domain.customization && domain.customization.bg_image ? domain.customization.bg_image : null
           dispatch(CompanyActions.updateCompanyValues(domain.id, domain.name, domain.logo, domain.login_type, main_color, bg_image))
 
-          if(domain.login_type == "default") {
-            Actions.Login({type: ActionConst.RESET})
-          } else if (domain.login_type == "token") {
+          if(isRefreshing) {
+            Actions.TabBar({type: 'reset'})
+          } else {
+            if(domain.login_type == "default") {
+              Actions.Login({type: ActionConst.RESET})
+            } else if (domain.login_type == "token") {
 
+            }
           }
         }else{
           dispatch({label: multiStrings.errorCompanyNoExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
@@ -186,16 +190,7 @@ export function refreshToken(token) {
         // Load saved company
         AsyncStorage.getItem('company', (err, companyLoaded) => {
           companyLoaded = JSON.parse(companyLoaded)
-          let company = {
-            id: companyLoaded.id!='' ? companyLoaded.id : null,
-            name: companyLoaded.name!='' ? companyLoaded.name : null,
-            logo: companyLoaded.logo!='' ? companyLoaded.logo : null,
-            login_type: companyLoaded.login_type!='' ? companyLoaded.login_type : null,
-            main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
-            bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
-          }
-          dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
-          Actions.TabBar({type: 'reset'})
+          dispatch(loginCompany(companyLoaded.name, true))
         });
       }else{
         Actions.Tutorial({type: 'reset'})

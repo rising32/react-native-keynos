@@ -4,8 +4,9 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, Alert, ListView, Async
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
+import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import { ConversationCell } from 'keynos_app/src/widgets/'
-import { Spinner } from 'keynos_app/src/widgets/'
+import Spinner from 'react-native-spinkit'
 
 // REDUX
 import { connect } from 'react-redux'
@@ -22,13 +23,25 @@ class Conversations extends Component {
   }
 
   renderRow(rowData: object, sectionID: number, rowID: number) {
-		return(
-			<ConversationCell data={rowData} onPress={ () => this.props.onConversationPress(rowData) }/>
-		)
+    if(rowData.isFetching) {
+      return(
+        <View style={{alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}} >
+          <Spinner type={'ThreeBounce'} size={40} color={this.props.main_color} />
+        </View>
+      )
+    } else {
+      let onPressCell = this.props.isFetching ? null : () => this.props.onConversationPress(rowData)
+  		return(
+  			<ConversationCell data={rowData} onPress={ onPressCell }/>
+  		)
+    }
 	}
 
   render() {
     let list = this.props.list ? this.props.list : []
+    if(this.props.isFetching) {
+      list.unshift({isFetching: true})
+    }
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     let dataSource = ds.cloneWithRows(list);
 
@@ -42,7 +55,6 @@ class Conversations extends Component {
 					enableEmptySections={true}
 					renderRow={this.renderRow.bind(this)}
         />
-        <Spinner visible={this.props.isFetching} />
       </View>
     )
   }
