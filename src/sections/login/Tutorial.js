@@ -34,7 +34,7 @@ class Tutorial extends Component {
   }
 
   enableSkipTutorial(index) {
-    if(index==1) {
+    if(index==2) {
       this.setState({enableSkip: true})
       AsyncStorage.setItem('enableSkip', JSON.stringify(true), () => {
 
