@@ -7,6 +7,7 @@ const initialState = {
   login_type: null,
   main_color: null,
   bg_image: null,
+  loginName: null,
 };
 
 export default function companyReducer(state = initialState, action = {}) {
@@ -21,6 +22,7 @@ export default function companyReducer(state = initialState, action = {}) {
         login_type: action.login_type,
         main_color: action.main_color,
         bg_image: action.bg_image,
+        loginName: action.loginName,
       };
 
     default:

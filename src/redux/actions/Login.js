@@ -48,7 +48,7 @@ export function loginCompany(company, isRefreshing) {
           let domain = response.domain
           let main_color = domain.customization && domain.customization.main_color ? domain.customization.main_color : Constants.green_light
           let bg_image = domain.customization && domain.customization.bg_image ? domain.customization.bg_image : null
-          dispatch(CompanyActions.updateCompanyValues(domain.id, domain.name, domain.logo, domain.login_type, main_color, bg_image))
+          dispatch(CompanyActions.updateCompanyValues(domain.id, domain.name, domain.logo, domain.login_type, main_color, bg_image, company))
 
           if(isRefreshing) {
             Actions.TabBar({type: 'reset'})
@@ -61,6 +61,8 @@ export function loginCompany(company, isRefreshing) {
           }
         }else{
           dispatch({label: multiStrings.errorCompanyNoExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
+          dispatch(setLogOut())
+          Actions.CompanySelection({type: ActionConst.RESET})
         }
       }else{
         dispatch({label: multiStrings.errorCompanyExist, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
@@ -190,7 +192,7 @@ export function refreshToken(token) {
         // Load saved company
         AsyncStorage.getItem('company', (err, companyLoaded) => {
           companyLoaded = JSON.parse(companyLoaded)
-          dispatch(loginCompany(companyLoaded.name, true))
+          dispatch(loginCompany(companyLoaded.loginName, true))
         });
       }else{
         Actions.Tutorial({type: 'reset'})
@@ -213,6 +215,7 @@ export function setUserDefault(token){
       login_type: state.company.login_type ? state.company.login_type : '',
       main_color: state.company.main_color ? state.company.main_color : '',
       bg_image: state.company.bg_image ? state.company.bg_image : '',
+      loginName: state.company.loginName ? state.company.loginName : '',
     }
     AsyncStorage.setItem('company', JSON.stringify(company), () => {
       //console.log('guardado company en AsyncStorage')
