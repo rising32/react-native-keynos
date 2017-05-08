@@ -1,5 +1,5 @@
 export const black = '#222222'
-export const white = 'white'
+export const white = '#FFFFFF'
 
 export const gray_inactive = '#9F9F9F'
 export const gray_chat = '#929292'
