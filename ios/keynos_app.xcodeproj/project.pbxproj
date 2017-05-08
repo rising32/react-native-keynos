@@ -240,6 +240,13 @@
 			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
 			remoteInfo = RNSVG;
 		};
+		F21D65D51EC0CBC300EF3C97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E06392EDAF5412FAD755B80 /* RNSpinkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D42CB3511B2538DE00FD0AE2;
+			remoteInfo = RNSpinkit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -517,6 +524,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F21D65B61EC0CBC300EF3C97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F21D65D61EC0CBC300EF3C97 /* libRNSpinkit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -621,6 +636,7 @@
 					ProjectRef = 32497AB61EBB1276007D26D0 /* RNImagePicker.xcodeproj */;
 				},
 				{
+
 					ProductGroup = 32270A9A1EC0D0EE000F7A9A /* Products */;
 					ProjectRef = 4E06392EDAF5412FAD755B80 /* RNSpinkit.xcodeproj */;
 				},
@@ -845,6 +861,13 @@
 			fileType = archive.ar;
 			path = libRNSVG.a;
 			remoteRef = F204271D1EAFA5B800CA70E1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F21D65D61EC0CBC300EF3C97 /* libRNSpinkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpinkit.a;
+			remoteRef = F21D65D51EC0CBC300EF3C97 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

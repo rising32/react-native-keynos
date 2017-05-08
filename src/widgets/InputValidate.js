@@ -35,7 +35,7 @@ export default class InputValidate extends Component {
 		}
 
 	  return (
-      <View>
+      <View style={{}}>
         <Text style={[Styles.labelStyle, {color: colorTextCorrection}]}>{this.props.label}</Text>
   			<View style={[Styles.viewInputStyle, {borderColor: colorBorderCorrection}]}>
 
@@ -72,7 +72,8 @@ const Styles = StyleSheet.create({
     borderWidth: 1,
 		borderRadius: 5,
     alignItems: 'center',
-		paddingHorizontal: 15*widthScale
+		paddingHorizontal: 15*widthScale,
+		height: 50*heightScale,
   },
 	inputStyle: {
     color: Colors.gray_info,

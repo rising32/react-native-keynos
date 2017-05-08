@@ -56,8 +56,9 @@ class CompanySelection extends Component {
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 30*heightScale}} >
             <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5}} >{multiStrings.accessToCompany}</Text>
           </View>
-          <View style={{margin: 20*widthScale, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}} >
-            <View style={{flex: 1}}>
+          <View style={{margin: 20*widthScale, flexDirection: 'row', alignItems: 'center'}} >
+
+            <View style={{flex: 1, flexDirection: 'column'}}>
               <InputValidate
       					label={null}
       					placeholder={Utils.firstToUpperCase(multiStrings.company)}
@@ -70,7 +71,9 @@ class CompanySelection extends Component {
                 onChangeText={(value) => this.onCompanyChange(value)}
       				/>
             </View>
+
             <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginLeft: 10*widthScale}} >{'.keynos.es'}</Text>
+
           </View>
           <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, margin: 20*widthScale}}
     				onPress={() => this.onSubmit()}>
