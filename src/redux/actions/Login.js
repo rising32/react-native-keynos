@@ -190,27 +190,9 @@ export function restoreUserDefault() {
       if(token){
         Constants.LOG_ENABLED && console.log('restoreUserDefault ',JSON.parse(token))
         dispatch(updateUserToken(JSON.parse(token)))
-        //dispatch(refreshToken(JSON.parse(token)))
-
-        // OJO!!!!!!
-        AsyncStorage.getItem('company', (err, companyLoaded) => {
-          companyLoaded = JSON.parse(companyLoaded)
-          let company = {
-            id: companyLoaded.id!='' ? companyLoaded.id : null,
-            name: companyLoaded.name!='' ? companyLoaded.name : null,
-            logo: companyLoaded.logo!='' ? companyLoaded.logo : null,
-            login_type: companyLoaded.login_type!='' ? companyLoaded.login_type : null,
-            main_color: companyLoaded.main_color!='' ? companyLoaded.main_color : null,
-            bg_image: companyLoaded.bg_image!='' ? companyLoaded.bg_image : null,
-          }
-          dispatch(CompanyActions.updateCompanyValues(company.id, company.name, company.logo, company.login_type, company.main_color, company.bg_image))
-          Actions.TabBar({type: 'reset'})
-        });
-
-        //////
+        dispatch(refreshToken(JSON.parse(token)))
       } else {
         timer = setTimeout(() => {
-          console.log('no hay token')
           Actions.Tutorial({type: 'reset'})
         }, 3000);
       }
