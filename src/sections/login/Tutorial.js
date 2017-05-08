@@ -60,13 +60,13 @@ class Tutorial extends Component {
           <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.tutorialTitle}</Text>
           <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{multiStrings.tutorialSubtitle}</Text>
         </View>
-        <Swiper height={240*heightScale} dotColor={Colors.green_light} activeDotColor={Colors.green_active}
+        <Swiper height={280*heightScale} dotColor={Colors.green_light} activeDotColor={Colors.green_active}
           onMomentumScrollEnd={(e, state, context) => this.enableSkipTutorial(state.index)} >
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white'}} >
-            <Text style={{color: Colors.black, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{'tutorial 1'}</Text>
+          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
+            <Image source={require('keynos_app/src/resources/tutorial.png')} style={{height: 240*heightScale}} resizeMode={'contain'} />
           </View>
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white'}} >
-            <Text style={{color: Colors.black, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{'tutorial 2'}</Text>
+          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
+            <Image source={require('keynos_app/src/resources/tutorial.png')} style={{height: 240*heightScale}} resizeMode={'contain'} />
           </View>
         </Swiper>
         {this.renderSkipButton()}
