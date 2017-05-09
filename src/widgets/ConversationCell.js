@@ -23,12 +23,16 @@ class ConversationCell extends Component {
     let lastBubble = tree.length ? _.last(tree) : null
     let lastNode = lastBubble && lastBubble.nodes && lastBubble.nodes.length ? _.last(lastBubble.nodes) : null
     let lastQuestion = ''
+    let colorLastQuestion = Colors.gray_chat
     if(lastNode) {
       if(lastNode.nodeable_type=="App\\NodeText") {
         lastQuestion = lastNode.text
       } else if(lastNode.nodeable_type=="App\\NodeImage") {
         lastQuestion = multiStrings.image
       }
+    } else {
+      lastQuestion = multiStrings.newConversation
+      colorLastQuestion = this.props.main_color
     }
 
 
@@ -57,7 +61,7 @@ class ConversationCell extends Component {
             <Text style={{color: Colors.gray_chat, fontSize: 11*widthScale, flex: 1}} numberOfLines={1}>{data.conversation_title}</Text>
           </View>
           <View style={{marginRight: 15*widthScale, marginTop: 10*heightScale}} >
-            <Text style={{color: Colors.gray_chat, fontSize: 10}} numberOfLines={1}>{lastQuestion}</Text>
+            <Text style={{color: colorLastQuestion, fontSize: 10}} numberOfLines={1}>{lastQuestion}</Text>
           </View>
         </View>
         <View style={{alignItems: 'center'}} >
