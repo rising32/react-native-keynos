@@ -84,10 +84,10 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "com.keynos_app"
+        applicationId "com.keynos.keynos_app"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1

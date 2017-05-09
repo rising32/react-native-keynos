@@ -1,4 +1,4 @@
-package com.keynos_app;
+package com.keynos.keynos_app;
 
 import android.app.Application;
 
