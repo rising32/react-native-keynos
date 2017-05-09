@@ -22,7 +22,7 @@ class CompanySelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      company: 'Acme',
+      company: 'acme',
       //company: '',
       companyNeedCorrection: false,
       companyIncorrect: false,

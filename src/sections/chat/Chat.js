@@ -224,13 +224,13 @@ class Chat extends Component {
 
       for(var i=0; i < Math.ceil(totalWidth/imageWidth); i++){
         images.push((
-           <Image key={'i'+i} source={{uri: bgImage}} style={{width: imageWidth, height: imageWidth}} />
+           <Image key={'i'+i} source={{uri: bgImage}} style={{width: imageWidth, height: imageWidth, backgroundColor: this.props.main_color, opacity: 0.2}} />
         ))
       }
 
       for(var i=0; i < Math.ceil(totalHeight/imageWidth); i++){
         verticalViews.push((
-          <View key={'v'+i} style={{flexDirection: 'row'}}>
+          <View key={'v'+i} style={{flexDirection: 'row', backgroundColor: 'transparent'}}>
             { _.map(images, img => {
              return img;
             })}
@@ -272,22 +272,21 @@ class Chat extends Component {
 
   render() {
     let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
-    let rgbaColor = Utils.hexToRgbA(this.props.main_color, '0.1')
+    let rgbaColor = Utils.hexToRgbA(this.props.main_color, 1)
 
     if(Platform.OS === 'ios') {
       return (
-        <Image style={{ flex: 1, backgroundColor: rgbaColor }} source={ bgImage } resizeMode={'repeat'} >
-
+        <View style={{flex: 1}} >
+          <Image style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: this.props.main_color, opacity: 0.2 }} source={ bgImage } resizeMode={'repeat'} />
           { this.renderChat() }
-
-        </Image>
+        </View>
       )
     } else {
 
       return (
-        <View style={{ flex: 1, backgroundColor: rgbaColor}} >
+        <View style={{ flex: 1}} >
 
-          <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0}}>
+          <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: 'transparent'}}>
             { _.map(this.state.androidBgImagesArray, img => {
              return img;
             })}

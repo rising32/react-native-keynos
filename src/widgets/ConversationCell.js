@@ -18,7 +18,7 @@ class ConversationCell extends Component {
   render() {
     let bubleColor = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.data ? this.props.data : {}
-    let tree = data.conversation_tree.history // Array
+    let tree = data.conversation_tree ? data.conversation_tree.history : [] // Array
 
     let lastBubble = tree.length ? _.last(tree) : null
     let lastNode = lastBubble && lastBubble.nodes && lastBubble.nodes.length ? _.last(lastBubble.nodes) : null
@@ -34,7 +34,6 @@ class ConversationCell extends Component {
       lastQuestion = multiStrings.newConversation
       colorLastQuestion = this.props.main_color
     }
-
 
     let timeAdded = ''
     let yesterday = moment().add(-1, 'days')

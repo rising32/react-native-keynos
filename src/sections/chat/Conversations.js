@@ -16,6 +16,9 @@ import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversation
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 
+const widthScale = Utils.widthScale()
+const heightScale = Utils.heightScale()
+
 class Conversations extends Component {
 
   componentWillMount() {
@@ -23,25 +26,34 @@ class Conversations extends Component {
   }
 
   renderRow(rowData: object, sectionID: number, rowID: number) {
-    if(rowData.isFetching) {
+    let onPressCell = this.props.isFetching ? null : () => this.props.onConversationPress(rowData)
+		return(
+			<ConversationCell data={rowData} onPress={ onPressCell }/>
+		)
+	}
+
+  renderHeader() {
+    if(this.props.isFetching) {
       return(
-        <View style={{alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}} >
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}} >
           <Spinner type={'ThreeBounce'} size={40} color={this.props.main_color} />
         </View>
       )
-    } else {
-      let onPressCell = this.props.isFetching ? null : () => this.props.onConversationPress(rowData)
-  		return(
-  			<ConversationCell data={rowData} onPress={ onPressCell }/>
-  		)
     }
-	}
+  }
+
+  renderFooter() {
+    if(this.props.list && !this.props.list.length) {
+      return(
+        <View style={{flex: 1, alignItems: 'center', marginHorizontal: 20*widthScale, marginVertical: 20*heightScale}} >
+          <Text style={{fontSize: 20, color: this.props.main_color, textAlign: 'center'}} >{multiStrings.noConversations}</Text>
+        </View>
+      )
+    }
+  }
 
   render() {
     let list = this.props.list ? this.props.list : []
-    if(this.props.isFetching) {
-      list.unshift({isFetching: true})
-    }
 		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     let dataSource = ds.cloneWithRows(list);
 
@@ -54,6 +66,8 @@ class Conversations extends Component {
 					dataSource={dataSource}
 					enableEmptySections={true}
 					renderRow={this.renderRow.bind(this)}
+          renderHeader={this.renderHeader.bind(this)}
+          renderFooter={this.renderFooter.bind(this)}
         />
       </View>
     )

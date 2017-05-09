@@ -40,6 +40,7 @@ export default new LocalizedStrings({
     chat: 'Chat',
     conversations: 'Conversaciones',
     newConversation: 'Nueva conversación',
+    noConversations: 'No tienes ninguna conversación',
     files: 'Archivo',
     settings: 'Ajustes',
     confirmLogOut: '¿Quieres cerrar sesión?',

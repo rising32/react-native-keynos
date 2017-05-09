@@ -13,6 +13,7 @@ export const BASE_URL = DEVELOP ? 'http://keynos.mobi/api/v1/' : 'http://keynos.
 
 export const APP_VERSION = DeviceInfo.getVersion()
 export const DEVICE_ID = DeviceInfo.getUniqueID()
+export const DEVICE_LOCALE = DeviceInfo.getDeviceLocale()
 
 // MIN TYPING TIMER
 export const DEFAULT_TYPING_TIMER = 2000
