@@ -58,7 +58,8 @@ export function formatHistoryMessages(bubblesArray) {
   if(bubblesArray && bubblesArray.length){
     _.map(bubblesArray, (bubble) => {
       let isBot = bubble.bubble_type == "bot" ? true : false
-      let createdAt = bubble.read_on ? moment(bubble.read_on, 'YYYY-MM-DD HH:mm:ss') : null
+      let createdAt = bubble.read_on ? moment(bubble.read_on, 'YYYY-MM-DD HH:mm:ss') : moment()
+
       let user = {
         _id: isBot ? 2 : 1,
         name: bubble.interlocutor,

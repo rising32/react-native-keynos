@@ -6,6 +6,7 @@ import multiStrings from 'keynos_app/src/commons/Multistrings'
 import { Alert, AsyncStorage } from 'react-native';
 import {Actions, ActionConst} from 'react-native-router-flux'
 import * as CompanyActions from 'keynos_app/src/redux/actions/Company'
+import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversations'
 import * as Webservices from 'keynos_app/src/webservices/Webservices'
 
 export function updateUserToken(value) {
@@ -104,7 +105,8 @@ export function login(email, password) {
 
         if(response.onboarding_conversation_id) {
           //Resolver cuestionario con id onboarding_conversation_id
-          Actions.TabBar({type: ActionConst.RESET})
+          console.log('onboarding_conversation_id',response.onboarding_conversation_id)
+          dispatch(ConversationsActions.getConversation(response.onboarding_conversation_id))
         }else{
           Actions.TabBar({type: ActionConst.RESET})
         }

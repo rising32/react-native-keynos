@@ -82,6 +82,29 @@ export function getConversationsList() {
   }
 }
 
+export function getConversation(id) {
+  return (dispatch, getState) => {
+    const state = getState()
+
+    dispatch(setFetching(true))
+
+    const fetchUrl = '/conversations/' + id
+    fetch(fetchUrl).then((response) => {
+
+      Constants.LOG_ENABLED && console.log("getConversation response: ", response)
+      dispatch(setFetching(false))
+
+      if(response.data && response.data.conversation) {
+        Actions.TabBar({type: 'reset'})
+        dispatch(initConversation(response.data.conversation))
+      }
+    }).catch((error) => {
+      dispatch(setFetching(false))
+      dispatch({label: multiStrings.errorFetchConversation, func: 'getConversation', type: 'SET_ERROR', url: fetchUrl, error})
+    })
+  }
+}
+
 export function initConversation(conversation) {
   return (dispatch, getState) => {
 

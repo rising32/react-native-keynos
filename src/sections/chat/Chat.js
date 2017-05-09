@@ -12,6 +12,7 @@ import * as Constants from 'keynos_app/src/webservices/Constants'
 import _ from 'lodash'
 import ImagePicker from 'react-native-image-picker'
 import LoadingDots from 'keynos_app/src/widgets/LoadingDots'
+import Triangle from 'react-native-triangle';
 
 // REDUX
 import { connect } from 'react-redux'
@@ -81,15 +82,48 @@ class Chat extends Component {
     }
   }
 
+  getBubbleStyle(props) {
+    let userID = props.currentMessage.user ? props.currentMessage.user._id : null
+    let nextUserID = props.nextMessage && props.nextMessage.user ? props.nextMessage.user._id : null
+    if(props.position=='left') {
+      return {
+        renderTriangle: nextUserID ? userID!=nextUserID : true,
+        direction: 'down-right',
+        position: {left: -5},
+        triangleColor: Colors.white
+      }
+    } else if(props.position=='right'){
+      return {
+        renderTriangle: nextUserID ? userID!=nextUserID : true,
+        direction: 'down-left',
+        position: {right: -5},
+        triangleColor: this.props.main_color
+      }
+    }
+  }
+
   renderBubble(props) {
+    let bubleStyle = this.getBubbleStyle(props)
     return (
-      <Bubble
-        {...props}
-        wrapperStyle={{
-          right: { backgroundColor: this.props.main_color },
-          left: { backgroundColor: Colors.white }
-        }}
+      <View style={{marginHorizontal: 5}} >
+        <Bubble
+          {...props}
+          wrapperStyle={{
+            right: { backgroundColor: this.props.main_color, borderBottomRightRadius: bubleStyle.renderTriangle ? 0 : 15 },
+            left: { backgroundColor: Colors.white, borderBottomLeftRadius: bubleStyle.renderTriangle ? 0 : 15 }
+          }}
         />
+      {bubleStyle.renderTriangle ?
+        <View style={[bubleStyle.position, {position: 'absolute', bottom: 0}]} >
+          <Triangle
+            width={5}
+            height={10}
+            color={bubleStyle.triangleColor}
+            direction={bubleStyle.direction}
+          />
+        </View> : null
+      }
+      </View>
     )
   }
 

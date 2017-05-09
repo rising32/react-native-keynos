@@ -57,6 +57,7 @@ let mapDispatchToProps = (dispatch, props) => {
 let mapStateToProps = (state) => {
 	return {
     selected: state.conversations.selected,
+    chatFinished: state.conversations.chatFinished,
     main_color: state.company.main_color,
 	};
 };

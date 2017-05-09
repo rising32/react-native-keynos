@@ -69,7 +69,7 @@ class Login extends Component {
 
 
   render() {
-    let companyName = this.props.name ? this.props.name : ''
+    let companyName = this.props.loginName ? this.props.loginName : ''
     let main_color = this.props.main_color
     let offset = (Platform.OS === 'ios') ? 20 : 0
     return (
@@ -148,6 +148,7 @@ let mapStateToProps = (state) => {
   return {
     id: state.company.id,
     name: state.company.name,
+    loginName: state.company.loginName,
     logo: state.company.logo,
     main_color: state.company.main_color
   }

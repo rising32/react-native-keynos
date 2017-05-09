@@ -17,6 +17,7 @@ export default new LocalizedStrings({
     errorImage: 'Error cargando la imagen',
 
     errorFetchConversationList: 'Error obteniendo las conversaciones',
+    errorFetchConversation: 'Error obteniendo la conversación',
     errorPostQuestionResponse: 'Error enviando su respuesta',
     errorFetchingNextQuestion: 'Error obteniendo la siguiente pregunta',
 
