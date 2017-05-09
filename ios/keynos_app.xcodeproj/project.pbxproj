@@ -86,6 +86,13 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
+		32270AB91EC0D0EE000F7A9A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E06392EDAF5412FAD755B80 /* RNSpinkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D42CB3511B2538DE00FD0AE2;
+			remoteInfo = RNSpinkit;
+		};
 		3245AB151EAF518700ED50AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6DD2F7A4BEE24BEFA4D31670 /* ReactNativeLocalization.xcodeproj */;
@@ -407,6 +414,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		32270A9A1EC0D0EE000F7A9A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32270ABA1EC0D0EE000F7A9A /* libRNSpinkit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3245AAF91EAF518700ED50AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,7 +636,8 @@
 					ProjectRef = 32497AB61EBB1276007D26D0 /* RNImagePicker.xcodeproj */;
 				},
 				{
-					ProductGroup = F21D65B61EC0CBC300EF3C97 /* Products */;
+
+					ProductGroup = 32270A9A1EC0D0EE000F7A9A /* Products */;
 					ProjectRef = 4E06392EDAF5412FAD755B80 /* RNSpinkit.xcodeproj */;
 				},
 				{
@@ -691,6 +707,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		32270ABA1EC0D0EE000F7A9A /* libRNSpinkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpinkit.a;
+			remoteRef = 32270AB91EC0D0EE000F7A9A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3245AB161EAF518700ED50AB /* libReactNativeLocalization.a */ = {
@@ -929,6 +952,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = keynos_app;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -958,6 +982,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = keynos_app;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

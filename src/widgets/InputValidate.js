@@ -7,14 +7,11 @@ const widthScale = Utils.widthScale()
 const heightScale = Utils.heightScale()
 
 export default class InputValidate extends Component {
+
 	renderCorrection() {
-		let imageSource=require('keynos_app/src/resources/correctionnook.png')
-		if (!this.props.incorrect) {
-			imageSource=require('keynos_app/src/resources/correctionok.png')
-		}
 		if (this.props.needCorrection) {
 			return(
-				<Image style={{height: 9*widthScale, width: 9*widthScale}} source={imageSource} />
+				<View style={{ marginHorizontal: 5*widthScale, height: 12*widthScale, width: 12*widthScale, borderRadius: 6*widthScale, backgroundColor: this.props.incorrect ? Colors.red_error : Colors.green_light }} />
 			)
 		} else {
 			return null
@@ -41,8 +38,10 @@ export default class InputValidate extends Component {
       <View style={{}}>
         <Text style={[Styles.labelStyle, {color: colorTextCorrection}]}>{this.props.label}</Text>
   			<View style={[Styles.viewInputStyle, {borderColor: colorBorderCorrection}]}>
-					{this.renderImage()}
-  				<TextInput
+
+					{ this.renderImage() }
+
+					<TextInput
   					style={Styles.inputStyle}
   					value={this.props.value}
 						editable = {this.props.editable}
@@ -54,10 +53,11 @@ export default class InputValidate extends Component {
   					placeholderStyle={Styles.placeholderStyle}
   					secureTextEntry={this.props.secureTextEntry}
   					keyboardType={this.props.keyboardType ? this.props.keyboardType : 'default'}
-  					onChangeText={this.props.onChangeText} />
-				<View />
-				<View style={{marginLeft: 5*widthScale}} />
-					{this.renderCorrection()}
+  					onChangeText={this.props.onChangeText}
+					/>
+
+					{ this.renderCorrection() }
+
   			</View>
 				<Text style={Styles.errorStyle}>{this.props.errorlabel}</Text>
       </View>
@@ -71,9 +71,9 @@ const Styles = StyleSheet.create({
     borderColor: Colors.gray_placeholder,
     borderWidth: 1,
 		borderRadius: 5,
-    height: 40*heightScale,
     alignItems: 'center',
-		paddingHorizontal: 15*widthScale
+		paddingHorizontal: 15*widthScale,
+		height: 50*heightScale,
   },
 	inputStyle: {
     color: Colors.gray_info,
