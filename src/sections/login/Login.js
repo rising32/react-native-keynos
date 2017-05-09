@@ -74,7 +74,7 @@ class Login extends Component {
     let offset = (Platform.OS === 'ios') ? 20 : 0
     return (
       <View style={{flex: 1}} >
-        <ScrollView bounces={false} >
+        <ScrollView bounces={false} keyboardShouldPersistTaps={'always'}>
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 30*heightScale}} >
             <Text style={{color: main_color, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos'}</Text>
