@@ -70,6 +70,7 @@ class CorporateButton extends React.Component {
       return(
         <TouchableOpacity
           style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
+          disable={this.props.disable}
           onPress={() => this._onPress()}
         >
           <Image style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: this.props.main_color, opacity: 0.2 }} source={bgImage} resizeMode={'repeat'} />
@@ -80,6 +81,7 @@ class CorporateButton extends React.Component {
       return(
         <TouchableOpacity
           style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
+          disable={this.props.disable}
           onPress={() => this._onPress()}
         >
           <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: 'transparent'}}>

@@ -40,14 +40,11 @@ class LoginToken extends Component {
   }
 
   renderCompanyImage(){
+    console.log('logo',this.props.logo)
     if(this.props.logo) {
       return(
         <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
-          <SvgUri
-            width="120"
-            height="48"
-            source={{uri: this.props.logo}}
-          />
+          <Image source={{uri: this.props.logo}} style={{width: 120*widthScale, height: 48*heightScale}} />
         </View>
       )
     }

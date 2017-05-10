@@ -27,7 +27,7 @@ function updateConversationsChatFinished(value) {
   }
 }
 
-function setTypingText(value) {
+export function setTypingText(value) {
   return {
     type: types.CONVERSATION_SET_TYPING_TEXT,
     value
@@ -169,10 +169,6 @@ export function fetchNextBubble(bubbleId) {
 
       // Prepare bot bubbles
       if(response.data && response.data.bot_bubbles && response.data.bot_bubbles.length) {
-
-        // Start isTyping
-        dispatch(setTypingText(true))
-
         // Format answer message
         let formatAnswer = Utils.formatHistoryMessages(response.data.bot_bubbles)
 
@@ -217,9 +213,11 @@ export function fetchNextBubble(bubbleId) {
       } else {
         // If no bot bubbles prepare next question
         dispatch(fetchNextQuestion(response))
+        dispatch(setTypingText(false))
       }
 
     }).catch((error) => {
+      dispatch(setTypingText(false))
       dispatch({label: multiStrings.errorFetchingNextQuestion, func: 'fetchNextBubble', type: 'SET_ERROR', url: fetchUrl, error})
     })
   }

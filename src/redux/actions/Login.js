@@ -127,6 +127,7 @@ export function loginToken(token) {
       device_uuid: device_uuid,
       token: token
     }
+    console.log('params',params)
 
     const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
     post(fetchUrl).then((response) => {
