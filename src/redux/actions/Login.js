@@ -241,10 +241,11 @@ export function restoreUserDefault() {
 
 export function setLogOut() {
   return function (dispatch, getState) {
+    let login_type = getState().company.login_type
     AsyncStorage.removeItem('token', (err) => {
       dispatch(logOut())
       AsyncStorage.removeItem('company', (err) => {
-        Actions.Login({type: "reset"})
+        login_type=='token' ? Actions.LoginToken({type: 'reset'}) : Actions.Login({type: "reset"})
       });
     });
   }

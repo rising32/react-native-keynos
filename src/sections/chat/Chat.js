@@ -204,6 +204,7 @@ class Chat extends Component {
       return (
         <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
           <InputToolbar {...props} label={multiStrings.send} />
+          {this.props.typingText ? <View style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}} /> : null}
         </View>
       )
     } else if(question && question.type == "options") {
@@ -215,6 +216,7 @@ class Chat extends Component {
               onPress={ (opt) => this.props.onAnswerTapped(question.type, opt.bubble_id, opt.node_id) }
               />
           </View>
+          {this.props.typingText ? <View style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}} /> : null}
         </View>
       )
     } else if(question && question.type == "image") {
@@ -232,6 +234,7 @@ class Chat extends Component {
               onPress={ (opt) => this.onSelectImageTapped(opt) }
               />
           </View>
+          {this.props.typingText ? <View style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}} /> : null}
         </View>
       )
     } else {

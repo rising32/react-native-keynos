@@ -1,11 +1,11 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ScrollView} from 'react-native'
+import {View, StyleSheet, TouchableOpacity, Image, Text, Alert, ScrollView, Platform} from 'react-native'
 import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
-import {InputValidate} from 'keynos_app/src/widgets/'
+import {InputValidate, CorporateButton} from 'keynos_app/src/widgets/'
 import SvgUri from 'react-native-svg-uri'
 
 import { connect } from 'react-redux'
@@ -55,12 +55,13 @@ class LoginToken extends Component {
 
   render() {
     let companyName = this.props.loginName ? this.props.loginName : ''
-    console.log('loginToken props', this.props)
+    let main_color = this.props.main_color
+    let offset = (Platform.OS === 'ios') ? 20 : 0
     return (
       <View style={{flex: 1}} >
         <ScrollView bounces={false} keyboardShouldPersistTaps={'always'}>
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 30*heightScale}} >
-            <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
+            <Text style={{color: main_color, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
           </View>
           {this.renderCompanyImage()}
@@ -78,10 +79,7 @@ class LoginToken extends Component {
               onChangeText={(value) => this.onChangeToken(value)}
     				/>
           </View>
-          <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, margin: 20*widthScale}}
-    				onPress={() => this.props.loginToken(this.state.token)}>
-    				<Text style={{color: Colors.white, fontSize: 17*widthScale}}>{multiStrings.access}</Text>
-          </TouchableOpacity>
+          <CorporateButton bg_image={this.props.bg_image} onPress={() => this.props.loginToken(this.state.token)} label={multiStrings.access}/>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
             <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25*heightScale, marginHorizontal: 40*widthScale}}
               onPress={() => Alert.alert(null, 'open browser')}>
