@@ -25,6 +25,9 @@ export default function companyReducer(state = initialState, action = {}) {
         loginName: action.loginName,
       };
 
+    case types.RESET_COMPANY_INFO:
+      return initialState
+
     default:
       return state;
   }

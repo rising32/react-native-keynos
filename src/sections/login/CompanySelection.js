@@ -18,7 +18,6 @@ const widthScale = Utils.widthScale()
 const heightScale = Utils.heightScale()
 
 class CompanySelection extends Component {
-
   constructor(props) {
     super(props);
     this.state = {

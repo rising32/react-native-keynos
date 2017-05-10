@@ -55,6 +55,13 @@ export function updateConversationQuestion(value) {
   }
 }
 
+export function updateIsTutorial(value) {
+  return {
+    type: types.CONVERSATION_IS_TUTORIAL,
+    value
+  }
+}
+
 export function getConversationsList() {
   return (dispatch, getState) => {
     const state = getState()

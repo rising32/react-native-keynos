@@ -37,6 +37,7 @@ export default new LocalizedStrings({
     terms3: ' y la ',
     terms4: 'política de privacidad.',
     login: 'Login',
+    token: 'token',
 
     chat: 'Chat',
     conversations: 'Conversaciones',

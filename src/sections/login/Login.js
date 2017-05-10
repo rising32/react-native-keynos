@@ -66,7 +66,19 @@ class Login extends Component {
     }
   }
 
-
+  renderCompanyImage(){
+    if(this.props.logo) {
+      return(
+        <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
+          <SvgUri
+            width="120"
+            height="48"
+            source={{uri: this.props.logo}}
+          />
+        </View>
+      )
+    }
+  }
 
   render() {
     let companyName = this.props.loginName ? this.props.loginName : ''
@@ -79,13 +91,7 @@ class Login extends Component {
             <Text style={{color: main_color, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos'}</Text>
           </View>
-          <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
-            <SvgUri
-              width="120"
-              height="48"
-              source={{uri: this.props.logo}}
-            />
-          </View>
+          {this.renderCompanyImage()}
           <View style={{margin: 20*widthScale, marginBottom: 0}} >
             <InputValidate
     					label={null}

@@ -6,6 +6,8 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 import {InputValidate} from 'keynos_app/src/widgets/'
+import SvgUri from 'react-native-svg-uri'
+
 import { connect } from 'react-redux'
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
 
@@ -28,17 +30,31 @@ class LoginToken extends Component {
 
   onChangeToken(value) {
     this.setState({token: value})
-    if(value != "" && !Utils.tokenValidate(value)){
-      this.setState({tokenNeedCorrection: true, tokenIncorrect: true, tokenErrorLabel: multiStrings.validationToken})
-    }else if(value != "" && Utils.tokenValidate(value)){
-      this.setState({tokenNeedCorrection: true, tokenIncorrect: false, tokenErrorLabel: ""})
-    }else{
-      this.setState({tokenNeedCorrection: false, tokenIncorrect: false, tokenErrorLabel: ""})
+    // if(value != "" && !Utils.tokenValidate(value)){
+    //   this.setState({tokenNeedCorrection: true, tokenIncorrect: true, tokenErrorLabel: multiStrings.validationToken})
+    // }else if(value != "" && Utils.tokenValidate(value)){
+    //   this.setState({tokenNeedCorrection: true, tokenIncorrect: false, tokenErrorLabel: ""})
+    // }else{
+    //   this.setState({tokenNeedCorrection: false, tokenIncorrect: false, tokenErrorLabel: ""})
+    // }
+  }
+
+  renderCompanyImage(){
+    if(this.props.logo) {
+      return(
+        <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
+          <SvgUri
+            width="120"
+            height="48"
+            source={{uri: this.props.logo}}
+          />
+        </View>
+      )
     }
   }
 
   render() {
-    let companyName = 'ibm'
+    let companyName = this.props.loginName ? this.props.loginName : ''
     return (
       <View style={{flex: 1}} >
         <ScrollView bounces={false} keyboardShouldPersistTaps={'always'}>
@@ -46,9 +62,7 @@ class LoginToken extends Component {
             <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
             <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
           </View>
-          <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
-            <Image source={require('keynos_app/src/resources/company_logo.png')} style={{height: 48*heightScale, width: 120*widthScale}} resizeMode={'contain'} />
-          </View>
+          {this.renderCompanyImage()}
           <View style={{margin: 20*widthScale, marginTop: 0}} >
             <InputValidate
     					label={null}
@@ -64,7 +78,7 @@ class LoginToken extends Component {
     				/>
           </View>
           <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, margin: 20*widthScale}}
-    				onPress={() => this.props.loginCompany()}>
+    				onPress={() => this.props.loginToken(this.state.token)}>
     				<Text style={{color: Colors.white, fontSize: 17*widthScale}}>{multiStrings.access}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
@@ -86,14 +100,18 @@ class LoginToken extends Component {
 
 let mapStateToProps = (state) => {
   return {
-
+    id: state.company.id,
+    name: state.company.name,
+    loginName: state.company.loginName,
+    logo: state.company.logo,
+    main_color: state.company.main_color
   }
 }
 
 let mapDispatchToProps = (dispatch, props) => {
   return {
-    loginCompany: () => {
-      dispatch(LoginActions.loginCompany('Acme'));
+    loginToken: (token) => {
+      dispatch(LoginActions.loginToken(token));
     },
   }
 }

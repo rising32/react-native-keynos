@@ -41,7 +41,7 @@ export function loginCompany(company, isRefreshing) {
     post(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("loginCompany response: ", response)
       dispatch(setFetching(false))
-
+      dispatch(CompanyActions.resetCompanyValues())
       if(response.ok){
         if(response.must_update){
           dispatch({label: multiStrings.errorAppUpdate, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
@@ -57,7 +57,7 @@ export function loginCompany(company, isRefreshing) {
             if(domain.login_type == "default") {
               Actions.Login({type: ActionConst.RESET})
             } else if (domain.login_type == "token") {
-
+              Actions.LoginToken({type: ActionConst.RESET})
             }
           }
         }else{
@@ -97,22 +97,7 @@ export function login(email, password) {
     post(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("login response: ", response)
       dispatch(setFetching(false))
-
-      if(response.ok && response.data){
-        let data = response.data
-        dispatch(updateUserToken('Bearer ' + data.api_token))
-        dispatch(setUserDefault('Bearer ' + data.api_token))
-
-        if(response.onboarding_conversation_id) {
-          //Resolver cuestionario con id onboarding_conversation_id
-          console.log('onboarding_conversation_id',response.onboarding_conversation_id)
-          dispatch(ConversationsActions.getConversation(response.onboarding_conversation_id))
-        }else{
-          Actions.TabBar({type: ActionConst.RESET})
-        }
-      }else{
-        dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
-      }
+      dispatch(loginSuccess(response))
     }).catch((error) => {
       dispatch(setFetching(false))
       if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
@@ -132,7 +117,7 @@ export function loginToken(token) {
     const compLoginType = state.company.login_type
     const device_uuid = Constants.DEVICE_ID
 
-    if(!compId || !authToken || !compLoginType || compLoginType != "token") {
+    if(!compId || !token || !compLoginType || compLoginType != "token") {
       return
     }
 
@@ -147,21 +132,7 @@ export function loginToken(token) {
     post(fetchUrl).then((response) => {
       Constants.LOG_ENABLED && console.log("loginToken response: ", response)
       dispatch(setFetching(false))
-
-      // if(response.ok && response.data){
-      //   let data = response.data
-      //   dispatch(updateUserToken('Bearer ' + data.api_token))
-      //   dispatch(setUserDefault('Bearer ' + data.api_token))
-      //
-      //   if(response.onboarding_conversation_id) {
-      //     //Resolver cuestionario con id onboarding_conversation_id
-      //     Actions.TabBar({type: ActionConst.RESET})
-      //   }else{
-      //     Actions.TabBar({type: ActionConst.RESET})
-      //   }
-      // }else{
-      //   dispatch({label: multiStrings.errorCredentials, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
-      // }
+      dispatch(loginSuccess(response))
     }).catch((error) => {
       dispatch(setFetching(false))
       if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
@@ -170,6 +141,25 @@ export function loginToken(token) {
         dispatch({label: multiStrings.errorLogin, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error})
       }
     })
+  }
+}
+
+function loginSuccess(response) {
+  return (dispatch, getState) => {
+    if(response.ok && response.data){
+      let data = response.data
+      dispatch(updateUserToken('Bearer ' + data.api_token))
+      dispatch(setUserDefault('Bearer ' + data.api_token))
+
+      if(response.onboarding_conversation_id) {
+        dispatch(ConversationsActions.updateIsTutorial(true))
+        dispatch(ConversationsActions.getConversation(response.onboarding_conversation_id))
+      }else{
+        Actions.TabBar({type: ActionConst.RESET})
+      }
+    }else{
+      dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
+    }
   }
 }
 

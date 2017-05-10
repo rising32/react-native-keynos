@@ -8,6 +8,7 @@ const initialState = {
   typingText: false,
   isFetching: false,
   chatFinished: false,
+  isTutorial: false,
 };
 
 export default function conversationsReducer(state = initialState, action = {}) {
@@ -53,6 +54,12 @@ export default function conversationsReducer(state = initialState, action = {}) 
       return {
         ...state,
         chatFinished: action.value,
+      };
+
+    case types.CONVERSATION_IS_TUTORIAL:
+      return {
+        ...state,
+        isTutorial: action.value,
       };
 
     case types.LOG_OUT:

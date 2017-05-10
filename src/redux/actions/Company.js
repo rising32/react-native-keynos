@@ -15,3 +15,9 @@ export function updateCompanyValues(id, name, logo, login_type, main_color, bg_i
     loginName
   }
 }
+
+export function resetCompanyValues() {
+  return {
+    type: types.RESET_COMPANY_INFO
+  }
+}
