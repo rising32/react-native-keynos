@@ -23,7 +23,7 @@ class Settings extends Component {
   render() {
     return (
       <View style={{flex: 1, justifyContent: 'center', backgroundColor: Colors.white}} >
-        <CorporateButton onPress={() => this.onLogoutPress()} label={multiStrings.logOut}/>
+        <CorporateButton bg_image={this.props.bg_image} onPress={() => this.onLogoutPress()} label={multiStrings.logOut}/>
       </View>
     )
   }
@@ -31,7 +31,7 @@ class Settings extends Component {
 
 let mapStateToProps = (state) => {
   return {
-
+    bg_image: state.company.bg_image,
   }
 }
 

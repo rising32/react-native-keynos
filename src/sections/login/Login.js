@@ -5,7 +5,7 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
-import {InputValidate} from 'keynos_app/src/widgets/'
+import {InputValidate, CorporateButton} from 'keynos_app/src/widgets/'
 import SvgUri from 'react-native-svg-uri'
 
 // REDUX
@@ -121,10 +121,7 @@ class Login extends Component {
               onChangeText={(value) => this.onChangePassword(value)}
     				/>
           </View>
-          <TouchableOpacity style={{backgroundColor: main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale}}
-    				onPress={() => this.props.login(this.state.email, this.state.password)}>
-    				<Text style={{color: Colors.white, fontSize: 17*widthScale}}>{multiStrings.access}</Text>
-          </TouchableOpacity>
+          <CorporateButton bg_image={this.props.bg_image} onPress={() => this.props.login(this.state.email, this.state.password)} label={multiStrings.access}/>
           <TouchableOpacity style={{backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', padding: 12*widthScale, margin: 20*widthScale, marginTop: 0}}
     				onPress={() => Utils.openUrl('https://acme.keynos.com/password-reset.php')}>
     				<Text style={{color: main_color, fontSize: 15*widthScale}}>{multiStrings.rememberPassword}</Text>
@@ -156,7 +153,8 @@ let mapStateToProps = (state) => {
     name: state.company.name,
     loginName: state.company.loginName,
     logo: state.company.logo,
-    main_color: state.company.main_color
+    main_color: state.company.main_color,
+    bg_image: state.company.bg_image,
   }
 }
 
