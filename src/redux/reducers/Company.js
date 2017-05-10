@@ -5,7 +5,7 @@ const initialState = {
   name: null,
   logo: null,
   login_type: null,
-  main_color: null,
+  main_color: '#01CD82',
   bg_image: null,
   loginName: null,
 };

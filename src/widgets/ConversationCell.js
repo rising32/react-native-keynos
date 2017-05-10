@@ -48,8 +48,6 @@ class ConversationCell extends Component {
         timeAdded = moment(lastBubble.read_on).format('HH:mm')
         timeAdded = moment.utc(timeAdded, 'HH:mm').local().format('HH:mm')
       }
-      console.log('lastBubble.read_on',moment(lastBubble.read_on).format('HH:mm'))
-      console.log('timeAdded',timeAdded)
     }
 
 		return(

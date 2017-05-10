@@ -55,6 +55,7 @@ class LoginToken extends Component {
 
   render() {
     let companyName = this.props.loginName ? this.props.loginName : ''
+    console.log('loginToken props', this.props)
     return (
       <View style={{flex: 1}} >
         <ScrollView bounces={false} keyboardShouldPersistTaps={'always'}>
@@ -93,6 +94,10 @@ class LoginToken extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+  			<TouchableOpacity style={{position: 'absolute', top: offset, left: 0, height: 50*heightScale, width: 50*widthScale, alignItems: 'center', justifyContent: 'center'}}
+          onPress={() => Actions.CompanySelection()} >
+  				<Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22*heightScale, width: 13*widthScale, tintColor: main_color}} resizeMode={'contain'} />
+  			</TouchableOpacity>
       </View>
     );
   }

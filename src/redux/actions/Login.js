@@ -42,7 +42,7 @@ export function loginCompany(company, isRefreshing) {
       Constants.LOG_ENABLED && console.log("loginCompany response: ", response)
       dispatch(setFetching(false))
       dispatch(CompanyActions.resetCompanyValues())
-      if(response.ok){
+      if(response.ok && response.domain){
         if(response.must_update){
           dispatch({label: multiStrings.errorAppUpdate, func: 'loginCompany', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
         }else if(response.domain && response.domain.id){

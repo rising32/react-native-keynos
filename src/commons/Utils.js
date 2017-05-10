@@ -70,10 +70,6 @@ export function formatHistoryMessages(bubblesArray) {
       if(bubble.nodes && bubble.nodes.length) {
         let node = bubble.nodes[0]
         if(node.nodeable_type == "App\\NodeText") {
-
-          console.log("bubble: ", bubble)
-          console.log("createdAt: ", createdAt)
-          console.log("bubble text: ", node.text)
           messages.push({_id: uuidV4(), user: user, text: node.text, createdAt})
         } else if(node.nodeable_type == "App\\NodeImage") {
           messages.push({_id: uuidV4(), user: user, image: node.image_path, createdAt})

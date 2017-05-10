@@ -7,6 +7,7 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 import { Actions } from 'react-native-router-flux'
 import AppIntro from 'react-native-app-intro';
 import Swiper from 'react-native-swiper'
+import {CorporateButton} from 'keynos_app/src/widgets/'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
@@ -45,10 +46,7 @@ class Tutorial extends Component {
   renderSkipButton() {
     if(this.state.enableSkip) {
       return(
-        <TouchableOpacity style={{backgroundColor: Colors.green_light, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12, margin: 20}}
-          onPress={() => Actions.CompanySelection()}>
-          <Text style={{color: Colors.white, fontSize: 17}}>{multiStrings.accessToCompany}</Text>
-        </TouchableOpacity>
+        <CorporateButton bg_image={this.props.bg_image} onPress={() => Actions.CompanySelection()} label={multiStrings.accessToCompany}/>
       )
     }
   }
