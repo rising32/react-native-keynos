@@ -58,7 +58,8 @@ export function formatHistoryMessages(bubblesArray) {
   if(bubblesArray && bubblesArray.length){
     _.map(bubblesArray, (bubble) => {
       let isBot = bubble.bubble_type == "bot" ? true : false
-      let createdAt = bubble.read_on ? moment(bubble.read_on, 'YYYY-MM-DD HH:mm:ss') : moment()
+      let createdAt = bubble.read_on ? moment(bubble.read_on).format('YYYY-MM-DD HH:mm:ss') : moment()
+      createdAt = bubble.read_on ? moment.utc(createdAt, 'YYYY-MM-DD HH:mm:ss').local().format('YYYY-MM-DD HH:mm:ss') : createdAt
 
       let user = {
         _id: isBot ? 2 : 1,
@@ -69,6 +70,10 @@ export function formatHistoryMessages(bubblesArray) {
       if(bubble.nodes && bubble.nodes.length) {
         let node = bubble.nodes[0]
         if(node.nodeable_type == "App\\NodeText") {
+
+          console.log("bubble: ", bubble)
+          console.log("createdAt: ", createdAt)
+          console.log("bubble text: ", node.text)
           messages.push({_id: uuidV4(), user: user, text: node.text, createdAt})
         } else if(node.nodeable_type == "App\\NodeImage") {
           messages.push({_id: uuidV4(), user: user, image: node.image_path, createdAt})

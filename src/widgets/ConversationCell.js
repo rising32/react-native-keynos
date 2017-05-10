@@ -46,9 +46,11 @@ class ConversationCell extends Component {
         timeAdded = multiStrings.yesterday
       } else {
         timeAdded = moment(lastBubble.read_on).format('HH:mm')
+        timeAdded = moment.utc(timeAdded, 'HH:mm').local().format('HH:mm')
       }
+      console.log('lastBubble.read_on',moment(lastBubble.read_on).format('HH:mm'))
+      console.log('timeAdded',timeAdded)
     }
-
 
 		return(
 			<TouchableOpacity style={{flex: 1, flexDirection: 'row', paddingHorizontal: 12*widthScale, paddingVertical: 5*heightScale, backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderColor: Colors.gray_placeholder}}
