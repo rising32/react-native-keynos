@@ -35,7 +35,7 @@ class Chat extends Component {
 
   componentWillMount() {
     if(Platform.OS !== 'ios') {
-      this.getAndroidBgImages(this.props.bg_image)
+      this.getAndroidBgImages(this.props.bg_image ? this.props.bg_image : 'http://keynos.mobi/images/default/default-pattern.png')
     }
   }
 
@@ -200,14 +200,13 @@ class Chat extends Component {
     let question = this.props.question
     let rgbaColor = Utils.hexToRgbA(this.props.main_color, '0.4')
 
-    if(question && question.type == "text") {
+    if(!this.props.typingText && question && question.type == "text") {
       return (
         <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: rgbaColor}} >
           <InputToolbar {...props} label={multiStrings.send} />
-          {this.props.typingText ? <View style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}} /> : null}
         </View>
       )
-    } else if(question && question.type == "options") {
+    } else if(!this.props.typingText && question && question.type == "options") {
       return (
         <View onLayout={ (e) => this.calculateMinInputToolbarHeight(e.nativeEvent.layout) } style={{backgroundColor: Colors.white}} >
           <View style={{backgroundColor: rgbaColor}}>
@@ -216,10 +215,9 @@ class Chat extends Component {
               onPress={ (opt) => this.props.onAnswerTapped(question.type, opt.bubble_id, opt.node_id) }
               />
           </View>
-          {this.props.typingText ? <View style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}} /> : null}
         </View>
       )
-    } else if(question && question.type == "image") {
+    } else if(!this.props.typingText && question && question.type == "image") {
 
       let cameraOptions = [
         { text: multiStrings.takePhoto, bubble_id: question.bubble_id, node_id: question.node_id, code: 'camera'},
@@ -234,7 +232,6 @@ class Chat extends Component {
               onPress={ (opt) => this.onSelectImageTapped(opt) }
               />
           </View>
-          {this.props.typingText ? <View style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}} /> : null}
         </View>
       )
     } else {
@@ -308,8 +305,7 @@ class Chat extends Component {
 
 
   render() {
-    let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
-    let rgbaColor = Utils.hexToRgbA(this.props.main_color, 1)
+    let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : {uri: 'http://keynos.mobi/images/default/default-pattern.png'}
 
     if(Platform.OS === 'ios') {
       return (

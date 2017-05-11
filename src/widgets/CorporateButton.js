@@ -66,32 +66,44 @@ class CorporateButton extends React.Component {
 
   render() {
     let bgImage = this.props.bg_image ? {uri: this.props.bg_image} : {uri: 'http://keynos.mobi/images/default/default-pattern.png'}
-    if(Platform.OS === 'ios') {
+    if(this.props.isSolid) {
       return(
         <TouchableOpacity
           style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
           disable={this.props.disable}
           onPress={() => this._onPress()}
         >
-          <Image style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: this.props.main_color, opacity: 0.2 }} source={bgImage} resizeMode={'repeat'} />
           <Text style={{color: this.props.color ? this.props.color : Colors.white, fontSize: 17*widthScale}}>{ this.props.label }</Text>
         </TouchableOpacity>
       )
     } else {
-      return(
-        <TouchableOpacity
-          style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
-          disable={this.props.disable}
-          onPress={() => this._onPress()}
-        >
-          <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: 'transparent'}}>
-            { _.map(this.state.androidBgImagesArray, img => {
-             return img;
-            })}
-          </View>
-          <Text style={{color: this.props.color ? this.props.color : Colors.white, fontSize: 17*widthScale}}>{ this.props.label }</Text>
-        </TouchableOpacity>
-      )
+      if(Platform.OS === 'ios') {
+        return(
+          <TouchableOpacity
+            style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
+            disable={this.props.disable}
+            onPress={() => this._onPress()}
+          >
+            <Image style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: this.props.main_color, opacity: 0.2 }} source={bgImage} resizeMode={'repeat'} />
+            <Text style={{color: this.props.color ? this.props.color : Colors.white, fontSize: 17*widthScale}}>{ this.props.label }</Text>
+          </TouchableOpacity>
+        )
+      } else {
+        return(
+          <TouchableOpacity
+            style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
+            disable={this.props.disable}
+            onPress={() => this._onPress()}
+          >
+            <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: 'transparent'}}>
+              { _.map(this.state.androidBgImagesArray, img => {
+               return img;
+              })}
+            </View>
+            <Text style={{color: this.props.color ? this.props.color : Colors.white, fontSize: 17*widthScale}}>{ this.props.label }</Text>
+          </TouchableOpacity>
+        )
+      }
     }
   }
 }
