@@ -35,7 +35,7 @@ class Chat extends Component {
 
   componentWillMount() {
     if(Platform.OS !== 'ios') {
-      this.getAndroidBgImages(this.props.bg_image ? this.props.bg_image : 'http://keynos.mobi/images/default/default-pattern.png')
+      this.getAndroidBgImages(this.props.bg_image)
     }
   }
 
@@ -252,28 +252,30 @@ class Chat extends Component {
     let totalWidth = Dimensions.get('window').width
     let totalHeight = Dimensions.get('window').height
 
-    Image.getSize(bgImage, (width, height) => {
+    if(bgImage) {
+      Image.getSize(bgImage, (width, height) => {
+        console.log('entro en getsize')
 
-      let imageWidth = Math.ceil(height * 120 / width)
+        let imageWidth = Math.ceil(height * 120 / width)
 
-      for(var i=0; i < Math.ceil(totalWidth/imageWidth); i++){
-        images.push((
-           <Image key={'i'+i} source={{uri: bgImage}} style={{width: imageWidth, height: imageWidth, backgroundColor: this.props.main_color, opacity: 0.2}} />
-        ))
-      }
+        for(var i=0; i < Math.ceil(totalWidth/imageWidth); i++){
+          images.push((
+             <Image key={'i'+i} source={{uri: bgImage}} style={{width: imageWidth, height: imageWidth, backgroundColor: this.props.main_color, opacity: 0.2}} />
+          ))
+        }
 
-      for(var i=0; i < Math.ceil(totalHeight/imageWidth); i++){
-        verticalViews.push((
-          <View key={'v'+i} style={{flexDirection: 'row', backgroundColor: 'transparent'}}>
-            { _.map(images, img => {
-             return img;
-            })}
-          </View>
-        ))
-      }
-
-      this.setState({androidBgImagesArray: verticalViews})
-    })
+        for(var i=0; i < Math.ceil(totalHeight/imageWidth); i++){
+          verticalViews.push((
+            <View key={'v'+i} style={{flexDirection: 'row', backgroundColor: 'transparent'}}>
+              { _.map(images, img => {
+               return img;
+              })}
+            </View>
+          ))
+        }
+      })
+    }
+    this.setState({androidBgImagesArray: verticalViews})
   }
 
   renderChat() {
@@ -303,9 +305,25 @@ class Chat extends Component {
     )
   }
 
+  renderAndroidBackground() {
+    if(this.state.androidBgImagesArray.length) {
+      return(
+        <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: 'transparent'}}>
+          { _.map(this.state.androidBgImagesArray, img => {
+           return img;
+          })}
+        </View>
+      )
+    } else {
+      return(
+        <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: this.props.main_color}}/>
+      )
+    }
+  }
+
 
   render() {
-    let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : {uri: 'http://keynos.mobi/images/default/default-pattern.png'}
+    let bgImage = this.props.bg_image ? { uri: this.props.bg_image } : null
 
     if(Platform.OS === 'ios') {
       return (
@@ -315,18 +333,10 @@ class Chat extends Component {
         </View>
       )
     } else {
-
       return (
         <View style={{ flex: 1}} >
-
-          <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: 'transparent'}}>
-            { _.map(this.state.androidBgImagesArray, img => {
-             return img;
-            })}
-          </View>
-
+          { this.renderAndroidBackground() }
           { this.renderChat() }
-
         </View>
       )
     }

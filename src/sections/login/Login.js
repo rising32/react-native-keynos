@@ -70,7 +70,7 @@ class Login extends Component {
     if(this.props.logo) {
       return(
         <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
-          <Image source={{uri: this.props.logo}} style={{width: 120*widthScale, height: 48*heightScale}} />
+          <Image source={{uri: this.props.logo}} style={{width: 120*widthScale, height: 48*heightScale}} resizeMode={'contain'}/>
         </View>
       )
     }

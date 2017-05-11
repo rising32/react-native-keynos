@@ -23,8 +23,7 @@ class CorporateButton extends React.Component {
 
   componentWillMount() {
     if(Platform.OS !== 'ios') {
-      let image = this.props.bg_image ? this.props.bg_image : 'http://keynos.mobi/images/default/default-pattern.png'
-      this.getAndroidBgImages(image)
+      this.getAndroidBgImages(this.props.bg_imagege)
     }
   }
 
@@ -65,8 +64,8 @@ class CorporateButton extends React.Component {
   }
 
   render() {
-    let bgImage = this.props.bg_image ? {uri: this.props.bg_image} : {uri: 'http://keynos.mobi/images/default/default-pattern.png'}
-    if(this.props.isSolid) {
+    let bgImage = this.props.bg_image ? {uri: this.props.bg_image} : null
+    if(this.props.isSolid || !bgImage) {
       return(
         <TouchableOpacity
           style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
