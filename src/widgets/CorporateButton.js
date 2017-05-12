@@ -23,7 +23,7 @@ class CorporateButton extends React.Component {
 
   componentWillMount() {
     if(Platform.OS !== 'ios') {
-      this.getAndroidBgImages(this.props.bg_imagege)
+      this.getAndroidBgImages(this.props.bg_image)
     }
   }
 
@@ -35,7 +35,7 @@ class CorporateButton extends React.Component {
     // For background image repeat on android
     let images = []
     let verticalViews = []
-
+    console.log('bgImage',bgImage)
     let totalWidth = Dimensions.get('window').width
     let totalHeight = Dimensions.get('window').height
 
@@ -65,11 +65,12 @@ class CorporateButton extends React.Component {
 
   render() {
     let bgImage = this.props.bg_image ? {uri: this.props.bg_image} : null
+    console.log('bgImage',bgImage)
+    let mainColor = this.props.isPublic ? Colors.green_light : this.props.main_color
     if(this.props.isSolid || !bgImage) {
       return(
         <TouchableOpacity
-          style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
-          disable={this.props.disable}
+          style={{backgroundColor: mainColor, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
           onPress={() => this._onPress()}
         >
           <Text style={{color: this.props.color ? this.props.color : Colors.white, fontSize: 17*widthScale}}>{ this.props.label }</Text>
@@ -79,19 +80,17 @@ class CorporateButton extends React.Component {
       if(Platform.OS === 'ios') {
         return(
           <TouchableOpacity
-            style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
-            disable={this.props.disable}
+            style={{backgroundColor: mainColor, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
             onPress={() => this._onPress()}
           >
-            <Image style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: this.props.main_color, opacity: 0.2 }} source={bgImage} resizeMode={'repeat'} />
+            <Image style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: mainColor, opacity: 0.2 }} source={bgImage} resizeMode={'repeat'} />
             <Text style={{color: this.props.color ? this.props.color : Colors.white, fontSize: 17*widthScale}}>{ this.props.label }</Text>
           </TouchableOpacity>
         )
       } else {
         return(
           <TouchableOpacity
-            style={{backgroundColor: this.props.main_color, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
-            disable={this.props.disable}
+            style={{backgroundColor: mainColor, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
             onPress={() => this._onPress()}
           >
             <View style={{position: 'absolute', top: 0, bottom: 0, right: 0, left: 0, backgroundColor: 'transparent'}}>

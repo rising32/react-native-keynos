@@ -34,3 +34,6 @@ export const CAMERA_OPTIONS = {
     path: 'keynos'
   }
 }
+
+// TERMS AND CONDITIONS LINK
+export const TERMS_CONDITIONS_LINK = 'https://keynos.com/terminos-y-condiciones.php'

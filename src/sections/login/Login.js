@@ -11,6 +11,7 @@ import SvgUri from 'react-native-svg-uri'
 // REDUX
 import { connect } from 'react-redux'
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
+import * as Constants from 'keynos_app/src/webservices/Constants'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
@@ -119,7 +120,7 @@ class Login extends Component {
           </View>
           <CorporateButton bg_image={this.props.bg_image} onPress={() => this.props.login(this.state.email, this.state.password)} label={multiStrings.access}/>
           <TouchableOpacity style={{backgroundColor: Colors.white, alignItems: 'center', justifyContent: 'center', padding: 12*widthScale, margin: 20*widthScale, marginTop: 0}}
-    				onPress={() => Utils.openUrl('https://acme.keynos.com/password-reset.php')}>
+    				onPress={() => Utils.openUrl(Constants.TERMS_CONDITIONS_LINK)}>
     				<Text style={{color: main_color, fontSize: 15*widthScale}}>{multiStrings.rememberPassword}</Text>
           </TouchableOpacity>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >

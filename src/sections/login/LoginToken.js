@@ -10,6 +10,7 @@ import SvgUri from 'react-native-svg-uri'
 
 import { connect } from 'react-redux'
 import * as LoginActions from 'keynos_app/src/redux/actions/Login'
+import * as Constants from 'keynos_app/src/webservices/Constants'
 
 // MULTILENGUAJE
 import multiStrings from 'keynos_app/src/commons/Multistrings'
@@ -40,11 +41,10 @@ class LoginToken extends Component {
   }
 
   renderCompanyImage(){
-    console.log('logo',this.props.logo)
     if(this.props.logo) {
       return(
         <View style={{alignItems: 'center', justifyContent: 'center', margin: 20*widthScale}} >
-          <Image source={{uri: this.props.logo}} style={{width: 120*widthScale, height: 48*heightScale}} />
+          <Image source={{uri: this.props.logo}} style={{width: 120*widthScale, height: 48*heightScale}} resizeMode={'contain'} />
         </View>
       )
     }
@@ -79,7 +79,7 @@ class LoginToken extends Component {
           <CorporateButton bg_image={this.props.bg_image} onPress={() => this.props.loginToken(this.state.token)} label={multiStrings.access}/>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
             <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25*heightScale, marginHorizontal: 40*widthScale}}
-              onPress={() => Alert.alert(null, 'open browser')}>
+              onPress={() => Utils.openUrl(Constants.TERMS_CONDITIONS_LINK)}>
               <Text style={{color: Colors.black, fontSize: 15*widthScale, textAlign: 'center'}} >
                 {multiStrings.terms1}
                 <Text style={{color: Colors.blue_link}} >{multiStrings.terms2}</Text>
@@ -104,7 +104,8 @@ let mapStateToProps = (state) => {
     name: state.company.name,
     loginName: state.company.loginName,
     logo: state.company.logo,
-    main_color: state.company.main_color
+    main_color: state.company.main_color,
+    bg_image: state.company.bg_image,
   }
 }
 

@@ -46,7 +46,7 @@ class Tutorial extends Component {
   renderSkipButton() {
     if(this.state.enableSkip) {
       return(
-        <CorporateButton bg_image={this.props.bg_image} onPress={() => Actions.CompanySelection()} label={multiStrings.accessToCompany}/>
+        <CorporateButton bg_image={'http://keynos.mobi/images/default/default-pattern.png'} isPublic={true} onPress={() => Actions.CompanySelection()} label={multiStrings.accessToCompany}/>
       )
     }
   }

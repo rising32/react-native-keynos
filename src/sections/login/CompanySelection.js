@@ -74,7 +74,7 @@ class CompanySelection extends Component {
             <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginLeft: 10*widthScale}} >{'.keynos.es'}</Text>
 
           </View>
-          <CorporateButton bg_image={this.props.bg_image} onPress={() => this.onSubmit()} label={multiStrings.send}/>
+          <CorporateButton bg_image={'http://keynos.mobi/images/default/default-pattern.png'} isPublic={true} onPress={() => this.onSubmit()} label={multiStrings.send}/>
           <View style={{flex: 1, justifyContent: 'flex-end'}} >
             <View style={{alignItems: 'center', justifyContent: 'center', marginVertical: 25*heightScale, marginHorizontal: 40*widthScale}} >
               <Text style={{color: Colors.black, fontSize: 15*widthScale, textAlign: 'center'}} >{multiStrings.tipCompany}</Text>
