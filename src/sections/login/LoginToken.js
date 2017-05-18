@@ -59,7 +59,7 @@ class LoginToken extends Component {
         <ScrollView bounces={false} keyboardShouldPersistTaps={'always'}>
           <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 30*heightScale}} >
             <Text style={{color: main_color, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.loginInto}</Text>
-            <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos.es'}</Text>
+            <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{companyName + '.keynos.com'}</Text>
           </View>
           {this.renderCompanyImage()}
           <View style={{margin: 20*widthScale, marginTop: 0}} >

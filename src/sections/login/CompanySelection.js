@@ -71,7 +71,7 @@ class CompanySelection extends Component {
       				/>
             </View>
 
-            <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginLeft: 10*widthScale}} >{'.keynos.es'}</Text>
+            <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginLeft: 10*widthScale}} >{'.keynos.com'}</Text>
 
           </View>
           <CorporateButton bg_image={'http://keynos.mobi/images/default/default-pattern.png'} isPublic={true} onPress={() => this.onSubmit()} label={multiStrings.send}/>
