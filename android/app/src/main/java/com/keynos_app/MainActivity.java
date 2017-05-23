@@ -1,4 +1,4 @@
-package com.keynos.keynos_app;
+package com.keynos.app_keynos;
 
 import com.facebook.react.ReactActivity;
 
