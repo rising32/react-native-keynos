@@ -1,6 +1,6 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert} from 'react-native'
+import {View,	StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert} from 'react-native'
 
 // COMPONENTS
 import { Colors, Utils } from './commons/Commons'
@@ -30,7 +30,8 @@ const widthScale = Utils.widthScale()
 const heightScale = Utils.heightScale()
 
 let offset = (Platform.OS === 'ios') ? 20 : -2 //56-and, 74-ios
-let getNavBarOffset = Navigator.NavigationBar.Styles.General.NavBarHeight + offset
+//let getNavBarOffset = 0;//Navigator.headerStyle.NavBarHeight + offset
+let getNavBarOffset = (Platform.OS === 'ios') ? 64 : 54 //54-and, 64-ios
 
 class Routes extends Component {
   componentDidUpdate(prevProps, prevState) {

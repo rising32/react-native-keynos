@@ -1,6 +1,6 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import {View,	Navigator, StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert, AsyncStorage} from 'react-native'
+import {View,	StyleSheet, TouchableOpacity, Image, Dimensions, BackAndroid, Platform, Text, Alert, AsyncStorage} from 'react-native'
 
 // REDUX COMPONENTS
 import { createStore, applyMiddleware, compose, } from 'redux'
