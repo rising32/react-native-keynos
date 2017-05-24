@@ -8,6 +8,8 @@ import {Actions, ActionConst} from 'react-native-router-flux'
 import * as CompanyActions from 'keynos_app/src/redux/actions/Company'
 import * as ConversationsActions from 'keynos_app/src/redux/actions/Conversations'
 import * as Webservices from 'keynos_app/src/webservices/Webservices'
+//Firebase
+import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm';
 
 export function updateUserToken(value) {
   Webservices.configureAxios(value)
@@ -78,6 +80,7 @@ export function loginCompany(company, isRefreshing) {
 export function login(email, password) {
   return (dispatch, getState) => {
 
+    FCM.requestPermissions(); // Request push notification permission in iOS
     const state = getState()
     const compId = state.company.id
     const compLoginType = state.company.login_type
@@ -86,32 +89,37 @@ export function login(email, password) {
       return
     }
 
-    dispatch(setFetching(true))
-    let params = {
-      domain_id: compId,
-      email: email,
-      password: password
-    }
+    //Get Token for Firebase (Push notifications)
+    FCM.getFCMToken().then(fcmToken => {
+        dispatch(setFetching(true))
+        let params = {
+          domain_id: compId,
+          email: email,
+          password: password,
+          fcmToken: fcmToken
+        }
 
-    const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
-    post(fetchUrl).then((response) => {
-      Constants.LOG_ENABLED && console.log("login response: ", response)
-      dispatch(setFetching(false))
-      dispatch(loginSuccess(response))
-    }).catch((error) => {
-      dispatch(setFetching(false))
-      if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
-        dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
-      }else{
-        dispatch({label: multiStrings.errorLogin, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})
-      }
-    })
+        const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
+        post(fetchUrl).then((response) => {
+          Constants.LOG_ENABLED && console.log("login response: ", response)
+          dispatch(setFetching(false))
+          dispatch(loginSuccess(response))
+        }).catch((error) => {
+          dispatch(setFetching(false))
+          if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
+            dispatch({label: multiStrings.errorCredentials, func: 'login', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
+          }else{
+            dispatch({label: multiStrings.errorLogin, func: 'login', type: 'SET_ERROR', url: fetchUrl, error})
+          }
+        })
+    });
   }
 }
 
 export function loginToken(token) {
   return (dispatch, getState) => {
 
+    FCM.requestPermissions(); // Request push notification permission in iOS
     const state = getState()
     const compId = state.company.id
     const compLoginType = state.company.login_type
@@ -121,27 +129,31 @@ export function loginToken(token) {
       return
     }
 
-    dispatch(setFetching(true))
-    let params = {
-      domain_id: compId,
-      device_uuid: device_uuid,
-      token: token
-    }
-    console.log('params',params)
-
-    const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
-    post(fetchUrl).then((response) => {
-      Constants.LOG_ENABLED && console.log("loginToken response: ", response)
-      dispatch(setFetching(false))
-      dispatch(loginSuccess(response))
-    }).catch((error) => {
-      dispatch(setFetching(false))
-      if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
-        dispatch({label: multiStrings.errorCredentials, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
-      }else{
-        dispatch({label: multiStrings.errorLogin, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error})
+    //Get Token for Firebase (Push notifications)
+    FCM.getFCMToken().then(fcmToken => {
+      dispatch(setFetching(true))
+      let params = {
+        domain_id: compId,
+        device_uuid: device_uuid,
+        token: token,
+        fcmToken: fcmToken
       }
-    })
+      console.log('params',params)
+
+      const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
+      post(fetchUrl).then((response) => {
+        Constants.LOG_ENABLED && console.log("loginToken response: ", response)
+        dispatch(setFetching(false))
+        dispatch(loginSuccess(response))
+      }).catch((error) => {
+        dispatch(setFetching(false))
+        if(error.error && error.error.response && error.error.response.data && error.error.response.data.error == "Invalid credentials"){
+          dispatch({label: multiStrings.errorCredentials, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error: 'error'})
+        }else{
+          dispatch({label: multiStrings.errorLogin, func: 'loginToken', type: 'SET_ERROR', url: fetchUrl, error})
+        }
+      })
+    });
   }
 }
 

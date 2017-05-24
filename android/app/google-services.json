@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "412396291398",
+    "firebase_url": "https://keynos-apps.firebaseio.com",
+    "project_id": "keynos-apps",
+    "storage_bucket": "keynos-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412396291398:android:fcc1e199e25f20c0",
+        "android_client_info": {
+          "package_name": "com.keynos.app_keynos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412396291398-2mgh7gtq6g4u4l0jm9tq8uqatalvuhoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQMJwoqzZnf_N6yEiaeEDDDMupNEQp7Bw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
