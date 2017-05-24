@@ -28,11 +28,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNSpinkitPackage(),
-            new SvgPackage(),
-            new RNDeviceInfo(),
-            new ImagePickerPackage(),
-            new ReactNativeLocalizationPackage()
+          new RNSpinkitPackage(),
+          new SvgPackage(),
+          new RNDeviceInfo(),
+          new ImagePickerPackage(),
+          new ReactNativeLocalizationPackage()
       );
     }
   };
