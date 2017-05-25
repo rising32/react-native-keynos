@@ -96,7 +96,7 @@ export function login(email, password) {
           domain_id: compId,
           email: email,
           password: password,
-          fcmToken: fcmToken
+          fcm_token: fcmToken
         }
 
         const fetchUrl = '/login?' + qs.stringify(params, {skipNulls: true})
@@ -136,7 +136,7 @@ export function loginToken(token) {
         domain_id: compId,
         device_uuid: device_uuid,
         token: token,
-        fcmToken: fcmToken
+        fcm_token: fcmToken
       }
       console.log('params',params)
 
