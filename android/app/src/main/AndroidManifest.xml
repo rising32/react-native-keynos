@@ -22,6 +22,10 @@
       android:theme="@style/AppTheme">
 
       <!--PUSH-->
+      <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@mipmap/ic_notif"/>
+      <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+        android:resource="@color/keynos_pink"/>
       <receiver android:name="com.evollu.react.fcm.FIRLocalMessagingPublisher"/>
       <receiver android:enabled="true" android:exported="true"  android:name="com.evollu.react.fcm.FIRSystemBootEventReceiver">
          <intent-filter>
