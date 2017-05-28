@@ -133,6 +133,14 @@ export function heightScale() {
   return dimension > 1 ? 1 : dimension
 }
 
+export function winWidth() {
+  return Dimensions.get('window').width;
+}
+
+export function winHeight() {
+  return Dimensions.get('window').height;
+}
+
 // HEX to RGBA
 export function hexToRgbA(hex, alpha){
     var c;
