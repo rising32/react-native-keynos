@@ -182,10 +182,10 @@ export function fetchNextBubble(bubbleId) {
           // Calculate new timeout with last message length
           let extraTimeout = 0
           let lastMsg = _.last(accumulator)
-          if(lastMsg && lastMsg.image) {
+          if(nextMessage && nextMessage.image) {
             extraTimeout = Constants.IMAGE_TYPING_TIMER
-          } else if(lastMsg && lastMsg.text) {
-            extraTimeout = lastMsg.text.length * Constants.CHARACTER_TYPING_TIMER
+          } else if(nextMessage && nextMessage.text) {
+            extraTimeout = nextMessage.text.length * Constants.CHARACTER_TYPING_TIMER
           }
           timeout = (extraTimeout < Constants.DEFAULT_TYPING_TIMER) ? timeout + Constants.DEFAULT_TYPING_TIMER : timeout + extraTimeout
 

@@ -38,12 +38,12 @@ class ConversationNavBar extends Component {
     let data = this.props.selected ? this.props.selected : {}
     let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios
     return(
-      <View style={{backgroundColor: Colors.white, position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', height: 100*heightScale, alignItems: 'center', justifyContent: 'center', marginTop: offset, borderBottomWidth: 1, borderBottomColor: main_color}}>
+      <View style={{backgroundColor: "snow", position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', height: 100*heightScale, alignItems: 'center', justifyContent: 'center', marginTop: offset, borderBottomWidth: 1, borderBottomColor: "gainsboro"}}>
         {this.renderBackButton(main_color)}
         <Image source={{uri: data.bot_image}} style={{height: 58*heightScale, width: 54*widthScale, marginHorizontal: 10*widthScale, borderRadius: 10}} resizeMode={'cover'} />
         <View style={{flex: 1, marginRight: 10*widthScale}}>
-          <Text style={{color: Colors.gray_info, fontSize: 17*widthScale}} numberOfLines={1}>{data.interlocutor}</Text>
-          <Text style={{color: Colors.gray_info, fontSize: 15*widthScale, marginVertical: 8*heightScale}} numberOfLines={1}>{data.conversation_title}</Text>
+          <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, fontWeight: 'bold'}} numberOfLines={1}>{data.interlocutor}</Text>
+          <Text style={{color: "darkgrey", fontSize: 12*widthScale, marginVertical: 8*heightScale}} numberOfLines={1}>{data.conversation_title}</Text>
         </View>
         {/*
         <TouchableOpacity style={{marginRight: 10}}>

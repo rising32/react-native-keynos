@@ -19,7 +19,7 @@ export const DEVICE_LOCALE = DeviceInfo.getDeviceLocale()
 export const DEFAULT_TYPING_TIMER = 2000
 
 // TIME PER LETTER
-export const CHARACTER_TYPING_TIMER = 30
+export const CHARACTER_TYPING_TIMER = 35
 
 // TIME PER IMAGE
 export const IMAGE_TYPING_TIMER = 2000

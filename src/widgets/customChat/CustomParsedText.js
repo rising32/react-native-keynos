@@ -12,7 +12,7 @@ class CustomParsedText extends React.Component {
 
   render() {
     let htmlText = '<p>' + this.props.children + '</p>'
-    let fontColor = this.props.position == "right" ? Colors.white : Colors.black
+    let fontColor = this.props.position == "right" ? Colors.white : Colors.gray_text
 
     let baseStyles = ReactNative.StyleSheet.create({
       b: {fontWeight: '500', fontSize: 17*widthScale},

@@ -25,7 +25,7 @@ class Splash extends Component {
 	render() {
 		return(
 			<View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}} >
-				<Image source={require('keynos_app/src/resources/keynos_logo.png')} style={{width: Dimensions.get('window').width-40}} resizeMode={'contain'} />
+				<Image source={require('keynos_app/src/resources/keynos_logo.png')} style={{width: Dimensions.get('window').width-100}} resizeMode={'contain'} />
       </View>
 		)
 	}

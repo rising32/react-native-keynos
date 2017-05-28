@@ -70,7 +70,7 @@ class CorporateButton extends React.Component {
     if(this.props.isSolid || !bgImage) {
       return(
         <TouchableOpacity
-          style={{backgroundColor: mainColor, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
+          style={{backgroundColor: mainColor, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 8*widthScale, marginHorizontal: 20*widthScale, marginVertical: 5*heightScale}}
           onPress={() => this._onPress()}
         >
           <Text style={{color: this.props.color ? this.props.color : Colors.white, fontSize: 17*widthScale}}>{ this.props.label }</Text>
@@ -80,7 +80,7 @@ class CorporateButton extends React.Component {
       if(Platform.OS === 'ios') {
         return(
           <TouchableOpacity
-            style={{backgroundColor: mainColor, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 12*widthScale, marginHorizontal: 20*widthScale, marginVertical: 10*heightScale}}
+            style={{backgroundColor: mainColor, alignItems: 'center', justifyContent: 'center', borderRadius: 3, padding: 8*widthScale, marginHorizontal: 20*widthScale, marginVertical: 5*heightScale}}
             onPress={() => this._onPress()}
           >
             <Image style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: mainColor, opacity: 0.2 }} source={bgImage} resizeMode={'repeat'} />

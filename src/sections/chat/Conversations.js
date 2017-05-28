@@ -58,7 +58,7 @@ class Conversations extends Component {
     let dataSource = ds.cloneWithRows(list);
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: "snow"}}>
         <ListView
 					style={{flex: 1}}
 					bounces={false}

@@ -89,9 +89,10 @@ export function login(email, password) {
       return
     }
 
+    dispatch(setFetching(true))
+
     //Get Token for Firebase (Push notifications)
     FCM.getFCMToken().then(fcmToken => {
-        dispatch(setFetching(true))
         let params = {
           domain_id: compId,
           email: email,
@@ -129,9 +130,10 @@ export function loginToken(token) {
       return
     }
 
+    dispatch(setFetching(true))
+
     //Get Token for Firebase (Push notifications)
     FCM.getFCMToken().then(fcmToken => {
-      dispatch(setFetching(true))
       let params = {
         domain_id: compId,
         device_uuid: device_uuid,

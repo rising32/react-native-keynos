@@ -5,7 +5,7 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
-import {InputValidate, CorporateButton} from 'keynos_app/src/widgets/'
+import {InputValidate, Spinner, CorporateButton} from 'keynos_app/src/widgets/'
 import SvgUri from 'react-native-svg-uri'
 
 import { connect } from 'react-redux'
@@ -89,6 +89,7 @@ class LoginToken extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+        <Spinner visible={this.props.isFetching} />
   			<TouchableOpacity style={{position: 'absolute', top: offset, left: 0, height: 50*heightScale, width: 50*widthScale, alignItems: 'center', justifyContent: 'center'}}
           onPress={() => Actions.CompanySelection()} >
   				<Image source={require('keynos_app/src/resources/arrowback.png')} style={{height: 22*heightScale, width: 13*widthScale, tintColor: main_color}} resizeMode={'contain'} />
@@ -106,6 +107,7 @@ let mapStateToProps = (state) => {
     logo: state.company.logo,
     main_color: state.company.main_color,
     bg_image: state.company.bg_image,
+    isFetching: state.login.isFetching,
   }
 }
 

@@ -170,7 +170,7 @@ class Chat extends Component {
   }
 
   renderFooter(props) {
-    let bgColor = Utils.hexToRgbA(this.props.main_color, '0.7')
+    let bgColor = Utils.hexToRgbA(this.props.main_color, '0.5')
 
     if(this.props.typingText) {
       let interlocutor = this.props.conversation.interlocutor
@@ -186,8 +186,8 @@ class Chat extends Component {
     else if(this.props.chatFinished) {
       return (
         <View style={{ margin: 10, marginBottom: 30, alignItems: 'center' }}>
-          <View style={{ backgroundColor: bgColor, paddingHorizontal: 10, borderRadius: 5 }}>
-            <Text style={{ fontSize: 14, color: Colors.white, fontWeight: '600' }}>
+          <View style={{ backgroundColor: bgColor, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5 }}>
+            <Text style={{ fontSize: 12, color: Colors.white, fontWeight: '600' }}>
               { multiStrings.chatFinishedLabel }
             </Text>
           </View>
@@ -260,7 +260,7 @@ class Chat extends Component {
 
         for(var i=0; i < Math.ceil(totalWidth/imageWidth); i++){
           images.push((
-             <Image key={'i'+i} source={{uri: bgImage}} style={{width: imageWidth, height: imageWidth, backgroundColor: this.props.main_color, opacity: 0.2}} />
+             <Image key={'i'+i} source={{uri: bgImage}} style={{width: imageWidth, height: imageWidth, backgroundColor: this.props.main_color, opacity: 0.08}} />
           ))
         }
 
