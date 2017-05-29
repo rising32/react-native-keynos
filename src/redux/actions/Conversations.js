@@ -187,6 +187,12 @@ export function fetchNextBubble(bubbleId) {
           } else if(nextMessage && nextMessage.text) {
             extraTimeout = nextMessage.text.length * Constants.CHARACTER_TYPING_TIMER
           }
+          //Add extra waiting offset (half of the current read time length)
+          if(lastMsg && lastMsg.image) {
+            extraTimeout = extraTimeout + (Constants.IMAGE_TYPING_TIMER/2)
+          } else if(lastMsg && lastMsg.text) {
+            extraTimeout = extraTimeout + (lastMsg.text.length * Constants.CHARACTER_TYPING_TIMER)/2
+          }
           timeout = (extraTimeout < Constants.DEFAULT_TYPING_TIMER) ? timeout + Constants.DEFAULT_TYPING_TIMER : timeout + extraTimeout
 
           // Add new message and acumulator to messageList
