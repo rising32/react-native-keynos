@@ -13,16 +13,17 @@ class CustomParsedText extends React.Component {
   render() {
     let htmlText = '<p>' + this.props.children + '</p>'
     let fontColor = this.props.position == "right" ? Colors.white : Colors.gray_text
+    let chatFontSize = 15;
 
     let baseStyles = ReactNative.StyleSheet.create({
-      b: {fontWeight: '500', fontSize: 17*widthScale},
-      strong: {fontWeight: '500', fontSize: 17*widthScale},
-      i: {fontStyle: 'italic', fontSize: 17*widthScale},
-      em: {fontStyle: 'italic', fontSize: 17*widthScale},
-      pre: {fontFamily: 'Menlo', fontSize: 17*widthScale},
-      code: {fontFamily: 'Menlo', fontSize: 17*widthScale},
-      a: {fontWeight: '500', color: Colors.blue_link, fontSize: 17*widthScale},
-      p: {color: Colors.black, fontSize: 17*widthScale, color: fontColor},
+      b: {fontWeight: '500', fontSize: chatFontSize*widthScale},
+      strong: {fontWeight: '500', fontSize: chatFontSize*widthScale},
+      i: {fontStyle: 'italic', fontSize: chatFontSize*widthScale},
+      em: {fontStyle: 'italic', fontSize: chatFontSize*widthScale},
+      pre: {fontFamily: 'Menlo', fontSize: chatFontSize*widthScale},
+      code: {fontFamily: 'Menlo', fontSize: chatFontSize*widthScale},
+      a: {fontWeight: '500', color: Colors.blue_link, fontSize: chatFontSize*widthScale},
+      p: {color: Colors.gray_text, fontSize: chatFontSize*widthScale, color: fontColor},
       h1: {fontWeight: '500', fontSize: 36*widthScale},
       h2: {fontWeight: '500', fontSize: 30*widthScale},
       h3: {fontWeight: '500', fontSize: 24*widthScale},
