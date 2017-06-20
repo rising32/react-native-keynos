@@ -360,7 +360,6 @@ let mapDispatchToProps = (dispatch, props) => {
   return {
     onAnswerTapped: (type, bubble_id, answer) => {
       if(type && bubble_id && answer) {
-        dispatch(ConversationsActions.setTypingText(true))
         dispatch(ConversationsActions.onAnswerTapped(type, bubble_id, answer))
       }
     },

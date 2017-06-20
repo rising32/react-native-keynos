@@ -170,6 +170,8 @@ export function fetchNextBubble(bubbleId) {
 
       // Prepare bot bubbles
       if(response.data && response.data.bot_bubbles && response.data.bot_bubbles.length) {
+
+        dispatch(setTypingText(true))
         // Format answer message
         let formatAnswer = Utils.formatHistoryMessages(response.data.bot_bubbles)
 
@@ -205,7 +207,7 @@ export function fetchNextBubble(bubbleId) {
             if(currentConversationId == conversationId) {
               // Update message list
               dispatch(updateConversationMessagesList(finalList))
-              
+
               if(accumulator.length == formatAnswer.length - 1){
                 // Stop isTyping
                 dispatch(setTypingText(false))
