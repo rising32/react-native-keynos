@@ -81,7 +81,7 @@ let mapDispatchToProps = (dispatch, props) => {
 
     updateIsTutorial: (value) => {
       dispatch(ConversationsActions.updateIsTutorial(value))
-    }
+    },
   }
 };
 

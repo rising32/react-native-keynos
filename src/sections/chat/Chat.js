@@ -1,13 +1,13 @@
 // BASIC COMPONENTS
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Image, Text, Alert, Platform, Dimensions } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Text, Alert, Platform, Dimensions, TextInput } from 'react-native'
 
 // COMPONENTS
 import { GiftedChat, InputToolbar, Bubble, Composer, Time } from 'react-native-gifted-chat'
 import { Actions } from 'react-native-router-flux'
 import { Colors, Utils } from 'keynos_app/src/commons/Commons'
 import AnswerMultipleOptions from 'keynos_app/src/widgets/AnswerMultipleOptions'
-import { CustomMessageText, CustomMessage } from 'keynos_app/src/widgets'
+import { CustomMessageText, CustomMessage, CustomComposer } from 'keynos_app/src/widgets'
 import * as Constants from 'keynos_app/src/webservices/Constants'
 import _ from 'lodash'
 import ImagePicker from 'react-native-image-picker'
@@ -30,6 +30,7 @@ class Chat extends Component {
       responseType: 'text',
       minInputToolbarHeight: 0,
       androidBgImagesArray: [],
+      text: ''
     }
   }
 
@@ -145,7 +146,7 @@ class Chat extends Component {
 
   renderComposer(props) {
     return (
-      <Composer
+      <CustomComposer
         {...props}
         placeholder={multiStrings.chatInputPlaceholder}
         />

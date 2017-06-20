@@ -46,7 +46,6 @@ export default class InputValidate extends Component {
   					value={this.props.value}
 						editable = {this.props.editable}
 						autoCorrect={false}
-						keyboardType={this.props.keyboardType}
 						autoCapitalize={this.props.autoCapitalize}
   					underlineColorAndroid={'transparent'}
 						placeholder={this.props.placeholder}

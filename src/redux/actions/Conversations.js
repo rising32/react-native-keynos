@@ -1,10 +1,11 @@
 import * as types from 'keynos_app/src/redux/types/Conversations'
 import * as Constants from 'keynos_app/src/webservices/Constants'
-import {fetch, post, put, patch, remove} from 'keynos_app/src/webservices/Webservices'
+import {fetch, post, put, patch, remove } from 'keynos_app/src/webservices/Webservices'
 import multiStrings from 'keynos_app/src/commons/Multistrings'
 import { Utils } from 'keynos_app/src/commons/Commons'
 import { Actions } from 'react-native-router-flux'
 import _ from 'lodash'
+import axios from 'axios'
 
 function setFetching(value) {
   return {
@@ -197,17 +198,21 @@ export function fetchNextBubble(bubbleId) {
 
           // Add new message and acumulator to messageList
           let finalList = _.concat(messagesList, accumulator, nextMessage)
-
+          let conversationId = state.conversations.selected ? state.conversations.selected.conversation_id : null
           setTimeout(() => {
-            // Update message list
-            dispatch(updateConversationMessagesList(finalList))
+            let currentConversationId = getState().conversations.selected.conversation_id
 
-            if(accumulator.length == formatAnswer.length - 1){
-              // Stop isTyping
-              dispatch(setTypingText(false))
+            if(currentConversationId == conversationId) {
+              // Update message list
+              dispatch(updateConversationMessagesList(finalList))
+              
+              if(accumulator.length == formatAnswer.length - 1){
+                // Stop isTyping
+                dispatch(setTypingText(false))
 
-              // After bot bubbles prepare next question
-              dispatch(fetchNextQuestion(response))
+                // After bot bubbles prepare next question
+                dispatch(fetchNextQuestion(response))
+              }
             }
           }, timeout)
 
