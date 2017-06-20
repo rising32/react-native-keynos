@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet, ScrollView, TextInput, Platform, Alert} from 'react-native'
+import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet, ScrollView, TextInput, Platform, Alert, BackAndroid} from 'react-native'
 import React, {Component} from 'react'
 import {Actions, NavBar} from 'react-native-router-flux'
 import moment from 'moment';
@@ -33,7 +33,25 @@ class ConversationNavBar extends Component {
     }
   }
 
+  enableAndroidBack(){
+    let disableButton = this.props.isTutorial
+  	BackAndroid.addEventListener('hardwareBackPress', function() {
+  		let time = null
+  		try {
+        if(!disableButton) {
+          Actions.pop();
+        }
+  			return true;
+  		}
+  		catch (err) {
+  			console.warn('error backbutton fisico: ', err)
+  			return false;
+  		}
+  	});
+  }
+
   render() {
+    {this.enableAndroidBack()}
     let main_color = this.props.main_color ? this.props.main_color.toString() : Colors.green_light
     let data = this.props.selected ? this.props.selected : {}
     let offset = (Platform.OS === 'ios') ? 20 : 0 //56-and, 74-ios

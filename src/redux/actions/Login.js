@@ -168,6 +168,7 @@ function loginSuccess(response) {
 
       if(response.onboarding_conversation_id) {
         dispatch(ConversationsActions.updateIsTutorial(true))
+        dispatch(ConversationsActions.setTypingText(true))
         dispatch(ConversationsActions.getConversation(response.onboarding_conversation_id))
       }else{
         Actions.TabBar({type: ActionConst.RESET})

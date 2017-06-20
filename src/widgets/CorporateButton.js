@@ -35,7 +35,6 @@ class CorporateButton extends React.Component {
     // For background image repeat on android
     let images = []
     let verticalViews = []
-    console.log('bgImage',bgImage)
     let totalWidth = Dimensions.get('window').width
     let totalHeight = Dimensions.get('window').height
 
@@ -65,7 +64,6 @@ class CorporateButton extends React.Component {
 
   render() {
     let bgImage = this.props.bg_image ? {uri: this.props.bg_image} : null
-    console.log('bgImage',bgImage)
     let mainColor = this.props.isPublic ? Colors.green_light : this.props.main_color
     if(this.props.isSolid || !bgImage) {
       return(
