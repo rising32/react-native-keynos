@@ -212,7 +212,6 @@ export function fetchNextBubble(bubbleId) {
               if(accumulator.length == formatAnswer.length - 1){
                 // Stop isTyping
                 dispatch(setTypingText(false))
-
                 // After bot bubbles prepare next question
                 dispatch(fetchNextQuestion(response))
               }
@@ -237,9 +236,10 @@ export function fetchNextBubble(bubbleId) {
   }
 }
 
-function fetchNextQuestion(response) {
+export function fetchNextQuestion(response) {
   return (dispatch, getState) => {
     // Prepare next question
+
     if(response.data && response.data.user_bubbles && response.data.user_bubbles.length) {
       // Set next question
       let formatQuestion = Utils.formatNextmessage(response.data.user_bubbles)

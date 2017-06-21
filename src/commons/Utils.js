@@ -96,6 +96,8 @@ export function formatNextmessage(bubblesArray) {
         return { type: "image", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }
       } else if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeFreeText") {
         return { type: "text", bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id }
+      } else if(bubble.nodes && bubble.nodes.length && bubble.nodes[0].nodeable_type == "App\\NodeText") {
+        return { type: "options", options: [{bubble_id: bubble.bubble_id, node_id: bubble.nodes[0].node_id, text: bubble.nodes[0].text}] }
       } else {
         return null
       }

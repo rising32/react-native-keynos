@@ -61,7 +61,6 @@ class Conversations extends Component {
       <View style={{flex: 1, backgroundColor: "snow", marginBottom: 50*widthScale}}>
         <ListView
 					style={{flex: 1}}
-					bounces={false}
 					contentContainerStyle={{}}
 					dataSource={dataSource}
 					enableEmptySections={true}

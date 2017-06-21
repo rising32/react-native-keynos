@@ -18,6 +18,7 @@ const heightScale = Utils.heightScale()
 class ConversationNavBar extends Component {
   onBackPress() {
     this.props.updateIsTutorial(false)
+    this.props.resetConversationSelected()
     this.props.getConversationsList()
     Actions.pop({type: 'reset'})
   }
@@ -82,6 +83,10 @@ let mapDispatchToProps = (dispatch, props) => {
     updateIsTutorial: (value) => {
       dispatch(ConversationsActions.updateIsTutorial(value))
     },
+
+    resetConversationSelected: () => {
+      dispatch(ConversationsActions.updateConversationSelected({}))
+    }
   }
 };
 
