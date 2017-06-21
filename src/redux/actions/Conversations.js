@@ -136,6 +136,7 @@ export function initConversation(conversation) {
 
       // If question is "bot" type
       if(formatQuestion.type == "bot"){
+        dispatch(setTypingText(true))
 
         // Add current next message to formatMessages list
         let formatNewHistoryMessages = Utils.formatHistoryMessages([formatQuestion.bubble])
@@ -144,6 +145,7 @@ export function initConversation(conversation) {
         // Get next question
         dispatch(fetchNextBubble(formatQuestion.bubble_id))
       }else{
+        dispatch(setTypingText(false))
 
         // Update next question
         dispatch(updateConversationQuestion(formatQuestion))
@@ -171,7 +173,6 @@ export function fetchNextBubble(bubbleId) {
       // Prepare bot bubbles
       if(response.data && response.data.bot_bubbles && response.data.bot_bubbles.length) {
 
-        dispatch(setTypingText(true))
         // Format answer message
         let formatAnswer = Utils.formatHistoryMessages(response.data.bot_bubbles)
 
@@ -255,7 +256,7 @@ function fetchNextQuestion(response) {
 
 export function onAnswerTapped(type, bubble_id, answer) {
   return (dispatch, getState) => {
-
+    dispatch(setTypingText(true))
     if(type == "options") {
       let node_id = answer
       dispatch(postBubbleResponse(bubble_id, node_id, null, null))
