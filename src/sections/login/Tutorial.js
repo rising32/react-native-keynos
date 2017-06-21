@@ -6,7 +6,6 @@ import {Colors, Utils} from 'keynos_app/src/commons/Commons'
 // COMPONENTS
 import { Actions } from 'react-native-router-flux'
 import AppIntro from 'react-native-app-intro';
-import Swiper from 'react-native-swiper'
 import {CorporateButton} from 'keynos_app/src/widgets/'
 
 // MULTILENGUAJE
@@ -55,33 +54,21 @@ class Tutorial extends Component {
   render() {
     return (
       <ScrollView style={{flex: 1}} bounces={false}>
-        <Swiper width={winWidth} dotColor={Colors.green_light} activeDotColor={Colors.green_active}
-          onMomentumScrollEnd={(e, state, context) => this.enableSkipTutorial(state.index)} >
-          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
-            <Image source={require('keynos_app/src/resources/tutorial.png')} style={{flex: 1, width:winWidth}} resizeMode={'contain'} />
+        <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
+          <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 20*heightScale}} >
+            <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.tutorialTitle}</Text>
+            <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{multiStrings.tutorialSubtitle}</Text>
           </View>
-          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
-            <Image source={require('keynos_app/src/resources/tutorial2.png')} style={{flex: 1, width:winWidth}} resizeMode={'contain'} />
+          <View style={{alignItems: 'center', backgroundColor: 'white',height: 240*heightScale, marginBottom: 10*heightScale}} >
+            <Image source={require('keynos_app/src/resources/bots.png')} style={{height: 240*heightScale}} resizeMode={'contain'} />
           </View>
-          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
-            <Image source={require('keynos_app/src/resources/tutorial3.png')} style={{flex: 1,width:winWidth}} resizeMode={'contain'} />
+          <View style={{width:winWidth }} >
+            {this.renderSkipButton()}
           </View>
-          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}} >
-            <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 80*heightScale, marginBottom: 20*heightScale}} >
-              <Text style={{color: Colors.green_light, fontSize: 20*widthScale, marginBottom: 5*heightScale}} >{multiStrings.tutorialTitle}</Text>
-              <Text style={{color: Colors.gray_info, fontSize: 17*widthScale, textAlign: 'center'}} >{multiStrings.tutorialSubtitle}</Text>
-            </View>
-            <View style={{alignItems: 'center', backgroundColor: 'white',height: 240*heightScale, marginBottom: 10*heightScale}} >
-              <Image source={require('keynos_app/src/resources/bots.png')} style={{height: 240*heightScale}} resizeMode={'contain'} />
-            </View>
-            <View style={{width:winWidth }} >
-              {this.renderSkipButton()}
-            </View>
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', margin: 20*widthScale, marginBottom: 60*heightScale}} >
-              <Image source={require('keynos_app/src/resources/logo.png')} style={{height: 30*heightScale, width: 136*widthScale}} resizeMode={'contain'} />
-            </View>
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', margin: 20*widthScale, marginBottom: 60*heightScale}} >
+            <Image source={require('keynos_app/src/resources/logo.png')} style={{height: 30*heightScale, width: 136*widthScale}} resizeMode={'contain'} />
           </View>
-        </Swiper>
+        </View>
       </ScrollView>
     );
   }
